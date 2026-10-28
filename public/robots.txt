@@ -1,3 +1,1 @@
-User-agent: *
-Allow: /
-Sitemap: https://sailingworkation.com/sitemap.xml
+User-agent: *\nAllow: /\nSitemap: https://sailingworkation.com/sitemap.xml\n
