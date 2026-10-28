@@ -1,0 +1,4 @@
+const header=document.querySelector('[data-header]');const menu=document.querySelector('[data-menu]');const mobile=document.querySelector('[data-mobile-menu]');const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const syncHeader=()=>header?.classList.toggle('scrolled',scrollY>24);syncHeader();addEventListener('scroll',syncHeader,{passive:true});
+menu?.addEventListener('click',()=>mobile?.classList.toggle('open'));mobile?.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>mobile.classList.remove('open')));
+if(reduce){document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in'));}else{const io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12,rootMargin:'0px 0px -5%'});document.querySelectorAll('.reveal').forEach(el=>io.observe(el));}
