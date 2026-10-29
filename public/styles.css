@@ -50,3 +50,15 @@
 .sw-brand .brand-wordmark strong{display:block!important;font:700 1.02rem/1 Georgia,"Times New Roman",serif!important;letter-spacing:.055em!important;color:#fff!important}
 .sw-header.scrolled .sw-brand .brand-badge,.trips-page .sw-brand .brand-badge,.legal-page .sw-brand .brand-badge{width:46px!important;height:46px!important;flex-basis:46px!important}
 @media(max-width:760px){.sw-brand{gap:7px!important}.sw-brand .brand-badge{width:44px!important;height:44px!important;flex-basis:44px!important}.sw-brand .brand-wordmark b{font-size:.45rem!important}.sw-brand .brand-wordmark strong{font-size:.84rem!important}}
+
+/* FINAL WEBSITE LOGO v27 */
+.sw-brand{display:inline-flex!important;align-items:center!important;text-decoration:none!important;flex:0 0 auto!important;opacity:1!important;visibility:visible!important}
+.sw-brand .site-logo-final{display:block!important;width:72px!important;height:72px!important;max-width:none!important;object-fit:contain!important;opacity:1!important;visibility:visible!important}
+.sw-header.scrolled .sw-brand .site-logo-final,.trips-page .sw-brand .site-logo-final,.legal-page .sw-brand .site-logo-final{width:60px!important;height:60px!important}
+.sw-footer .sw-brand .site-logo-final{width:120px!important;height:120px!important}
+.sw-brand .brand-badge,.sw-brand .brand-wordmark,.sw-brand .brand-logo-full,.sw-brand .brand-logo-img{display:none!important}
+@media(max-width:760px){
+ .sw-brand .site-logo-final{width:62px!important;height:62px!important}
+ .sw-header.scrolled .sw-brand .site-logo-final,.trips-page .sw-brand .site-logo-final,.legal-page .sw-brand .site-logo-final{width:54px!important;height:54px!important}
+ .sw-footer .sw-brand .site-logo-final{width:100px!important;height:100px!important}
+}
