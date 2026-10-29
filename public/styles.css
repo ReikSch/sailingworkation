@@ -10,53 +10,29 @@
 
 /* BRAND LOGO V22 — high-contrast badge + wordmark */
 .sw-brand{display:inline-flex;align-items:center;gap:10px;flex:0 0 auto;text-decoration:none}
-.sw-brand .brand-badge{width:58px;height:58px;padding:3px;border-radius:50%;background:#fff;box-shadow:0 2px 14px rgba(0,0,0,.22);display:grid;place-items:center;flex:0 0 auto}
-.sw-brand .brand-logo-img{width:100%;height:100%;object-fit:contain;display:block}
-.sw-brand .brand-wordmark{display:grid;line-height:.88;letter-spacing:.105em;color:white;text-shadow:0 1px 8px rgba(0,0,0,.24)}
-.sw-brand .brand-wordmark b{font:800 .54rem/1 Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-.sw-brand .brand-wordmark strong{font:800 .98rem/1 Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;letter-spacing:.055em}
-.sw-footer .sw-brand .brand-badge{width:78px;height:78px}
-.sw-footer .sw-brand .brand-wordmark strong{font-size:1.1rem}
 @media(max-width:650px){
- .sw-brand{gap:7px}.sw-brand .brand-badge{width:50px;height:50px}.sw-brand .brand-wordmark b{font-size:.45rem}.sw-brand .brand-wordmark strong{font-size:.8rem}
- .sw-footer .sw-brand .brand-badge{width:68px;height:68px}
 }
 
 /* BRAND LOGO V23 — exact generated logo image */
 .sw-header{height:104px}
 .sw-header.scrolled,.trips-page .sw-header,.legal-page .sw-header{height:92px}
 .sw-brand{display:inline-flex;align-items:center;flex:0 0 auto;text-decoration:none}
-.sw-brand .brand-logo-full{display:block;width:104px;height:104px;object-fit:contain}
-.sw-footer .sw-brand .brand-logo-full{width:170px;height:170px}
 @media(max-width:650px){
  .sw-header{height:84px;padding:0 10px}
  .sw-header.scrolled,.trips-page .sw-header,.legal-page .sw-header{height:80px}
- .sw-brand .brand-logo-full{width:78px;height:78px}
- .sw-footer .sw-brand .brand-logo-full{width:140px;height:140px}
  .mobile-nav{top:84px}
 }
 
 /* Full brand logo — reset old icon/text treatment */
-.sw-brand .brand-logo-full{display:block;width:auto;height:58px;max-width:240px;object-fit:contain;object-position:left center}
-.sw-header.scrolled .sw-brand .brand-logo-full,.trips-page .sw-brand .brand-logo-full,.legal-page .sw-brand .brand-logo-full{height:50px}
-@media(max-width:760px){.sw-brand .brand-logo-full{height:46px;max-width:185px}.sw-header.scrolled .sw-brand .brand-logo-full,.trips-page .sw-brand .brand-logo-full,.legal-page .sw-brand .brand-logo-full{height:42px}}
 
 /* Header brand lockup v3 — force visible */
 .sw-brand{display:inline-flex!important;align-items:center!important;gap:10px!important;flex:0 0 auto!important;text-decoration:none!important;visibility:visible!important;opacity:1!important}
-.sw-brand .brand-badge{width:52px!important;height:52px!important;display:grid!important;place-items:center!important;flex:0 0 52px!important}
-.sw-brand .brand-logo-img{display:block!important;width:100%!important;height:100%!important;object-fit:contain!important;visibility:visible!important;opacity:1!important}
-.sw-brand .brand-wordmark{display:grid!important;line-height:.88!important;letter-spacing:.105em!important;color:#fff!important;text-shadow:0 1px 8px rgba(0,0,0,.35)!important;visibility:visible!important;opacity:1!important}
-.sw-brand .brand-wordmark b{display:block!important;font:800 .54rem/1 Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif!important;color:#fff!important}
-.sw-brand .brand-wordmark strong{display:block!important;font:700 1.02rem/1 Georgia,"Times New Roman",serif!important;letter-spacing:.055em!important;color:#fff!important}
-.sw-header.scrolled .sw-brand .brand-badge,.trips-page .sw-brand .brand-badge,.legal-page .sw-brand .brand-badge{width:46px!important;height:46px!important;flex-basis:46px!important}
-@media(max-width:760px){.sw-brand{gap:7px!important}.sw-brand .brand-badge{width:44px!important;height:44px!important;flex-basis:44px!important}.sw-brand .brand-wordmark b{font-size:.45rem!important}.sw-brand .brand-wordmark strong{font-size:.84rem!important}}
 
 /* FINAL WEBSITE LOGO v27 */
 .sw-brand{display:inline-flex!important;align-items:center!important;text-decoration:none!important;flex:0 0 auto!important;opacity:1!important;visibility:visible!important}
 .sw-brand .site-logo-final{display:block!important;width:72px!important;height:72px!important;max-width:none!important;object-fit:contain!important;opacity:1!important;visibility:visible!important}
 .sw-header.scrolled .sw-brand .site-logo-final,.trips-page .sw-brand .site-logo-final,.legal-page .sw-brand .site-logo-final{width:60px!important;height:60px!important}
 .sw-footer .sw-brand .site-logo-final{width:120px!important;height:120px!important}
-.sw-brand .brand-badge,.sw-brand .brand-wordmark,.sw-brand .brand-logo-full,.sw-brand .brand-logo-img{display:none!important}
 @media(max-width:760px){
  .sw-brand .site-logo-final{width:62px!important;height:62px!important}
  .sw-header.scrolled .sw-brand .site-logo-final,.trips-page .sw-brand .site-logo-final,.legal-page .sw-brand .site-logo-final{width:54px!important;height:54px!important}
