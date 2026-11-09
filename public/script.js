@@ -90,3 +90,57 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
   if(form.querySelector('[data-waitlist]')?.checked)trackEvent('waitlist_signup',{form_name:'booking_inquiry',transport_type:'beacon'});
  });
 });
+
+
+/* AJAX enquiry submission */
+document.querySelectorAll('[data-booking-form]').forEach(form=>{
+ form.addEventListener('submit',async e=>{
+  e.preventDefault();
+  if(form.dataset.submitting==='1')return;
+  form.dataset.submitting='1';
+
+  const btn=form.querySelector('.form-submit');
+  const original=btn?.innerHTML||'';
+  const en=document.documentElement.lang==='en';
+  let status=form.querySelector('[data-form-status]');
+  if(!status){
+   status=document.createElement('p');
+   status.className='form-status';
+   status.setAttribute('data-form-status','');
+   btn?.insertAdjacentElement('afterend',status);
+  }
+
+  if(btn){
+   btn.disabled=true;
+   btn.innerHTML=en?'Sending…':'Wird gesendet…';
+  }
+  status.textContent=en?'Sending your enquiry…':'Deine Anfrage wird gesendet…';
+  status.classList.remove('is-error');
+
+  try{
+   const endpoint=form.action.replace('https://formsubmit.co/','https://formsubmit.co/ajax/');
+   const data=new URLSearchParams();
+   new FormData(form).forEach((value,key)=>data.append(key,String(value)));
+   const response=await fetch(endpoint,{
+    method:'POST',
+    headers:{'Accept':'application/json','Content-Type':'application/x-www-form-urlencoded;charset=UTF-8'},
+    body:data.toString()
+   });
+   const result=await response.json().catch(()=>({}));
+   if(!response.ok || result.success===false)throw new Error(result.message||'Submission failed');
+
+   const next=form.querySelector('input[name="_next"]')?.value;
+   status.textContent=en?'Sent. Redirecting…':'Gesendet. Einen Moment…';
+   if(next)location.href=next;
+   else form.reset();
+  }catch(err){
+   form.dataset.submitting='0';
+   if(btn){
+    btn.disabled=false;
+    btn.innerHTML=original;
+   }
+   status.textContent=en?'That took too long or failed. Please try again.':'Das Senden hat zu lange gedauert oder ist fehlgeschlagen. Bitte erneut versuchen.';
+   status.classList.add('is-error');
+  }
+ });
+});
