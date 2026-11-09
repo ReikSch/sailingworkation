@@ -74,3 +74,16 @@
 .form-status{display:inline-block;margin:0 0 0 14px;font-size:.72rem;font-weight:800;color:var(--muted,#667f84)}
 .form-status.is-error{color:#a43f35}
 @media(max-width:700px){.form-status{display:block;margin:12px 0 0}}
+
+/* Real interactive route map */
+.real-route-card{position:sticky;top:100px;border-radius:30px;overflow:hidden;background:#102d35;color:#fff;box-shadow:0 22px 55px rgba(10,30,38,.15)}
+.route-map-head{padding:18px 20px 14px;display:grid;gap:5px}
+.route-map-head span{font-size:.55rem;font-weight:900;letter-spacing:.14em;opacity:.7}
+.route-map-head strong{font:700 1.25rem Georgia,"Times New Roman",serif}
+.season-route-map{height:520px;width:100%;background:#dfe9e8}
+.route-map-foot{padding:12px 18px 16px;font-size:.6rem;line-height:1.45;opacity:.68}
+.leaflet-container{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.leaflet-control-attribution{font-size:10px!important}
+[data-route-leg]{cursor:pointer}
+@media(max-width:980px){.real-route-card{position:relative;top:auto}.season-route-map{height:440px}}
+@media(max-width:650px){.season-route-map{height:360px}.route-map-head strong{font-size:1.05rem}.route-map-foot{font-size:.58rem}}
