@@ -251,3 +251,28 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
     console.error('My Elli image load failed',err);
   }
 })();
+
+
+/* My Elli gallery image loader */
+(async()=>{
+  const chunkCounts={cockpit:8,salon:8,galley:8,cabin:7,bath:5};
+  const groups=[...document.querySelectorAll('[data-myelli-image]')].reduce((acc,img)=>{
+    const key=img.dataset.myelliImage;
+    (acc[key] ||= []).push(img);
+    return acc;
+  },{});
+  await Promise.all(Object.entries(groups).map(async([key,nodes])=>{
+    const count=chunkCounts[key];
+    if(!count)return;
+    try{
+      const parts=await Promise.all(Array.from({length:count},async(_,i)=>{
+        const url=`/assets/myelli/${key}-${String(i+1).padStart(2,'0')}.b64?v=1`;
+        const r=await fetch(url,{cache:'force-cache'});
+        if(!r.ok)throw new Error(`Failed to load ${url}`);
+        return (await r.text()).trim();
+      }));
+      const src='data:image/jpeg;base64,'+parts.join('');
+      nodes.forEach(img=>{img.src=src; img.classList.add('myelli-loaded');});
+    }catch(err){console.error(`My Elli ${key} image load failed`,err);}
+  }));
+})();
