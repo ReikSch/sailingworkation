@@ -148,12 +148,9 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
 /* Interactive 2027/28 season route map */
 (function(){
  const el=document.querySelector('[data-route-map]');
- if(!el)return;
+ if(!el||typeof d3==='undefined'||typeof topojson==='undefined')return;
 
  const en=document.documentElement.lang==='en';
- const W=900,H=620;
- const NS='http://www.w3.org/2000/svg';
-
  const points={
   bvi:[-64.62,18.43],
   azores:[-28.63,38.54],
@@ -177,103 +174,82 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
   ['Turkey / Türkei',points.turkey],['Canaries / Kanaren',points.canaries],
   ['Cape Verde / Kap Verden',points.capeVerde]
  ];
-
- const bounds={lonMin:-75,lonMax:35,latMin:5,latMax:50};
- const project=([lon,lat])=>{
-   const x=(lon-bounds.lonMin)/(bounds.lonMax-bounds.lonMin)*W;
-   const y=H-(lat-bounds.latMin)/(bounds.latMax-bounds.latMin)*H;
-   return [x,y];
- };
-
- function make(tag,attrs={}){
-  const n=document.createElementNS(NS,tag);
-  Object.entries(attrs).forEach(([k,v])=>n.setAttribute(k,v));
-  return n;
- }
- function pathFrom(coords){
-  return coords.map((p,i)=>{const [x,y]=project(p);return `${i?'L':'M'}${x.toFixed(1)},${y.toFixed(1)}`}).join(' ');
- }
-
- const svg=make('svg',{viewBox:`0 0 ${W} ${H}`,role:'img','aria-label':en?'Interactive Workation route map 2027/28':'Interaktive Workation-Routenkarte 2027/28'});
- const viewport=make('g',{'class':'route-map-viewport'});
- svg.appendChild(viewport);
- el.appendChild(svg);
-
- viewport.appendChild(make('rect',{x:0,y:0,width:W,height:H,'class':'route-ocean'}));
-
- const landPolygons=[
-  [[-75,50],[-60,50],[-52,45],[-60,36],[-70,28],[-75,22]],
-  [[-17,36],[-10,43],[0,49],[15,49],[30,45],[35,39],[32,34],[20,33],[10,35],[2,37],[-6,37]],
-  [[-18,36],[-5,35],[10,33],[20,28],[25,20],[20,10],[8,5],[-5,5],[-12,12],[-17,22]],
-  [[-10,50],[-5,55],[4,58],[12,57],[20,53],[25,50],[18,47],[8,46],[0,47]],
-  [[-75,22],[-68,20],[-64,17],[-63,13],[-65,9],[-70,10],[-74,15]]
- ];
- landPolygons.forEach(poly=>{
-  viewport.appendChild(make('path',{d:pathFrom([...poly,poly[0]]),'class':'route-country'}));
- });
-
- const routeEls=legs.map((leg,i)=>{
-  const p=make('path',{d:pathFrom(leg.coords),'class':`trip-route-line trip-route-line-${i}`,'vector-effect':'non-scaling-stroke'});
-  viewport.appendChild(p);
-  return p;
- });
-
- const markerEls=labels.map(([label,coord])=>{
-  const [x,y]=project(coord);
-  const g=make('g',{'class':'trip-route-marker',transform:`translate(${x},${y})`});
-  g.appendChild(make('circle',{r:4.8,'vector-effect':'non-scaling-stroke'}));
-  const t=make('text',{x:8,y:-8});
-  t.textContent=label;
-  g.appendChild(t);
-  viewport.appendChild(g);
-  return {el:g,coord};
- });
-
  const cards=[...document.querySelectorAll('[data-route-leg]')];
  const title=document.querySelector('[data-route-map-title]');
+ const width=900,height=620;
+ const svg=d3.select(el).append('svg')
+  .attr('viewBox',`0 0 ${width} ${height}`)
+  .attr('role','img')
+  .attr('aria-label',en?'Interactive season route map 2027/28':'Interaktive Saisonroutenkarte 2027/28');
+
+ const viewport=svg.append('g').attr('class','route-map-viewport');
+ const projection=d3.geoMercator()
+  .center([-18,29])
+  .scale(265)
+  .translate([width/2,height/2+20]);
+ const geoPath=d3.geoPath(projection);
+
+ const ocean=viewport.append('rect').attr('class','route-ocean').attr('x',0).attr('y',0).attr('width',width).attr('height',height);
+ const landLayer=viewport.append('g').attr('class','route-land-layer');
+ const routeLayer=viewport.append('g').attr('class','route-lines');
+ const markerLayer=viewport.append('g').attr('class','route-markers');
+
+ const line=d3.line()
+  .x(d=>projection(d)[0])
+  .y(d=>projection(d)[1])
+  .curve(d3.curveCatmullRom.alpha(.35));
+
+ const routePaths=routeLayer.selectAll('path')
+  .data(legs)
+  .join('path')
+  .attr('class',(d,i)=>`trip-route-line trip-route-line-${i}`)
+  .attr('d',d=>line(d.coords))
+  .attr('vector-effect','non-scaling-stroke');
+
+ const markerGroups=markerLayer.selectAll('g')
+  .data(labels)
+  .join('g')
+  .attr('class','trip-route-marker')
+  .attr('transform',d=>`translate(${projection(d[1])[0]},${projection(d[1])[1]})`);
+ markerGroups.append('circle').attr('r',4.8).attr('vector-effect','non-scaling-stroke');
+ markerGroups.append('text').attr('x',8).attr('y',-8).text(d=>d[0]);
+
+ const activeStops=markerGroups;
 
  function activate(idx){
   cards.forEach((card,i)=>card.classList.toggle('is-active',i===idx));
-  routeEls.forEach((p,i)=>{
-    p.classList.toggle('is-active',i===idx);
-    p.classList.toggle('is-muted',i!==idx);
-  });
-  const active=legs[idx]?.coords||[];
-  markerEls.forEach(m=>{
-    m.el.classList.toggle('is-active',active.some(p=>Math.abs(p[0]-m.coord[0])<.8&&Math.abs(p[1]-m.coord[1])<.8));
-  });
+  routePaths.classed('is-active',(d,i)=>i===idx).classed('is-muted',(d,i)=>i!==idx);
+  const activeCoords=legs[idx]?.coords||[];
+  activeStops.classed('is-active',d=>activeCoords.some(p=>Math.abs(p[0]-d[1][0])<.8&&Math.abs(p[1]-d[1][1])<.8));
   if(title)title.textContent=legs[idx]?.name||'';
  }
 
- let scale=1,tx=0,ty=0;
- function applyTransform(){
-  viewport.setAttribute('transform',`translate(${tx} ${ty}) scale(${scale})`);
+ function drawLand(world){
+  try{
+   const countries=topojson.feature(world,world.objects.countries);
+   landLayer.selectAll('path').data(countries.features).join('path')
+    .attr('class','route-country')
+    .attr('d',geoPath);
+  }catch(err){console.error('Route land drawing failed',err);}
  }
- function zoomBy(f){
-  scale=Math.min(4,Math.max(1,scale*f));
-  if(scale===1){tx=0;ty=0;}
-  applyTransform();
- }
- el.querySelector('[data-map-zoom-in]')?.addEventListener('click',()=>zoomBy(1.3));
- el.querySelector('[data-map-zoom-out]')?.addEventListener('click',()=>zoomBy(1/1.3));
- el.querySelector('[data-map-reset]')?.addEventListener('click',()=>{scale=1;tx=0;ty=0;applyTransform();});
 
- let dragging=false,lastX=0,lastY=0;
- svg.addEventListener('pointerdown',e=>{dragging=true;lastX=e.clientX;lastY=e.clientY;svg.setPointerCapture?.(e.pointerId);});
- svg.addEventListener('pointermove',e=>{
-  if(!dragging||scale<=1)return;
-  const rect=svg.getBoundingClientRect();
-  tx+=(e.clientX-lastX)*(W/rect.width);
-  ty+=(e.clientY-lastY)*(H/rect.height);
-  lastX=e.clientX;lastY=e.clientY;
-  applyTransform();
- });
- svg.addEventListener('pointerup',()=>dragging=false);
- svg.addEventListener('pointercancel',()=>dragging=false);
- svg.addEventListener('wheel',e=>{
-  e.preventDefault();
-  zoomBy(e.deltaY<0?1.15:1/1.15);
- },{passive:false});
+ d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-110m.json')
+  .then(drawLand)
+  .catch(err=>console.error('Route map geography load failed',err));
+
+ const zoom=d3.zoom()
+  .scaleExtent([1,5])
+  .translateExtent([[0,0],[width,height]])
+  .extent([[0,0],[width,height]])
+  .on('zoom',event=>viewport.attr('transform',event.transform));
+ svg.call(zoom).on('dblclick.zoom',null);
+
+ const zoomIn=el.querySelector('[data-map-zoom-in]');
+ const zoomOut=el.querySelector('[data-map-zoom-out]');
+ const reset=el.querySelector('[data-map-reset]');
+ zoomIn?.addEventListener('click',()=>svg.transition().duration(220).call(zoom.scaleBy,1.35));
+ zoomOut?.addEventListener('click',()=>svg.transition().duration(220).call(zoom.scaleBy,1/1.35));
+ reset?.addEventListener('click',()=>svg.transition().duration(260).call(zoom.transform,d3.zoomIdentity));
 
  cards.forEach((card,i)=>card.addEventListener('click',()=>activate(i)));
 
@@ -283,13 +259,17 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
   if(!cards.length)return;
   const lineY=innerHeight*.5;
   let idx=0;
-  cards.forEach((card,i)=>{if(card.getBoundingClientRect().top<=lineY)idx=i;});
+  cards.forEach((card,i)=>{
+   if(card.getBoundingClientRect().top<=lineY)idx=i;
+  });
   if(idx!==current){current=idx;activate(idx);}
  }
  addEventListener('scroll',()=>{if(!scheduled){scheduled=true;requestAnimationFrame(sync)}},{passive:true});
  addEventListener('resize',()=>{if(!scheduled){scheduled=true;requestAnimationFrame(sync)}},{passive:true});
  activate(0);
 })();
+
+
 
 
 /* Conditional cabin choice */
