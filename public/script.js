@@ -212,3 +212,20 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
  addEventListener('resize',()=>{map.invalidateSize();sync()},{passive:true});
  setTimeout(()=>{map.invalidateSize();activate(0,true)},150);
 })();
+
+/* Conditional cabin choice */
+document.querySelectorAll('[data-booking-form]').forEach(form=>{
+ const guests=form.querySelector('[data-guests]');
+ const cabin=form.querySelector('[data-cabin]');
+ const shared=cabin?.querySelector('[data-two-guests]');
+ const help=form.querySelector('[data-cabin-help]');
+ if(!guests||!cabin||!shared)return;
+ const syncCabin=()=>{
+  const two=guests.value==='2';
+  shared.disabled=!two;
+  if(!two && cabin.value===shared.value)cabin.value='';
+  if(help)help.style.display=two?'none':'block';
+ };
+ guests.addEventListener('change',syncCabin);
+ syncCabin();
+});
