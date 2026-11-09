@@ -148,70 +148,127 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
 /* Interactive 2027/28 season route map */
 (function(){
  const el=document.querySelector('[data-route-map]');
- if(!el||typeof L==='undefined')return;
+ if(!el||typeof d3==='undefined'||typeof topojson==='undefined')return;
 
  const en=document.documentElement.lang==='en';
- const map=L.map(el,{scrollWheelZoom:false,worldCopyJump:true,zoomControl:true,attributionControl:true});
- L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{
-  maxZoom:18,
-  attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
- }).addTo(map);
-
  const points={
-  bvi:[18.4285,-64.6185],
-  azores:[38.535,-28.63],
-  gibraltar:[36.1408,-5.3536],
-  albania:[40.4661,19.4914],
-  greece:[38.8339,20.7069],
-  turkey:[37.0344,27.4305],
-  canaries:[28.2916,-16.6291]
+  bvi:[-64.62,18.43],
+  azores:[-28.63,38.54],
+  gibraltar:[-5.35,36.14],
+  albania:[19.49,40.47],
+  greece:[20.71,38.83],
+  turkey:[27.43,37.03],
+  canaries:[-16.63,28.29],
+  capeVerde:[-23.61,15.12]
  };
-
  const legs=[
   {name:en?'BVI → Azores → Mediterranean':'BVI → Azoren → Mittelmeer',coords:[points.bvi,points.azores,points.gibraltar]},
-  {name:en?'Albania · Greece · Turkey':'Albanien · Griechenland · Türkei',coords:[points.albania,points.greece,points.turkey]},
+  {name:en?'Gibraltar → Albania · Greece · Turkey':'Gibraltar → Albanien · Griechenland · Türkei',coords:[points.gibraltar,points.albania,points.greece,points.turkey]},
   {name:en?'Eastern Mediterranean → Gibraltar':'Östliches Mittelmeer → Gibraltar',coords:[points.turkey,points.greece,points.albania,points.gibraltar]},
-  {name:en?'Gibraltar → Canaries → Azores → BVI':'Gibraltar → Kanaren → Azoren → BVI',coords:[points.gibraltar,points.canaries,points.azores,points.bvi]},
-  {name:'British Virgin Islands',coords:[[18.52,-64.75],[18.44,-64.63],[18.43,-64.44],[18.38,-64.57],[18.52,-64.75]]}
+  {name:en?'Gibraltar → Canaries → Cape Verde → BVI':'Gibraltar → Kanaren → Kap Verden → BVI',coords:[points.gibraltar,points.canaries,points.capeVerde,points.bvi]},
+  {name:'British Virgin Islands',coords:[[-64.78,18.52],[-64.63,18.44],[-64.44,18.43],[-64.57,18.38],[-64.78,18.52]]}
  ];
-
- const colors=['#d77a4d','#0b6070','#8b6b51','#ee8b5f','#6fdad3'];
- const layers=legs.map((leg,i)=>L.polyline(leg.coords,{weight:i===0?5:4,opacity:i===0?1:.35,color:colors[i],dashArray:i===4?'5 7':null}).addTo(map));
- const markers=[
+ const labels=[
   ['BVI',points.bvi],['Azores / Azoren',points.azores],['Gibraltar',points.gibraltar],
   ['Albania / Albanien',points.albania],['Greece / Griechenland',points.greece],
-  ['Turkey / Türkei',points.turkey],['Canary Islands / Kanaren',points.canaries]
+  ['Turkey / Türkei',points.turkey],['Canaries / Kanaren',points.canaries],
+  ['Cape Verde / Kap Verden',points.capeVerde]
  ];
- markers.forEach(([label,coord])=>L.circleMarker(coord,{radius:5,weight:2,fillOpacity:1}).addTo(map).bindTooltip(label,{direction:'top'}));
-
- const allBounds=L.latLngBounds(legs.flatMap(x=>x.coords));
- map.fitBounds(allBounds,{padding:[22,22]});
-
  const cards=[...document.querySelectorAll('[data-route-leg]')];
  const title=document.querySelector('[data-route-map-title]');
- function activate(idx,fit=true){
+ const width=900,height=620;
+ const svg=d3.select(el).append('svg')
+  .attr('viewBox',`0 0 ${width} ${height}`)
+  .attr('role','img')
+  .attr('aria-label',en?'Interactive season route map 2027/28':'Interaktive Saisonroutenkarte 2027/28');
+
+ const viewport=svg.append('g').attr('class','route-map-viewport');
+ const projection=d3.geoMercator()
+  .center([-18,29])
+  .scale(265)
+  .translate([width/2,height/2+20]);
+ const geoPath=d3.geoPath(projection);
+
+ const ocean=viewport.append('rect').attr('class','route-ocean').attr('x',0).attr('y',0).attr('width',width).attr('height',height);
+ const landLayer=viewport.append('g').attr('class','route-land-layer');
+ const routeLayer=viewport.append('g').attr('class','route-lines');
+ const markerLayer=viewport.append('g').attr('class','route-markers');
+
+ const line=d3.line()
+  .x(d=>projection(d)[0])
+  .y(d=>projection(d)[1])
+  .curve(d3.curveCatmullRom.alpha(.35));
+
+ const routePaths=routeLayer.selectAll('path')
+  .data(legs)
+  .join('path')
+  .attr('class',(d,i)=>`trip-route-line trip-route-line-${i}`)
+  .attr('d',d=>line(d.coords))
+  .attr('vector-effect','non-scaling-stroke');
+
+ const markerGroups=markerLayer.selectAll('g')
+  .data(labels)
+  .join('g')
+  .attr('class','trip-route-marker')
+  .attr('transform',d=>`translate(${projection(d[1])[0]},${projection(d[1])[1]})`);
+ markerGroups.append('circle').attr('r',4.8).attr('vector-effect','non-scaling-stroke');
+ markerGroups.append('text').attr('x',8).attr('y',-8).text(d=>d[0]);
+
+ const activeStops=markerGroups;
+
+ function activate(idx){
   cards.forEach((card,i)=>card.classList.toggle('is-active',i===idx));
-  layers.forEach((layer,i)=>layer.setStyle({opacity:i===idx?1:.18,weight:i===idx?5:3}));
-  if(title)title.textContent=legs[idx].name;
-  if(fit)map.fitBounds(layers[idx].getBounds(),{padding:[32,32],maxZoom:idx===4?9:5});
+  routePaths.classed('is-active',(d,i)=>i===idx).classed('is-muted',(d,i)=>i!==idx);
+  const activeCoords=legs[idx]?.coords||[];
+  activeStops.classed('is-active',d=>activeCoords.some(p=>Math.abs(p[0]-d[1][0])<.8&&Math.abs(p[1]-d[1][1])<.8));
+  if(title)title.textContent=legs[idx]?.name||'';
  }
- cards.forEach((card,i)=>card.addEventListener('click',()=>activate(i,true)));
+
+ function drawLand(world){
+  try{
+   const countries=topojson.feature(world,world.objects.countries);
+   landLayer.selectAll('path').data(countries.features).join('path')
+    .attr('class','route-country')
+    .attr('d',geoPath);
+  }catch(err){console.error('Route land drawing failed',err);}
+ }
+
+ d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-110m.json')
+  .then(drawLand)
+  .catch(err=>console.error('Route map geography load failed',err));
+
+ const zoom=d3.zoom()
+  .scaleExtent([1,5])
+  .translateExtent([[0,0],[width,height]])
+  .extent([[0,0],[width,height]])
+  .on('zoom',event=>viewport.attr('transform',event.transform));
+ svg.call(zoom).on('dblclick.zoom',null);
+
+ const zoomIn=el.querySelector('[data-map-zoom-in]');
+ const zoomOut=el.querySelector('[data-map-zoom-out]');
+ const reset=el.querySelector('[data-map-reset]');
+ zoomIn?.addEventListener('click',()=>svg.transition().duration(220).call(zoom.scaleBy,1.35));
+ zoomOut?.addEventListener('click',()=>svg.transition().duration(220).call(zoom.scaleBy,1/1.35));
+ reset?.addEventListener('click',()=>svg.transition().duration(260).call(zoom.transform,d3.zoomIdentity));
+
+ cards.forEach((card,i)=>card.addEventListener('click',()=>activate(i)));
 
  let current=-1,scheduled=false;
  function sync(){
   scheduled=false;
   if(!cards.length)return;
-  const line=innerHeight*.52;
+  const lineY=innerHeight*.5;
   let idx=0;
-  for(let i=0;i<cards.length;i++){
-   if(cards[i].getBoundingClientRect().top<=line)idx=i; else break;
-  }
-  if(idx!==current){current=idx;activate(idx,true);}
+  cards.forEach((card,i)=>{
+   if(card.getBoundingClientRect().top<=lineY)idx=i;
+  });
+  if(idx!==current){current=idx;activate(idx);}
  }
  addEventListener('scroll',()=>{if(!scheduled){scheduled=true;requestAnimationFrame(sync)}},{passive:true});
- addEventListener('resize',()=>{map.invalidateSize();sync()},{passive:true});
- setTimeout(()=>{map.invalidateSize();activate(0,true)},150);
+ addEventListener('resize',()=>{if(!scheduled){scheduled=true;requestAnimationFrame(sync)}},{passive:true});
+ activate(0);
 })();
+
 
 /* Conditional cabin choice */
 document.querySelectorAll('[data-booking-form]').forEach(form=>{
@@ -255,24 +312,37 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
 
 /* My Elli gallery image loader */
 (async()=>{
-  const chunkCounts={cockpit:8,salon:8,galley:8,cabin:7,bath:5};
+  const chunkCounts={cockpit:8,salon:8,galley:8,cabin:10,bath:10};
   const groups=[...document.querySelectorAll('[data-myelli-image]')].reduce((acc,img)=>{
     const key=img.dataset.myelliImage;
     (acc[key] ||= []).push(img);
     return acc;
   },{});
+  const base64ToBlobUrl=(parts)=>{
+    const clean=parts.join('').replace(/\s+/g,'');
+    const binary=atob(clean);
+    const bytes=new Uint8Array(binary.length);
+    for(let i=0;i<binary.length;i++) bytes[i]=binary.charCodeAt(i);
+    return URL.createObjectURL(new Blob([bytes],{type:'image/jpeg'}));
+  };
   await Promise.all(Object.entries(groups).map(async([key,nodes])=>{
     const count=chunkCounts[key];
     if(!count)return;
     try{
       const parts=await Promise.all(Array.from({length:count},async(_,i)=>{
-        const url=`/assets/myelli/${key}-${String(i+1).padStart(2,'0')}.b64?v=1`;
-        const r=await fetch(url,{cache:'force-cache'});
-        if(!r.ok)throw new Error(`Failed to load ${url}`);
-        return (await r.text()).trim();
+        const url=`/assets/myelli/${key}-${String(i+1).padStart(2,'0')}.b64?v=2`;
+        const r=await fetch(url,{cache:'no-cache'});
+        if(!r.ok)throw new Error(`Failed to load ${url}: ${r.status}`);
+        const text=(await r.text()).trim();
+        if(!text)throw new Error(`Empty image chunk: ${url}`);
+        return text;
       }));
-      const src='data:image/jpeg;base64,'+parts.join('');
-      nodes.forEach(img=>{img.src=src; img.classList.add('myelli-loaded');});
+      const src=base64ToBlobUrl(parts);
+      nodes.forEach(img=>{
+        img.onload=()=>img.classList.add('myelli-loaded');
+        img.onerror=()=>console.error(`My Elli ${key} image decode failed`);
+        img.src=src;
+      });
     }catch(err){console.error(`My Elli ${key} image load failed`,err);}
   }));
 })();
