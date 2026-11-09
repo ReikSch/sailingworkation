@@ -229,3 +229,25 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
  guests.addEventListener('change',syncCabin);
  syncCabin();
 });
+
+
+/* My Elli chunked image loader */
+(async()=>{
+  const nodes=[...document.querySelectorAll('[data-myelli-exterior]')];
+  if(!nodes.length)return;
+  try{
+    const urls=Array.from({length:9},(_,i)=>`/assets/myelli/exterior-${String(i+1).padStart(2,'0')}.b64?v=1`);
+    const parts=await Promise.all(urls.map(async url=>{
+      const r=await fetch(url,{cache:'force-cache'});
+      if(!r.ok) throw new Error(`Failed to load ${url}`);
+      return (await r.text()).trim();
+    }));
+    const src='data:image/jpeg;base64,'+parts.join('');
+    nodes.forEach(img=>{
+      img.addEventListener('load',()=>img.classList.add('myelli-loaded'),{once:true});
+      img.src=src;
+    });
+  }catch(err){
+    console.error('My Elli image load failed',err);
+  }
+})();
