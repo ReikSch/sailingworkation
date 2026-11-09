@@ -109,3 +109,19 @@
 .feedback-teaser p{margin:8px 0 0;max-width:900px;font-size:.76rem;line-height:1.65;color:var(--muted,#667f84)}
 @media(max-width:980px){.crew-cards{grid-template-columns:1fr}.trust-strip{grid-template-columns:1fr 1fr}}
 @media(max-width:650px){.crew-trust{padding:80px 0}.crew-card{grid-template-columns:1fr}.crew-photo-placeholder{min-height:180px}.trust-strip{grid-template-columns:1fr}}
+
+/* My Elli gallery */
+.boat-gallery{padding:110px 0;background:var(--paper,#fbfaf4)}
+.boat-gallery .section-head{max-width:760px;margin-bottom:34px}
+.boat-gallery .section-head p{max-width:680px;color:var(--muted,#667f84);line-height:1.7}
+.boat-gallery-grid{display:grid;grid-template-columns:1.35fr .9fr;gap:18px}
+.boat-gallery figure{margin:0;position:relative;overflow:hidden;border-radius:28px;background:#102d35;min-height:420px}
+.boat-gallery img{width:100%;height:100%;display:block;object-fit:cover}
+.boat-gallery-main img{object-position:center center}
+.boat-gallery-side img{object-position:center center}
+.boat-gallery figcaption{position:absolute;left:18px;right:18px;bottom:18px;padding:14px 16px;border-radius:16px;background:rgba(8,32,40,.72);backdrop-filter:blur(10px);color:#fff;display:flex;justify-content:space-between;gap:14px;align-items:end}
+.boat-gallery figcaption strong{font:700 1rem Georgia,"Times New Roman",serif}
+.boat-gallery figcaption span{font-size:.6rem;opacity:.76;text-align:right}
+.boat-gallery-note{margin-top:16px;font-size:.66rem;color:var(--muted,#667f84)}
+@media(max-width:900px){.boat-gallery-grid{grid-template-columns:1fr}.boat-gallery figure{min-height:360px}}
+@media(max-width:600px){.boat-gallery{padding:78px 0}.boat-gallery figure{min-height:300px}.boat-gallery figcaption{align-items:start;flex-direction:column}}
