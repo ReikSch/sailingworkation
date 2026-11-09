@@ -144,3 +144,71 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
   }
  });
 });
+
+/* Interactive 2027/28 season route map */
+(function(){
+ const el=document.querySelector('[data-route-map]');
+ if(!el||typeof L==='undefined')return;
+
+ const en=document.documentElement.lang==='en';
+ const map=L.map(el,{scrollWheelZoom:false,worldCopyJump:true,zoomControl:true,attributionControl:true});
+ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{
+  maxZoom:18,
+  attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+ }).addTo(map);
+
+ const points={
+  bvi:[18.4285,-64.6185],
+  azores:[38.535,-28.63],
+  gibraltar:[36.1408,-5.3536],
+  albania:[40.4661,19.4914],
+  greece:[38.8339,20.7069],
+  turkey:[37.0344,27.4305],
+  canaries:[28.2916,-16.6291]
+ };
+
+ const legs=[
+  {name:en?'BVI → Azores → Mediterranean':'BVI → Azoren → Mittelmeer',coords:[points.bvi,points.azores,points.gibraltar]},
+  {name:en?'Albania · Greece · Turkey':'Albanien · Griechenland · Türkei',coords:[points.albania,points.greece,points.turkey]},
+  {name:en?'Eastern Mediterranean → Gibraltar':'Östliches Mittelmeer → Gibraltar',coords:[points.turkey,points.greece,points.albania,points.gibraltar]},
+  {name:en?'Gibraltar → Canaries → Azores → BVI':'Gibraltar → Kanaren → Azoren → BVI',coords:[points.gibraltar,points.canaries,points.azores,points.bvi]},
+  {name:'British Virgin Islands',coords:[[18.52,-64.75],[18.44,-64.63],[18.43,-64.44],[18.38,-64.57],[18.52,-64.75]]}
+ ];
+
+ const colors=['#d77a4d','#0b6070','#8b6b51','#ee8b5f','#6fdad3'];
+ const layers=legs.map((leg,i)=>L.polyline(leg.coords,{weight:i===0?5:4,opacity:i===0?1:.35,color:colors[i],dashArray:i===4?'5 7':null}).addTo(map));
+ const markers=[
+  ['BVI',points.bvi],['Azores / Azoren',points.azores],['Gibraltar',points.gibraltar],
+  ['Albania / Albanien',points.albania],['Greece / Griechenland',points.greece],
+  ['Turkey / Türkei',points.turkey],['Canary Islands / Kanaren',points.canaries]
+ ];
+ markers.forEach(([label,coord])=>L.circleMarker(coord,{radius:5,weight:2,fillOpacity:1}).addTo(map).bindTooltip(label,{direction:'top'}));
+
+ const allBounds=L.latLngBounds(legs.flatMap(x=>x.coords));
+ map.fitBounds(allBounds,{padding:[22,22]});
+
+ const cards=[...document.querySelectorAll('[data-route-leg]')];
+ const title=document.querySelector('[data-route-map-title]');
+ function activate(idx,fit=true){
+  cards.forEach((card,i)=>card.classList.toggle('is-active',i===idx));
+  layers.forEach((layer,i)=>layer.setStyle({opacity:i===idx?1:.18,weight:i===idx?5:3}));
+  if(title)title.textContent=legs[idx].name;
+  if(fit)map.fitBounds(layers[idx].getBounds(),{padding:[32,32],maxZoom:idx===4?9:5});
+ }
+ cards.forEach((card,i)=>card.addEventListener('click',()=>activate(i,true)));
+
+ let current=-1,scheduled=false;
+ function sync(){
+  scheduled=false;
+  if(!cards.length)return;
+  const line=innerHeight*.52;
+  let idx=0;
+  for(let i=0;i<cards.length;i++){
+   if(cards[i].getBoundingClientRect().top<=line)idx=i; else break;
+  }
+  if(idx!==current){current=idx;activate(idx,true);}
+ }
+ addEventListener('scroll',()=>{if(!scheduled){scheduled=true;requestAnimationFrame(sync)}},{passive:true});
+ addEventListener('resize',()=>{map.invalidateSize();sync()},{passive:true});
+ setTimeout(()=>{map.invalidateSize();activate(0,true)},150);
+})();
