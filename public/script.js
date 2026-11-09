@@ -75,3 +75,18 @@ document.addEventListener('click',e=>{
   trackEvent('sabbatical_switch',{link_url:href});
  }
 });
+
+
+/* Enquiry form analytics */
+document.querySelectorAll('[data-booking-form]').forEach(form=>{
+ let started=false;
+ form.addEventListener('focusin',()=>{
+  if(started)return;
+  started=true;
+  trackEvent('form_start',{form_name:'booking_inquiry'});
+ },{once:true});
+ form.addEventListener('submit',()=>{
+  trackEvent('booking_inquiry_submit',{form_name:'booking_inquiry',transport_type:'beacon'});
+  if(form.querySelector('[data-waitlist]')?.checked)trackEvent('waitlist_signup',{form_name:'booking_inquiry',transport_type:'beacon'});
+ });
+});
