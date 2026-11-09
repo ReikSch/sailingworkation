@@ -3,7 +3,7 @@
 <title>Trip enquiry | Sailing Workation</title><meta name="description" content="Send a non-binding enquiry for Sailing Workation and get early updates on dates, prices and availability.">
 <link rel="canonical" href="https://sailingworkation.com/en/inquiry/">
 <link rel="alternate" hreflang="de" href="https://sailingworkation.com/anfrage/"><link rel="alternate" hreflang="en" href="https://sailingworkation.com/en/inquiry/"><link rel="alternate" hreflang="x-default" href="https://sailingworkation.com/anfrage/">
-<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/styles.css?v=30">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/styles.css?v=33">
 </head><body class="form-site-page">
 <header class="sw-header scrolled" data-header>
  <a class="sw-brand" href="/en/" aria-label="Sailing Workation"><img class="site-logo-final" src="/assets/brand/sailing-workation-final.svg?v=2" alt="Sailing Workation"></a>
@@ -16,30 +16,66 @@
  <h1>Your workspace can keep moving.</h1>
  <p>The boat, contract and final dates are still being finalised. You can already register your interest or send us your preferred route with no obligation.</p>
  <form class="booking-form" action="https://formsubmit.co/booking@sailingworkation.com" method="POST" data-booking-form>
- 
   <div class="form-grid">
     <label><span>Name *</span><input type="text" name="Name" autocomplete="name" required></label>
     <label><span>Email *</span><input type="email" name="email" autocomplete="email" required></label>
-    <label><span>Preferred period</span><input type="text" name="Preferred period" placeholder="e.g. July 2027"></label>
-    <label><span>Guests</span><select name="Guests"><option value="">Select</option><option>1</option><option>2</option><option>3–4</option><option>5–6</option></select></label>
-    <label><span>Preferred region</span><select name="Region"><option value="">Open</option><option>Mediterranean</option><option>Canary Islands / Atlantic</option><option>Caribbean</option></select></label>
-    <label><span>Preferred duration</span><select name="Duration"><option value="">Open</option><option>1–2 weeks</option><option>3–4 weeks</option><option>5+ weeks</option></select></label>
-    <label class="full"><span>What do you need to work aboard?</span><input type="text" name="Remote work requirements" placeholder="e.g. video calls, fixed hours, high upload"></label>
-    <label class="full"><span>Message</span><textarea name="Message" rows="5" placeholder="Tell us briefly what you are looking for."></textarea></label>
+    <label><span>Phone / WhatsApp (optional)</span><input type="tel" name="Phone / WhatsApp" autocomplete="tel" placeholder="e.g. +49 …"></label>
+    <label><span>Guests *</span><select name="Guests" data-guests required><option value="">Select</option><option value="1">1</option><option value="2">2</option><option value="3-4">3–4</option><option value="5-6">5–6</option></select></label>
+
+    <label><span>Cabin preference *</span><select name="Cabin preference" data-cabin required>
+      <option value="">Select</option>
+      <option value="1 berth in a double cabin">1 berth in a double cabin</option>
+      <option value="Private cabin (higher price)">Private cabin (higher price)</option>
+      <option value="Shared cabin for 2 people" data-two-guests disabled>Shared cabin for 2 people</option>
+    </select><small class="field-help" data-cabin-help>The shared-cabin option becomes available when 2 guests are selected.</small></label>
+
+    <label><span>Sailing experience *</span><select name="Sailing experience" required>
+      <option value="">Select</option>
+      <option>None</option>
+      <option>Some first experience</option>
+      <option>Regular crew member</option>
+      <option>Sailing licence / certificate</option>
+    </select></label>
+
+    <label><span>Preferred season block *</span><select name="Season block" required>
+      <option value="">Select</option>
+      <option>May–June 2027 · BVI → Azores → Mediterranean</option>
+      <option>July–August 2027 · Albania / Greece / Turkey</option>
+      <option>September–October 2027 · Toward Gibraltar</option>
+      <option>October–November/December 2027 · Canaries / Azores / Atlantic</option>
+      <option>December 2027–February 2028 · BVIs</option>
+      <option>Flexible / undecided</option>
+    </select></label>
+
+    <label class="full"><span>Other date or route preferences</span><input type="text" name="Other preferences" placeholder="e.g. August only, Greece preferred, 3 weeks available"></label>
+
+    <label><span>Workload per day *</span><select name="Daily workload" required>
+      <option value="">Select</option>
+      <option>1–3 hours</option>
+      <option>4–6 hours</option>
+      <option>7–8 hours</option>
+      <option>8+ hours / full workday</option>
+      <option>Varies by day</option>
+    </select></label>
+    <label><span>Regular video calls? *</span><select name="Video calls" required><option value="">Select</option><option>No / rarely</option><option>Occasionally</option><option>Daily</option><option>Several per day</option></select></label>
+    <label class="full"><span>Other work requirements</span><input type="text" name="Remote work requirements" placeholder="e.g. fixed core hours, high upload, especially quiet calls"></label>
+
+    <label><span>How did you find us?</span><select name="Source"><option value="">Optional</option><option>Google</option><option>Instagram</option><option>Facebook</option><option>LinkedIn</option><option>Recommendation</option><option>Other</option></select></label>
+    <label><span>Preferred contact</span><select name="Preferred contact"><option>Email</option><option>Phone</option><option>WhatsApp</option></select></label>
+
+    <label class="full"><span>Message</span><textarea name="Message" rows="5" placeholder="Anything else we should know about your ideal trip?"></textarea></label>
   </div>
   <label class="check"><input type="checkbox" name="Early access" value="Ja" data-waitlist><span>Let me know as soon as dates, prices and availability are confirmed.</span></label>
   <label class="check"><input type="checkbox" required><span>I have read the <a href="/en/privacy/">privacy policy</a>.</span></label>
   <input type="text" name="_honey" class="honey" tabindex="-1" autocomplete="off">
-  <input type="hidden" name="_captcha" value="false">
-  <input type="hidden" name="_template" value="table">
+  <input type="hidden" name="_captcha" value="false"><input type="hidden" name="_template" value="table">
   <input type="hidden" name="_subject" value="Sailing Workation – new trip enquiry">
   <input type="hidden" name="_next" value="https://sailingworkation.com/en/thank-you/">
-  <input type="hidden" name="_url" value="https://sailingworkation.com/en/inquiry/">
   <button class="form-submit" type="submit">Send non-binding enquiry <span>→</span></button>
   <p class="form-note">No booking or payment yet. We will reply personally once we have seen your enquiry.</p>
  </form>
 </div></section></main>
 <footer class="sw-footer"><div class="shell footer-bottom"><span>© 2026 Sailing Workation · R16 Consulting LLC</span><span>Work remotely. Sail somewhere new.</span></div></footer>
-<script src="/script.js?v=23"></script>
+<script src="/script.js?v=25"></script>
 
 </body></html>
