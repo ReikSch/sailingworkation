@@ -69,3 +69,8 @@
 .form-submit.inline{margin-top:0}
 .form-submit{background:var(--orange);color:#fff}
 @media(max-width:700px){.form-page{padding-top:88px}.form-hero{padding:55px 0 80px}.booking-form{padding:20px}.form-grid{grid-template-columns:1fr}.form-grid label.full{grid-column:auto}.form-actions{display:grid;gap:12px}.form-secondary{margin-left:0}.form-submit.inline{justify-content:center}}
+
+.form-submit:disabled{opacity:.68;cursor:wait}
+.form-status{display:inline-block;margin:0 0 0 14px;font-size:.72rem;font-weight:800;color:var(--muted,#667f84)}
+.form-status.is-error{color:#a43f35}
+@media(max-width:700px){.form-status{display:block;margin:12px 0 0}}
