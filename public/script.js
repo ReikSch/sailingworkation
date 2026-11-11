@@ -265,6 +265,14 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
   .attr('aria-label',en?'Interactive season route map 2027':'Interaktive Saisonroutenkarte 2027');
 
  const viewport=svg.append('g').attr('class','route-map-viewport');
+ const defs=viewport.append('defs');
+ const waterMask=defs.append('mask')
+  .attr('id','route-water-mask')
+  .attr('maskUnits','userSpaceOnUse')
+  .attr('x',0).attr('y',0).attr('width',width).attr('height',height);
+ waterMask.append('rect')
+  .attr('x',0).attr('y',0).attr('width',width).attr('height',height)
+  .attr('fill','white');
  const projection=d3.geoMercator()
   .center([-18,29])
   .scale(265)
@@ -272,8 +280,8 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
  const geoPath=d3.geoPath(projection);
 
  viewport.append('rect').attr('class','route-ocean').attr('x',0).attr('y',0).attr('width',width).attr('height',height);
- const routeLayer=viewport.append('g').attr('class','route-lines');
  const landLayer=viewport.append('g').attr('class','route-land-layer');
+ const routeLayer=viewport.append('g').attr('class','route-lines').attr('mask','url(#route-water-mask)');
  const markerLayer=viewport.append('g').attr('class','route-markers');
 
  const line=d3.line()
@@ -343,6 +351,11 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
    landLayer.selectAll('path').data(countries.features).join('path')
     .attr('class','route-country')
     .attr('d',geoPath);
+   waterMask.selectAll('path').data(countries.features).join('path')
+    .attr('d',geoPath)
+    .attr('fill','black')
+    .attr('stroke','black')
+    .attr('stroke-width',1.5);
   }catch(err){console.error('Route land drawing failed',err);}
  }
 
