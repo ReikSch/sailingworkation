@@ -173,7 +173,26 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
   malta:[14.51,35.90],
   trapani:[12.51,38.02],
   canaries:[-16.63,28.29],
-  capeVerde:[-23.61,15.12]
+  capeVerde:[-23.61,15.12],
+  mallorcaPort:[2.64,39.55],
+  cagliariPort:[9.10,39.20],
+  palermoPort:[13.36,38.14],
+  messinaSea:[15.58,38.16],
+  crotoneSea:[17.16,39.08],
+  otrantoSea:[18.50,40.15],
+  vloreSea:[19.42,40.45],
+  sarandeSea:[19.96,39.86],
+  corfuSea:[19.90,39.62],
+  paxosSea:[20.14,39.19],
+  lefkadaSea:[20.72,38.82],
+  ithacaEast:[20.75,38.37],
+  kefaloniaEast:[20.69,38.24],
+  kefaloniaSouth:[20.58,37.98],
+  zakynthosEast:[20.92,37.78],
+  zakynthosSouth:[20.86,37.65],
+  pylosSea:[21.69,36.90],
+  maltaSea:[14.55,35.90],
+  trapaniSea:[12.49,38.02]
  };
 
  const legs=[
@@ -182,27 +201,29 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
   ]},
   {name:'Atlantic to Mediterranean',zoomBoost:.9,labels:['azores','gibraltar','mallorca','cagliari','palermo'],coords:[
    points.azores,[-24.0,37.0],[-18.0,35.5],[-11.0,35.6],points.gibraltar,
-   [-4.0,36.4],[-1.7,36.9],[0.5,37.6],points.mallorca,
-   [4.5,39.0],[7.2,39.1],points.cagliari,[10.7,38.8],[12.5,38.3],points.palermo
+   [-4.0,36.4],[-1.7,36.9],[0.3,37.7],[1.8,38.7],points.mallorcaPort,
+   [3.5,39.2],[5.2,39.3],[7.0,39.15],[8.4,39.0],points.cagliariPort,
+   [10.2,38.7],[11.6,38.4],[12.7,38.25],points.palermoPort
   ]},
   {name:'Mediterranean Expedition East',zoomBoost:2.15,labels:['palermo','crotone','otranto','vlore','corfu','paxos','lefkada'],coords:[
-   points.palermo,[13.85,38.23],[14.45,38.28],[15.05,38.27],[15.42,38.23],points.messina,
-   [15.72,38.12],[15.90,38.18],[16.10,38.35],[16.45,38.68],[16.85,38.92],points.crotone,
-   [17.55,39.34],[18.15,39.68],[18.42,39.96],points.otranto,
-   [18.82,40.08],[19.15,40.20],points.vlore,[19.32,40.05],[19.45,39.96],points.sarande,
-   [19.78,39.82],points.corfu,[20.00,39.52],points.paxos,[20.30,39.12],[20.52,38.96],points.lefkada
+   points.palermoPort,[13.85,38.25],[14.45,38.30],[15.05,38.30],[15.38,38.24],points.messinaSea,
+   [15.72,38.02],[15.95,37.98],[16.20,38.12],[16.48,38.42],[16.78,38.74],points.crotoneSea,
+   [17.55,39.28],[18.05,39.62],[18.34,39.92],points.otrantoSea,
+   [18.82,40.10],[19.12,40.25],points.vloreSea,[19.18,40.04],[19.18,39.82],[19.42,39.68],[19.72,39.70],points.sarandeSea,
+   [19.83,39.70],points.corfuSea,[20.00,39.45],points.paxosSea,[20.30,39.10],[20.55,38.93],points.lefkadaSea
   ]},
   {name:'Greek Island Sabbatical',zoomBoost:2.65,labels:['lefkada','ithaca','kefalonia','zakynthos','pylos'],coords:[
-   points.lefkada,[20.62,38.68],[20.61,38.53],[20.64,38.41],points.ithaca,
-   [20.62,38.31],[20.58,38.23],points.kefalonia,[20.50,38.08],[20.50,37.96],[20.61,37.86],points.zakynthos,
-   [20.66,37.63],[20.72,37.42],[20.82,37.22],[21.02,37.05],[21.33,36.93],points.pylos
+   points.lefkadaSea,[20.70,38.66],[20.72,38.52],points.ithacaEast,
+   [20.73,38.31],points.kefaloniaEast,[20.67,38.14],[20.62,38.05],points.kefaloniaSouth,
+   [20.66,37.90],[20.78,37.83],points.zakynthosEast,points.zakynthosSouth,
+   [20.92,37.50],[21.00,37.30],[21.15,37.12],[21.38,36.98],points.pylosSea
   ]},
   {name:'Mediterranean Crossing West',zoomBoost:1.08,labels:['pylos','malta','trapani','cagliari','mallorca','gibraltar'],coords:[
-   points.pylos,[20.10,36.45],[18.45,36.15],[16.80,35.95],[15.45,35.90],points.malta,
-   [14.20,36.30],[13.70,36.75],[13.15,37.30],[12.72,37.72],points.trapani,
-   [12.10,38.18],[11.20,38.38],[10.15,38.55],[9.55,38.85],points.cagliari,
-   [8.25,38.65],[6.75,38.70],[5.20,38.95],[3.85,39.15],points.mallorca,
-   [1.50,38.25],[-0.75,37.35],[-2.60,36.55],[-4.35,36.15],points.gibraltar
+   points.pylosSea,[20.10,36.42],[18.45,36.12],[16.80,35.93],[15.45,35.88],points.maltaSea,
+   [14.20,36.28],[13.70,36.72],[13.15,37.28],[12.72,37.70],points.trapaniSea,
+   [12.05,38.20],[11.10,38.40],[10.10,38.58],[9.48,38.82],points.cagliariPort,
+   [8.10,38.60],[6.70,38.68],[5.15,38.92],[3.75,39.12],points.mallorcaPort,
+   [1.45,38.22],[-0.85,37.32],[-2.65,36.52],[-4.38,36.14],points.gibraltar
   ]},
   {name:'Atlantic Islands',zoomBoost:.9,labels:['gibraltar','canaries','capeVerde'],coords:[
    points.gibraltar,[-8.6,35.0],[-10.8,33.0],[-12.8,31.0],[-14.7,29.5],points.canaries,
