@@ -272,8 +272,8 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
  const geoPath=d3.geoPath(projection);
 
  viewport.append('rect').attr('class','route-ocean').attr('x',0).attr('y',0).attr('width',width).attr('height',height);
- const landLayer=viewport.append('g').attr('class','route-land-layer');
  const routeLayer=viewport.append('g').attr('class','route-lines');
+ const landLayer=viewport.append('g').attr('class','route-land-layer');
  const markerLayer=viewport.append('g').attr('class','route-markers');
 
  const line=d3.line()
