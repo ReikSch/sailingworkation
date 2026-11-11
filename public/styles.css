@@ -161,8 +161,9 @@
 .trip-route-line.is-active{stroke:#d77449;stroke-width:6;opacity:1}
 .trip-route-line.is-muted{opacity:.12}
 .trip-route-marker circle{fill:#f8efe1;stroke:#173d47;stroke-width:2}
-.trip-route-marker text{font:800 10px Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#173d47;paint-order:stroke;stroke:#f8efe1;stroke-width:3px;stroke-linejoin:round}
-.trip-route-marker{opacity:.58;transition:opacity .3s}
+.trip-route-marker text{font:800 9px Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#173d47;paint-order:stroke;stroke:#f8efe1;stroke-width:2.5px;stroke-linejoin:round}
+.trip-route-marker{opacity:0;pointer-events:none;transition:opacity .24s}
+.trip-route-marker.is-hidden{opacity:0}
 .trip-route-marker.is-active{opacity:1}
 .trip-route-marker.is-active circle{fill:#d77449;stroke:#fff7ea;stroke-width:2.5}
 .route-map-tools{position:absolute;z-index:4;right:14px;top:14px;display:flex;gap:6px}
@@ -177,6 +178,6 @@
 }
 @media(max-width:650px){
  .season-route-map{height:390px}
- .trip-route-marker text{font-size:9px}
+ .trip-route-marker text{font-size:8px}
  .route-map-tools button{width:34px;height:34px}
 }
