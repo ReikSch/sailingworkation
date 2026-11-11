@@ -230,7 +230,7 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
   {key:'malta',name:'Malta',coord:points.malta},
   {key:'trapani',name:en?'Sicily':'Sizilien',coord:points.trapani},
   {key:'cagliari',name:en?'Sardinia':'Sardinien',coord:points.cagliari},
-  {key:'mallorca',name:en?'Balearics':'Balearen',coord:points.mallorca},
+  {key:'mallorca',name:'Mallorca',coord:points.mallorca},
   {key:'canaries',name:en?'Canaries':'Kanaren',coord:points.canaries},
   {key:'capeVerde',name:en?'Cape Verde':'Kap Verde',coord:points.capeVerde}
  ];
@@ -278,7 +278,7 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
  const activeStops=markerGroups;
 
  const zoom=d3.zoom()
-  .scaleExtent([.5,14])
+  .scaleExtent([.5,16])
   .translateExtent([[-width*2,-height*2],[width*3,height*3]])
   .extent([[0,0],[width,height]])
   .on('zoom',event=>{
@@ -297,7 +297,7 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
   const dx=Math.max(20,x1-x0),dy=Math.max(20,y1-y0);
   const pad=idx===2||idx===3?54:86;
   const baseK=Math.min((width-pad*2)/dx,(height-pad*2)/dy);
-  const k=Math.max(.52,Math.min(12.5,baseK*(legs[idx]?.zoomBoost||1)));
+  const k=Math.max(.52,Math.min(14.5,baseK*(legs[idx]?.zoomBoost||1)));
   const cx=(x0+x1)/2,cy=(y0+y1)/2;
   const transform=d3.zoomIdentity.translate(width/2-k*cx,height/2-k*cy).scale(k);
   const target=animated?svg.transition().duration(650).ease(d3.easeCubicOut):svg;
