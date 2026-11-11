@@ -176,31 +176,31 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
  };
 
  const legs=[
-  {name:'Atlantic Crossing East',zoomBoost:.82,labels:['bvi','azores'],coords:[
+  {name:'Atlantic Crossing East',zoomBoost:.64,labels:['bvi','azores'],coords:[
    points.bvi,[-61.5,20.2],[-56.0,24.3],[-49.0,29.0],[-41.5,33.2],[-34.5,36.4],points.azores
   ]},
-  {name:'Atlantic to Mediterranean',zoomBoost:.9,labels:['azores','gibraltar','palermo'],coords:[
+  {name:'Atlantic to Mediterranean',zoomBoost:.9,labels:['azores','gibraltar','mallorca','cagliari','palermo'],coords:[
    points.azores,[-24.0,37.0],[-18.0,35.5],[-11.0,35.6],points.gibraltar,
-   [-4.2,36.3],[-2.2,36.6],[-0.5,37.2],[1.2,37.8],[2.4,38.4],[4.4,38.2],
-   [6.4,38.0],[8.4,37.6],[10.5,37.7],points.palermo
+   [-4.0,36.4],[-1.7,36.9],[0.5,37.6],points.mallorca,
+   [4.5,39.0],[7.2,39.1],points.cagliari,[10.7,38.8],[12.5,38.3],points.palermo
   ]},
-  {name:'Mediterranean Expedition East',zoomBoost:1.55,labels:['palermo','crotone','otranto','vlore','corfu','paxos','lefkada'],coords:[
+  {name:'Mediterranean Expedition East',zoomBoost:1.9,labels:['palermo','crotone','otranto','vlore','corfu','paxos','lefkada'],coords:[
    points.palermo,[14.4,38.2],points.messina,[15.8,38.0],[16.5,38.5],points.crotone,
    [17.9,39.4],points.otranto,[19.0,40.3],points.vlore,[19.7,40.1],points.sarande,
    points.corfu,points.paxos,points.lefkada
   ]},
-  {name:'Greek Island Sabbatical',zoomBoost:2.15,labels:['lefkada','ithaca','kefalonia','zakynthos','pylos'],coords:[
+  {name:'Greek Island Sabbatical',zoomBoost:2.6,labels:['lefkada','ithaca','kefalonia','zakynthos','pylos'],coords:[
    points.lefkada,[20.74,38.62],points.ithaca,points.kefalonia,[20.72,37.95],points.zakynthos,
    [21.15,37.55],[21.35,37.25],points.pylos
   ]},
   {name:'Mediterranean Crossing West',zoomBoost:1.08,labels:['pylos','tunis','cagliari','mallorca','gibraltar'],coords:[
-   points.pylos,[20.0,36.7],[17.6,36.8],[15.4,37.0],[13.3,37.2],[11.9,36.9],points.tunis,
-   [9.8,37.6],[9.1,38.5],points.cagliari,[7.6,39.0],[5.5,39.1],points.mallorca,
-   [1.2,38.5],[-1.0,37.5],[-3.0,36.7],points.gibraltar
+   points.pylos,[20.0,36.3],[18.0,35.9],[16.0,35.7],[14.0,35.6],[12.2,35.9],points.tunis,
+   [9.8,37.0],[8.8,38.0],points.cagliari,[7.0,39.0],[5.0,39.3],points.mallorca,
+   [1.1,38.2],[-1.2,37.2],[-3.2,36.4],points.gibraltar
   ]},
   {name:'Atlantic Islands',zoomBoost:.9,labels:['gibraltar','canaries','capeVerde'],coords:[
-   points.gibraltar,[-7.0,34.0],[-10.0,31.5],[-13.5,29.4],points.canaries,
-   [-17.6,25.0],[-19.3,21.0],[-21.5,18.0],points.capeVerde
+   points.gibraltar,[-8.6,35.0],[-10.8,33.0],[-12.8,31.0],[-14.7,29.5],points.canaries,
+   [-17.4,25.8],[-19.1,22.2],[-21.2,18.7],points.capeVerde
   ]},
   {name:'Atlantic Crossing West',zoomBoost:.78,labels:['capeVerde','bvi'],coords:[
    points.capeVerde,[-30.0,14.2],[-38.0,14.0],[-46.0,14.6],[-53.5,15.6],[-59.5,17.0],points.bvi
@@ -272,7 +272,7 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
  const activeStops=markerGroups;
 
  const zoom=d3.zoom()
-  .scaleExtent([.65,12])
+  .scaleExtent([.5,14])
   .translateExtent([[-width*2,-height*2],[width*3,height*3]])
   .extent([[0,0],[width,height]])
   .on('zoom',event=>{
@@ -291,7 +291,7 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
   const dx=Math.max(20,x1-x0),dy=Math.max(20,y1-y0);
   const pad=idx===2||idx===3?54:86;
   const baseK=Math.min((width-pad*2)/dx,(height-pad*2)/dy);
-  const k=Math.max(.72,Math.min(10.5,baseK*(legs[idx]?.zoomBoost||1)));
+  const k=Math.max(.52,Math.min(12.5,baseK*(legs[idx]?.zoomBoost||1)));
   const cx=(x0+x1)/2,cy=(y0+y1)/2;
   const transform=d3.zoomIdentity.translate(width/2-k*cx,height/2-k*cy).scale(k);
   const target=animated?svg.transition().duration(650).ease(d3.easeCubicOut):svg;
@@ -318,7 +318,7 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
   }catch(err){console.error('Route land drawing failed',err);}
  }
 
- d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-110m.json')
+ d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-50m.json')
   .then(drawLand)
   .catch(err=>console.error('Route map geography load failed',err));
 
