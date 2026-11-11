@@ -145,7 +145,7 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
  });
 });
 
-/* Interactive 2027/28 season route map */
+/* Interactive 2027 season route map */
 (function(){
  const el=document.querySelector('[data-route-map]');
  if(!el||typeof d3==='undefined'||typeof topojson==='undefined')return;
@@ -155,37 +155,65 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
   bvi:[-64.62,18.43],
   azores:[-28.63,38.54],
   gibraltar:[-5.35,36.14],
-  southSpain:[-3.00,36.72],
-  sicily:[14.00,37.60],
-  southItaly:[17.10,39.20],
-  albania:[19.49,40.47],
+  palermo:[13.37,38.12],
+  messina:[15.56,38.19],
+  crotone:[17.13,39.08],
+  otranto:[18.49,40.15],
+  vlore:[19.49,40.45],
+  sarande:[20.00,39.87],
   corfu:[19.92,39.62],
   paxos:[20.16,39.20],
   lefkada:[20.71,38.83],
   ithaca:[20.72,38.37],
   kefalonia:[20.55,38.18],
-  peloponnese:[22.70,37.20],
-  tunisia:[10.75,36.80],
-  sardinia:[9.10,40.00],
-  balearics:[2.65,39.57],
+  zakynthos:[20.90,37.79],
+  pylos:[21.70,36.91],
+  tunis:[10.33,36.82],
+  cagliari:[9.12,39.22],
+  mallorca:[2.65,39.35],
   canaries:[-16.63,28.29],
   capeVerde:[-23.61,15.12]
  };
+
  const legs=[
-  {name:'Atlantic Crossing East',coords:[points.bvi,points.azores]},
-  {name:'Atlantic to Mediterranean',coords:[points.azores,points.gibraltar,points.southSpain,points.sicily]},
-  {name:'Mediterranean Expedition East',coords:[points.sicily,points.southItaly,points.albania,points.corfu,points.paxos,points.lefkada]},
-  {name:'Greek Island Sabbatical',coords:[points.lefkada,points.ithaca,points.kefalonia,points.peloponnese]},
-  {name:'Mediterranean Crossing West',coords:[points.peloponnese,points.sicily,points.tunisia,points.sardinia,points.balearics,points.gibraltar]},
-  {name:'Atlantic Islands',coords:[points.gibraltar,points.canaries,points.capeVerde]},
-  {name:'Atlantic Crossing West',coords:[points.capeVerde,points.bvi]}
+  {name:'Atlantic Crossing East',coords:[
+   points.bvi,[-61.5,20.2],[-56.0,24.3],[-49.0,29.0],[-41.5,33.2],[-34.5,36.4],points.azores
+  ]},
+  {name:'Atlantic to Mediterranean',coords:[
+   points.azores,[-24.0,37.0],[-18.0,35.5],[-11.0,35.6],points.gibraltar,
+   [-4.2,36.3],[-2.2,36.6],[-0.5,37.2],[1.2,37.8],[2.4,38.4],[4.4,38.2],
+   [6.4,38.0],[8.4,37.6],[10.5,37.7],points.palermo
+  ]},
+  {name:'Mediterranean Expedition East',coords:[
+   points.palermo,[14.4,38.2],points.messina,[15.8,38.0],[16.5,38.5],points.crotone,
+   [17.9,39.4],points.otranto,[19.0,40.3],points.vlore,[19.7,40.1],points.sarande,
+   points.corfu,points.paxos,points.lefkada
+  ]},
+  {name:'Greek Island Sabbatical',coords:[
+   points.lefkada,[20.74,38.62],points.ithaca,points.kefalonia,[20.72,37.95],points.zakynthos,
+   [21.15,37.55],[21.35,37.25],points.pylos
+  ]},
+  {name:'Mediterranean Crossing West',coords:[
+   points.pylos,[20.0,36.7],[17.6,36.8],[15.4,37.0],[13.3,37.2],[11.9,36.9],points.tunis,
+   [9.8,37.6],[9.1,38.5],points.cagliari,[7.6,39.0],[5.5,39.1],points.mallorca,
+   [1.2,38.5],[-1.0,37.5],[-3.0,36.7],points.gibraltar
+  ]},
+  {name:'Atlantic Islands',coords:[
+   points.gibraltar,[-7.0,34.0],[-10.0,31.5],[-13.5,29.4],points.canaries,
+   [-17.6,25.0],[-19.3,21.0],[-21.5,18.0],points.capeVerde
+  ]},
+  {name:'Atlantic Crossing West',coords:[
+   points.capeVerde,[-30.0,14.2],[-38.0,14.0],[-46.0,14.6],[-53.5,15.6],[-59.5,17.0],points.bvi
+  ]}
  ];
+
  const labels=[
   ['BVI',points.bvi],['Azores / Azoren',points.azores],['Gibraltar',points.gibraltar],
-  ['Sicily / Sizilien',points.sicily],['Albania / Albanien',points.albania],['Corfu / Korfu',points.corfu],
-  ['Lefkada',points.lefkada],['Peloponnese / Peloponnes',points.peloponnese],['Tunisia / Tunesien',points.tunisia],
-  ['Sardinia / Sardinien',points.sardinia],['Balearics / Balearen',points.balearics],
-  ['Canaries / Kanaren',points.canaries],['Cape Verde / Kap Verden',points.capeVerde]
+  ['Sicily / Sizilien',points.palermo],['Albania / Albanien',points.vlore],['Corfu / Korfu',points.corfu],
+  ['Lefkada',points.lefkada],['Kefalonia',points.kefalonia],['Peloponnese / Peloponnes',points.pylos],
+  ['Tunisia / Tunesien',points.tunis],['Sardinia / Sardinien',points.cagliari],
+  ['Balearics / Balearen',points.mallorca],['Canaries / Kanaren',points.canaries],
+  ['Cape Verde / Kap Verden',points.capeVerde]
  ];
  const cards=[...document.querySelectorAll('[data-route-leg]')];
  const title=document.querySelector('[data-route-map-title]');
@@ -193,7 +221,7 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
  const svg=d3.select(el).append('svg')
   .attr('viewBox',`0 0 ${width} ${height}`)
   .attr('role','img')
-  .attr('aria-label',en?'Interactive season route map 2027/28':'Interaktive Saisonroutenkarte 2027/28');
+  .attr('aria-label',en?'Interactive season route map 2027':'Interaktive Saisonroutenkarte 2027');
 
  const viewport=svg.append('g').attr('class','route-map-viewport');
  const projection=d3.geoMercator()
@@ -202,7 +230,7 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
   .translate([width/2,height/2+20]);
  const geoPath=d3.geoPath(projection);
 
- const ocean=viewport.append('rect').attr('class','route-ocean').attr('x',0).attr('y',0).attr('width',width).attr('height',height);
+ viewport.append('rect').attr('class','route-ocean').attr('x',0).attr('y',0).attr('width',width).attr('height',height);
  const landLayer=viewport.append('g').attr('class','route-land-layer');
  const routeLayer=viewport.append('g').attr('class','route-lines');
  const markerLayer=viewport.append('g').attr('class','route-markers');
@@ -210,7 +238,7 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
  const line=d3.line()
   .x(d=>projection(d)[0])
   .y(d=>projection(d)[1])
-  .curve(d3.curveCatmullRom.alpha(.35));
+  .curve(d3.curveCatmullRom.alpha(.22));
 
  const routePaths=routeLayer.selectAll('path')
   .data(legs)
@@ -229,12 +257,35 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
 
  const activeStops=markerGroups;
 
- function activate(idx){
+ const zoom=d3.zoom()
+  .scaleExtent([1,8])
+  .translateExtent([[-width,-height],[width*2,height*2]])
+  .extent([[0,0],[width,height]])
+  .on('zoom',event=>viewport.attr('transform',event.transform));
+ svg.call(zoom).on('dblclick.zoom',null);
+
+ function fitLeg(idx,animated=true){
+  const coords=legs[idx]?.coords||[];
+  if(!coords.length)return;
+  const projected=coords.map(projection).filter(Boolean);
+  const xs=projected.map(p=>p[0]),ys=projected.map(p=>p[1]);
+  const x0=Math.min(...xs),x1=Math.max(...xs),y0=Math.min(...ys),y1=Math.max(...ys);
+  const dx=Math.max(20,x1-x0),dy=Math.max(20,y1-y0);
+  const pad=idx===2||idx===3?70:90;
+  const k=Math.max(1,Math.min(7.2,Math.min((width-pad*2)/dx,(height-pad*2)/dy)));
+  const cx=(x0+x1)/2,cy=(y0+y1)/2;
+  const transform=d3.zoomIdentity.translate(width/2-k*cx,height/2-k*cy).scale(k);
+  const target=animated?svg.transition().duration(650).ease(d3.easeCubicOut):svg;
+  target.call(zoom.transform,transform);
+ }
+
+ function activate(idx,animated=true){
   cards.forEach((card,i)=>card.classList.toggle('is-active',i===idx));
   routePaths.classed('is-active',(d,i)=>i===idx).classed('is-muted',(d,i)=>i!==idx);
   const activeCoords=legs[idx]?.coords||[];
-  activeStops.classed('is-active',d=>activeCoords.some(p=>Math.abs(p[0]-d[1][0])<.8&&Math.abs(p[1]-d[1][1])<.8));
+  activeStops.classed('is-active',d=>activeCoords.some(p=>Math.abs(p[0]-d[1][0])<.65&&Math.abs(p[1]-d[1][1])<.65));
   if(title)title.textContent=legs[idx]?.name||'';
+  fitLeg(idx,animated);
  }
 
  function drawLand(world){
@@ -250,23 +301,16 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
   .then(drawLand)
   .catch(err=>console.error('Route map geography load failed',err));
 
- const zoom=d3.zoom()
-  .scaleExtent([1,5])
-  .translateExtent([[0,0],[width,height]])
-  .extent([[0,0],[width,height]])
-  .on('zoom',event=>viewport.attr('transform',event.transform));
- svg.call(zoom).on('dblclick.zoom',null);
-
  const zoomIn=el.querySelector('[data-map-zoom-in]');
  const zoomOut=el.querySelector('[data-map-zoom-out]');
  const reset=el.querySelector('[data-map-reset]');
  zoomIn?.addEventListener('click',()=>svg.transition().duration(220).call(zoom.scaleBy,1.35));
  zoomOut?.addEventListener('click',()=>svg.transition().duration(220).call(zoom.scaleBy,1/1.35));
- reset?.addEventListener('click',()=>svg.transition().duration(260).call(zoom.transform,d3.zoomIdentity));
+ reset?.addEventListener('click',()=>fitLeg(Math.max(0,current),true));
 
- cards.forEach((card,i)=>card.addEventListener('click',()=>activate(i)));
+ cards.forEach((card,i)=>card.addEventListener('click',()=>{current=i;activate(i,true)}));
 
- let current=-1,scheduled=false;
+ let current=0,scheduled=false;
  function sync(){
   scheduled=false;
   if(!cards.length)return;
@@ -275,14 +319,12 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
   cards.forEach((card,i)=>{
    if(card.getBoundingClientRect().top<=lineY)idx=i;
   });
-  if(idx!==current){current=idx;activate(idx);}
+  if(idx!==current){current=idx;activate(idx,true);}
  }
  addEventListener('scroll',()=>{if(!scheduled){scheduled=true;requestAnimationFrame(sync)}},{passive:true});
- addEventListener('resize',()=>{if(!scheduled){scheduled=true;requestAnimationFrame(sync)}},{passive:true});
- activate(0);
+ addEventListener('resize',()=>{if(!scheduled){scheduled=true;requestAnimationFrame(()=>{sync();fitLeg(current,false)})}},{passive:true});
+ activate(0,false);
 })();
-
-
 
 
 /* Conditional cabin choice */
