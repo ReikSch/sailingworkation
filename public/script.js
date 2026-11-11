@@ -171,6 +171,8 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
   tunis:[10.33,36.82],
   cagliari:[9.12,39.22],
   mallorca:[2.65,39.35],
+  malta:[14.51,35.90],
+  trapani:[12.51,38.02],
   canaries:[-16.63,28.29],
   capeVerde:[-23.61,15.12]
  };
@@ -184,19 +186,22 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
    [-4.0,36.4],[-1.7,36.9],[0.5,37.6],points.mallorca,
    [4.5,39.0],[7.2,39.1],points.cagliari,[10.7,38.8],[12.5,38.3],points.palermo
   ]},
-  {name:'Mediterranean Expedition East',zoomBoost:1.9,labels:['palermo','crotone','otranto','vlore','corfu','paxos','lefkada'],coords:[
-   points.palermo,[14.4,38.2],points.messina,[15.8,38.0],[16.5,38.5],points.crotone,
-   [17.9,39.4],points.otranto,[19.0,40.3],points.vlore,[19.7,40.1],points.sarande,
-   points.corfu,points.paxos,points.lefkada
+  {name:'Mediterranean Expedition East',zoomBoost:2.35,labels:['palermo','crotone','otranto','vlore','corfu','paxos','lefkada'],coords:[
+   points.palermo,[14.05,38.28],[14.65,38.34],[15.25,38.28],points.messina,
+   [15.82,38.06],[16.18,38.22],[16.55,38.50],points.crotone,
+   [17.45,39.34],[18.05,39.70],points.otranto,[18.85,40.05],[19.18,40.24],points.vlore,
+   [19.30,40.12],[19.36,39.98],[19.55,39.90],points.sarande,
+   [19.93,39.75],points.corfu,[20.08,39.43],points.paxos,[20.45,39.02],points.lefkada
   ]},
-  {name:'Greek Island Sabbatical',zoomBoost:2.6,labels:['lefkada','ithaca','kefalonia','zakynthos','pylos'],coords:[
-   points.lefkada,[20.74,38.62],points.ithaca,points.kefalonia,[20.72,37.95],points.zakynthos,
-   [21.15,37.55],[21.35,37.25],points.pylos
+  {name:'Greek Island Sabbatical',zoomBoost:3.2,labels:['lefkada','ithaca','kefalonia','zakynthos','pylos'],coords:[
+   points.lefkada,[20.63,38.66],[20.66,38.48],points.ithaca,
+   [20.59,38.29],points.kefalonia,[20.53,38.00],[20.70,37.86],points.zakynthos,
+   [20.68,37.62],[20.78,37.35],[20.98,37.10],[21.28,36.94],points.pylos
   ]},
-  {name:'Mediterranean Crossing West',zoomBoost:1.08,labels:['pylos','tunis','cagliari','mallorca','gibraltar'],coords:[
-   points.pylos,[20.0,36.3],[18.0,35.9],[16.0,35.7],[14.0,35.6],[12.2,35.9],points.tunis,
-   [9.8,37.0],[8.8,38.0],points.cagliari,[7.0,39.0],[5.0,39.3],points.mallorca,
-   [1.1,38.2],[-1.2,37.2],[-3.2,36.4],points.gibraltar
+  {name:'Mediterranean Crossing West',zoomBoost:1.08,labels:['pylos','malta','trapani','cagliari','mallorca','gibraltar'],coords:[
+   points.pylos,[20.0,36.35],[18.1,36.10],[16.2,35.95],points.malta,
+   [13.95,36.55],[13.10,37.20],points.trapani,[11.55,38.40],[10.20,38.70],points.cagliari,
+   [7.40,38.75],[5.20,39.05],points.mallorca,[1.0,38.15],[-1.5,37.10],[-3.4,36.35],points.gibraltar
   ]},
   {name:'Atlantic Islands',zoomBoost:.9,labels:['gibraltar','canaries','capeVerde'],coords:[
    points.gibraltar,[-8.6,35.0],[-10.8,33.0],[-12.8,31.0],[-14.7,29.5],points.canaries,
@@ -222,7 +227,8 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
   {key:'kefalonia',name:'Kefalonia',coord:points.kefalonia},
   {key:'zakynthos',name:'Zakynthos',coord:points.zakynthos},
   {key:'pylos',name:'Pylos',coord:points.pylos},
-  {key:'tunis',name:en?'Tunisia':'Tunesien',coord:points.tunis},
+  {key:'malta',name:'Malta',coord:points.malta},
+  {key:'trapani',name:en?'Sicily':'Sizilien',coord:points.trapani},
   {key:'cagliari',name:en?'Sardinia':'Sardinien',coord:points.cagliari},
   {key:'mallorca',name:en?'Balearics':'Balearen',coord:points.mallorca},
   {key:'canaries',name:en?'Canaries':'Kanaren',coord:points.canaries},
@@ -318,7 +324,7 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
   }catch(err){console.error('Route land drawing failed',err);}
  }
 
- d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-50m.json')
+ d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-10m.json')
   .then(drawLand)
   .catch(err=>console.error('Route map geography load failed',err));
 
