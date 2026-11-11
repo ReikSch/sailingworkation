@@ -155,24 +155,37 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
   bvi:[-64.62,18.43],
   azores:[-28.63,38.54],
   gibraltar:[-5.35,36.14],
+  southSpain:[-3.00,36.72],
+  sicily:[14.00,37.60],
+  southItaly:[17.10,39.20],
   albania:[19.49,40.47],
-  greece:[20.71,38.83],
-  turkey:[27.43,37.03],
+  corfu:[19.92,39.62],
+  paxos:[20.16,39.20],
+  lefkada:[20.71,38.83],
+  ithaca:[20.72,38.37],
+  kefalonia:[20.55,38.18],
+  peloponnese:[22.70,37.20],
+  tunisia:[10.75,36.80],
+  sardinia:[9.10,40.00],
+  balearics:[2.65,39.57],
   canaries:[-16.63,28.29],
   capeVerde:[-23.61,15.12]
  };
  const legs=[
-  {name:en?'BVI → Azores → Mediterranean':'BVI → Azoren → Mittelmeer',coords:[points.bvi,points.azores,points.gibraltar]},
-  {name:en?'Gibraltar → Albania · Greece · Turkey':'Gibraltar → Albanien · Griechenland · Türkei',coords:[points.gibraltar,points.albania,points.greece,points.turkey]},
-  {name:en?'Eastern Mediterranean → Gibraltar':'Östliches Mittelmeer → Gibraltar',coords:[points.turkey,points.greece,points.albania,points.gibraltar]},
-  {name:en?'Gibraltar → Canaries → Cape Verde → BVI':'Gibraltar → Kanaren → Kap Verden → BVI',coords:[points.gibraltar,points.canaries,points.capeVerde,points.bvi]},
-  {name:'British Virgin Islands',coords:[[-64.78,18.52],[-64.63,18.44],[-64.44,18.43],[-64.57,18.38],[-64.78,18.52]]}
+  {name:'Atlantic Crossing East',coords:[points.bvi,points.azores]},
+  {name:'Atlantic to Mediterranean',coords:[points.azores,points.gibraltar,points.southSpain,points.sicily]},
+  {name:'Mediterranean Expedition East',coords:[points.sicily,points.southItaly,points.albania,points.corfu,points.paxos,points.lefkada]},
+  {name:'Greek Island Sabbatical',coords:[points.lefkada,points.ithaca,points.kefalonia,points.peloponnese]},
+  {name:'Mediterranean Crossing West',coords:[points.peloponnese,points.sicily,points.tunisia,points.sardinia,points.balearics,points.gibraltar]},
+  {name:'Atlantic Islands',coords:[points.gibraltar,points.canaries,points.capeVerde]},
+  {name:'Atlantic Crossing West',coords:[points.capeVerde,points.bvi]}
  ];
  const labels=[
   ['BVI',points.bvi],['Azores / Azoren',points.azores],['Gibraltar',points.gibraltar],
-  ['Albania / Albanien',points.albania],['Greece / Griechenland',points.greece],
-  ['Turkey / Türkei',points.turkey],['Canaries / Kanaren',points.canaries],
-  ['Cape Verde / Kap Verden',points.capeVerde]
+  ['Sicily / Sizilien',points.sicily],['Albania / Albanien',points.albania],['Corfu / Korfu',points.corfu],
+  ['Lefkada',points.lefkada],['Peloponnese / Peloponnes',points.peloponnese],['Tunisia / Tunesien',points.tunisia],
+  ['Sardinia / Sardinien',points.sardinia],['Balearics / Balearen',points.balearics],
+  ['Canaries / Kanaren',points.canaries],['Cape Verde / Kap Verden',points.capeVerde]
  ];
  const cards=[...document.querySelectorAll('[data-route-leg]')];
  const title=document.querySelector('[data-route-map-title]');
