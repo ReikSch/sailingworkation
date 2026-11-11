@@ -325,7 +325,7 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
   }catch(err){console.error('Route land drawing failed',err);}
  }
 
- d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-10m.json')
+ d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-50m.json')
   .then(drawLand)
   .catch(err=>console.error('Route map geography load failed',err));
 
