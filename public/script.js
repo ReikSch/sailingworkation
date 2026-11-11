@@ -168,7 +168,6 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
   kefalonia:[20.55,38.18],
   zakynthos:[20.90,37.79],
   pylos:[21.70,36.91],
-  tunis:[10.33,36.82],
   cagliari:[9.12,39.22],
   mallorca:[2.65,39.35],
   malta:[14.51,35.90],
@@ -186,22 +185,24 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
    [-4.0,36.4],[-1.7,36.9],[0.5,37.6],points.mallorca,
    [4.5,39.0],[7.2,39.1],points.cagliari,[10.7,38.8],[12.5,38.3],points.palermo
   ]},
-  {name:'Mediterranean Expedition East',zoomBoost:2.35,labels:['palermo','crotone','otranto','vlore','corfu','paxos','lefkada'],coords:[
-   points.palermo,[14.05,38.28],[14.65,38.34],[15.25,38.28],points.messina,
-   [15.82,38.06],[16.18,38.22],[16.55,38.50],points.crotone,
-   [17.45,39.34],[18.05,39.70],points.otranto,[18.85,40.05],[19.18,40.24],points.vlore,
-   [19.30,40.12],[19.36,39.98],[19.55,39.90],points.sarande,
-   [19.93,39.75],points.corfu,[20.08,39.43],points.paxos,[20.45,39.02],points.lefkada
+  {name:'Mediterranean Expedition East',zoomBoost:2.15,labels:['palermo','crotone','otranto','vlore','corfu','paxos','lefkada'],coords:[
+   points.palermo,[13.85,38.23],[14.45,38.28],[15.05,38.27],[15.42,38.23],points.messina,
+   [15.72,38.12],[15.90,38.18],[16.10,38.35],[16.45,38.68],[16.85,38.92],points.crotone,
+   [17.55,39.34],[18.15,39.68],[18.42,39.96],points.otranto,
+   [18.82,40.08],[19.15,40.20],points.vlore,[19.32,40.05],[19.45,39.96],points.sarande,
+   [19.78,39.82],points.corfu,[20.00,39.52],points.paxos,[20.30,39.12],[20.52,38.96],points.lefkada
   ]},
-  {name:'Greek Island Sabbatical',zoomBoost:3.2,labels:['lefkada','ithaca','kefalonia','zakynthos','pylos'],coords:[
-   points.lefkada,[20.63,38.66],[20.66,38.48],points.ithaca,
-   [20.59,38.29],points.kefalonia,[20.53,38.00],[20.70,37.86],points.zakynthos,
-   [20.68,37.62],[20.78,37.35],[20.98,37.10],[21.28,36.94],points.pylos
+  {name:'Greek Island Sabbatical',zoomBoost:2.65,labels:['lefkada','ithaca','kefalonia','zakynthos','pylos'],coords:[
+   points.lefkada,[20.62,38.68],[20.61,38.53],[20.64,38.41],points.ithaca,
+   [20.62,38.31],[20.58,38.23],points.kefalonia,[20.50,38.08],[20.50,37.96],[20.61,37.86],points.zakynthos,
+   [20.66,37.63],[20.72,37.42],[20.82,37.22],[21.02,37.05],[21.33,36.93],points.pylos
   ]},
   {name:'Mediterranean Crossing West',zoomBoost:1.08,labels:['pylos','malta','trapani','cagliari','mallorca','gibraltar'],coords:[
-   points.pylos,[20.0,36.35],[18.1,36.10],[16.2,35.95],points.malta,
-   [13.95,36.55],[13.10,37.20],points.trapani,[11.55,38.40],[10.20,38.70],points.cagliari,
-   [7.40,38.75],[5.20,39.05],points.mallorca,[1.0,38.15],[-1.5,37.10],[-3.4,36.35],points.gibraltar
+   points.pylos,[20.10,36.45],[18.45,36.15],[16.80,35.95],[15.45,35.90],points.malta,
+   [14.20,36.30],[13.70,36.75],[13.15,37.30],[12.72,37.72],points.trapani,
+   [12.10,38.18],[11.20,38.38],[10.15,38.55],[9.55,38.85],points.cagliari,
+   [8.25,38.65],[6.75,38.70],[5.20,38.95],[3.85,39.15],points.mallorca,
+   [1.50,38.25],[-0.75,37.35],[-2.60,36.55],[-4.35,36.15],points.gibraltar
   ]},
   {name:'Atlantic Islands',zoomBoost:.9,labels:['gibraltar','canaries','capeVerde'],coords:[
    points.gibraltar,[-8.6,35.0],[-10.8,33.0],[-12.8,31.0],[-14.7,29.5],points.canaries,
@@ -257,7 +258,7 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
  const line=d3.line()
   .x(d=>projection(d)[0])
   .y(d=>projection(d)[1])
-  .curve(d3.curveCatmullRom.alpha(.22));
+  .curve(d3.curveLinear);
 
  const routePaths=routeLayer.selectAll('path')
   .data(legs)
@@ -278,7 +279,7 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
  const activeStops=markerGroups;
 
  const zoom=d3.zoom()
-  .scaleExtent([.5,16])
+  .scaleExtent([.5,40])
   .translateExtent([[-width*2,-height*2],[width*3,height*3]])
   .extent([[0,0],[width,height]])
   .on('zoom',event=>{
@@ -297,7 +298,7 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
   const dx=Math.max(20,x1-x0),dy=Math.max(20,y1-y0);
   const pad=idx===2||idx===3?54:86;
   const baseK=Math.min((width-pad*2)/dx,(height-pad*2)/dy);
-  const k=Math.max(.52,Math.min(14.5,baseK*(legs[idx]?.zoomBoost||1)));
+  const k=Math.max(.52,Math.min(10.5,baseK*(legs[idx]?.zoomBoost||1)));
   const cx=(x0+x1)/2,cy=(y0+y1)/2;
   const transform=d3.zoomIdentity.translate(width/2-k*cx,height/2-k*cy).scale(k);
   const target=animated?svg.transition().duration(650).ease(d3.easeCubicOut):svg;
@@ -331,8 +332,8 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
  const zoomIn=el.querySelector('[data-map-zoom-in]');
  const zoomOut=el.querySelector('[data-map-zoom-out]');
  const reset=el.querySelector('[data-map-reset]');
- zoomIn?.addEventListener('click',()=>svg.transition().duration(220).call(zoom.scaleBy,1.35));
- zoomOut?.addEventListener('click',()=>svg.transition().duration(220).call(zoom.scaleBy,1/1.35));
+ zoomIn?.addEventListener('click',()=>svg.transition().duration(220).call(zoom.scaleBy,1.5));
+ zoomOut?.addEventListener('click',()=>svg.transition().duration(220).call(zoom.scaleBy,1/1.5));
  reset?.addEventListener('click',()=>fitLeg(Math.max(0,current),true));
 
  cards.forEach((card,i)=>card.addEventListener('click',()=>{current=i;activate(i,true)}));
