@@ -176,44 +176,57 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
  };
 
  const legs=[
-  {name:'Atlantic Crossing East',coords:[
+  {name:'Atlantic Crossing East',zoomBoost:.82,labels:['bvi','azores'],coords:[
    points.bvi,[-61.5,20.2],[-56.0,24.3],[-49.0,29.0],[-41.5,33.2],[-34.5,36.4],points.azores
   ]},
-  {name:'Atlantic to Mediterranean',coords:[
+  {name:'Atlantic to Mediterranean',zoomBoost:.9,labels:['azores','gibraltar','palermo'],coords:[
    points.azores,[-24.0,37.0],[-18.0,35.5],[-11.0,35.6],points.gibraltar,
    [-4.2,36.3],[-2.2,36.6],[-0.5,37.2],[1.2,37.8],[2.4,38.4],[4.4,38.2],
    [6.4,38.0],[8.4,37.6],[10.5,37.7],points.palermo
   ]},
-  {name:'Mediterranean Expedition East',coords:[
+  {name:'Mediterranean Expedition East',zoomBoost:1.55,labels:['palermo','crotone','otranto','vlore','corfu','paxos','lefkada'],coords:[
    points.palermo,[14.4,38.2],points.messina,[15.8,38.0],[16.5,38.5],points.crotone,
    [17.9,39.4],points.otranto,[19.0,40.3],points.vlore,[19.7,40.1],points.sarande,
    points.corfu,points.paxos,points.lefkada
   ]},
-  {name:'Greek Island Sabbatical',coords:[
+  {name:'Greek Island Sabbatical',zoomBoost:2.15,labels:['lefkada','ithaca','kefalonia','zakynthos','pylos'],coords:[
    points.lefkada,[20.74,38.62],points.ithaca,points.kefalonia,[20.72,37.95],points.zakynthos,
    [21.15,37.55],[21.35,37.25],points.pylos
   ]},
-  {name:'Mediterranean Crossing West',coords:[
+  {name:'Mediterranean Crossing West',zoomBoost:1.08,labels:['pylos','tunis','cagliari','mallorca','gibraltar'],coords:[
    points.pylos,[20.0,36.7],[17.6,36.8],[15.4,37.0],[13.3,37.2],[11.9,36.9],points.tunis,
    [9.8,37.6],[9.1,38.5],points.cagliari,[7.6,39.0],[5.5,39.1],points.mallorca,
    [1.2,38.5],[-1.0,37.5],[-3.0,36.7],points.gibraltar
   ]},
-  {name:'Atlantic Islands',coords:[
+  {name:'Atlantic Islands',zoomBoost:.9,labels:['gibraltar','canaries','capeVerde'],coords:[
    points.gibraltar,[-7.0,34.0],[-10.0,31.5],[-13.5,29.4],points.canaries,
    [-17.6,25.0],[-19.3,21.0],[-21.5,18.0],points.capeVerde
   ]},
-  {name:'Atlantic Crossing West',coords:[
+  {name:'Atlantic Crossing West',zoomBoost:.78,labels:['capeVerde','bvi'],coords:[
    points.capeVerde,[-30.0,14.2],[-38.0,14.0],[-46.0,14.6],[-53.5,15.6],[-59.5,17.0],points.bvi
   ]}
  ];
 
  const labels=[
-  ['BVI',points.bvi],['Azores / Azoren',points.azores],['Gibraltar',points.gibraltar],
-  ['Sicily / Sizilien',points.palermo],['Albania / Albanien',points.vlore],['Corfu / Korfu',points.corfu],
-  ['Lefkada',points.lefkada],['Kefalonia',points.kefalonia],['Peloponnese / Peloponnes',points.pylos],
-  ['Tunisia / Tunesien',points.tunis],['Sardinia / Sardinien',points.cagliari],
-  ['Balearics / Balearen',points.mallorca],['Canaries / Kanaren',points.canaries],
-  ['Cape Verde / Kap Verden',points.capeVerde]
+  {key:'bvi',name:'BVI',coord:points.bvi},
+  {key:'azores',name:en?'Azores':'Azoren',coord:points.azores},
+  {key:'gibraltar',name:'Gibraltar',coord:points.gibraltar},
+  {key:'palermo',name:en?'Sicily':'Sizilien',coord:points.palermo},
+  {key:'crotone',name:'Crotone',coord:points.crotone},
+  {key:'otranto',name:'Otranto',coord:points.otranto},
+  {key:'vlore',name:'Vlorë',coord:points.vlore},
+  {key:'corfu',name:en?'Corfu':'Korfu',coord:points.corfu},
+  {key:'paxos',name:'Paxos',coord:points.paxos},
+  {key:'lefkada',name:'Lefkada',coord:points.lefkada},
+  {key:'ithaca',name:en?'Ithaca':'Ithaka',coord:points.ithaca},
+  {key:'kefalonia',name:'Kefalonia',coord:points.kefalonia},
+  {key:'zakynthos',name:'Zakynthos',coord:points.zakynthos},
+  {key:'pylos',name:'Pylos',coord:points.pylos},
+  {key:'tunis',name:en?'Tunisia':'Tunesien',coord:points.tunis},
+  {key:'cagliari',name:en?'Sardinia':'Sardinien',coord:points.cagliari},
+  {key:'mallorca',name:en?'Balearics':'Balearen',coord:points.mallorca},
+  {key:'canaries',name:en?'Canaries':'Kanaren',coord:points.canaries},
+  {key:'capeVerde',name:en?'Cape Verde':'Kap Verde',coord:points.capeVerde}
  ];
  const cards=[...document.querySelectorAll('[data-route-leg]')];
  const title=document.querySelector('[data-route-map-title]');
@@ -251,17 +264,22 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
   .data(labels)
   .join('g')
   .attr('class','trip-route-marker')
-  .attr('transform',d=>`translate(${projection(d[1])[0]},${projection(d[1])[1]})`);
- markerGroups.append('circle').attr('r',4.8).attr('vector-effect','non-scaling-stroke');
- markerGroups.append('text').attr('x',8).attr('y',-8).text(d=>d[0]);
+  .attr('data-stop',d=>d.key)
+  .attr('transform',d=>`translate(${projection(d.coord)[0]},${projection(d.coord)[1]})`);
+ markerGroups.append('circle').attr('r',4.6).attr('vector-effect','non-scaling-stroke');
+ markerGroups.append('text').attr('x',8).attr('y',-7).text(d=>d.name);
 
  const activeStops=markerGroups;
 
  const zoom=d3.zoom()
-  .scaleExtent([1,8])
-  .translateExtent([[-width,-height],[width*2,height*2]])
+  .scaleExtent([.65,12])
+  .translateExtent([[-width*2,-height*2],[width*3,height*3]])
   .extent([[0,0],[width,height]])
-  .on('zoom',event=>viewport.attr('transform',event.transform));
+  .on('zoom',event=>{
+   viewport.attr('transform',event.transform);
+   const inv=1/event.transform.k;
+   markerGroups.attr('transform',d=>`translate(${projection(d.coord)[0]},${projection(d.coord)[1]}) scale(${inv})`);
+  });
  svg.call(zoom).on('dblclick.zoom',null);
 
  function fitLeg(idx,animated=true){
@@ -271,8 +289,9 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
   const xs=projected.map(p=>p[0]),ys=projected.map(p=>p[1]);
   const x0=Math.min(...xs),x1=Math.max(...xs),y0=Math.min(...ys),y1=Math.max(...ys);
   const dx=Math.max(20,x1-x0),dy=Math.max(20,y1-y0);
-  const pad=idx===2||idx===3?70:90;
-  const k=Math.max(1,Math.min(7.2,Math.min((width-pad*2)/dx,(height-pad*2)/dy)));
+  const pad=idx===2||idx===3?54:86;
+  const baseK=Math.min((width-pad*2)/dx,(height-pad*2)/dy);
+  const k=Math.max(.72,Math.min(10.5,baseK*(legs[idx]?.zoomBoost||1)));
   const cx=(x0+x1)/2,cy=(y0+y1)/2;
   const transform=d3.zoomIdentity.translate(width/2-k*cx,height/2-k*cy).scale(k);
   const target=animated?svg.transition().duration(650).ease(d3.easeCubicOut):svg;
@@ -282,8 +301,10 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
  function activate(idx,animated=true){
   cards.forEach((card,i)=>card.classList.toggle('is-active',i===idx));
   routePaths.classed('is-active',(d,i)=>i===idx).classed('is-muted',(d,i)=>i!==idx);
-  const activeCoords=legs[idx]?.coords||[];
-  activeStops.classed('is-active',d=>activeCoords.some(p=>Math.abs(p[0]-d[1][0])<.65&&Math.abs(p[1]-d[1][1])<.65));
+  const visible=new Set(legs[idx]?.labels||[]);
+  activeStops
+   .classed('is-active',d=>visible.has(d.key))
+   .classed('is-hidden',d=>!visible.has(d.key));
   if(title)title.textContent=legs[idx]?.name||'';
   fitLeg(idx,animated);
  }
