@@ -192,7 +192,27 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
   zakynthosSouth:[20.86,37.65],
   pylosSea:[21.69,36.90],
   maltaSea:[14.55,35.90],
-  trapaniSea:[12.49,38.02]
+  trapaniSea:[12.44,38.04],
+  gibraltarSea:[-5.30,36.08],
+  mallorcaSouth:[2.63,39.46],
+  cagliariSouth:[9.08,39.13],
+  palermoNorth:[13.34,38.20],
+  messinaNorth:[15.56,38.25],
+  crotoneEast:[17.20,39.08],
+  otrantoEast:[18.56,40.14],
+  vloreWest:[19.34,40.44],
+  sarandeWest:[19.90,39.86],
+  corfuWest:[19.82,39.62],
+  paxosWest:[20.08,39.20],
+  lefkadaWest:[20.58,38.82],
+  ithacaWest:[20.60,38.38],
+  kefaloniaEastSea:[20.72,38.22],
+  kefaloniaSouthSea:[20.62,37.95],
+  zakynthosEastSea:[20.96,37.79],
+  zakynthosSouthSea:[20.88,37.61],
+  pylosWest:[21.60,36.91],
+  maltaWest:[14.42,35.88],
+  trapaniWest:[12.42,38.03]
  };
 
  const legs=[
@@ -200,30 +220,31 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
    points.bvi,[-61.5,20.2],[-56.0,24.3],[-49.0,29.0],[-41.5,33.2],[-34.5,36.4],points.azores
   ]},
   {name:'Atlantic to Mediterranean',zoomBoost:.9,labels:['azores','gibraltar','mallorca','cagliari','palermo'],coords:[
-   points.azores,[-24.0,37.0],[-18.0,35.5],[-11.0,35.6],points.gibraltar,
-   [-4.0,36.4],[-1.7,36.9],[0.3,37.7],[1.8,38.7],points.mallorcaPort,
-   [3.5,39.2],[5.2,39.3],[7.0,39.15],[8.4,39.0],points.cagliariPort,
-   [10.2,38.7],[11.6,38.4],[12.7,38.25],points.palermoPort
+   points.azores,[-24.0,37.0],[-18.0,35.5],[-11.0,35.6],points.gibraltarSea,
+   [-4.0,36.3],[-1.5,36.8],[0.4,37.6],[1.9,38.7],points.mallorcaSouth,
+   [3.8,39.1],[5.7,39.2],[7.4,39.0],points.cagliariSouth,
+   [10.0,38.6],[11.5,38.35],[12.6,38.22],points.palermoNorth
   ]},
   {name:'Mediterranean Expedition East',zoomBoost:2.15,labels:['palermo','crotone','otranto','vlore','corfu','paxos','lefkada'],coords:[
-   points.palermoPort,[13.85,38.25],[14.45,38.30],[15.05,38.30],[15.38,38.24],points.messinaSea,
-   [15.72,38.02],[15.95,37.98],[16.20,38.12],[16.48,38.42],[16.78,38.74],points.crotoneSea,
-   [17.55,39.28],[18.05,39.62],[18.34,39.92],points.otrantoSea,
-   [18.82,40.10],[19.12,40.25],points.vloreSea,[19.18,40.04],[19.18,39.82],[19.42,39.68],[19.72,39.70],points.sarandeSea,
-   [19.83,39.70],points.corfuSea,[20.00,39.45],points.paxosSea,[20.30,39.10],[20.55,38.93],points.lefkadaSea
+   points.palermoNorth,[13.8,38.32],[14.5,38.38],[15.15,38.34],points.messinaNorth,
+   [15.72,38.05],[15.95,38.02],[16.18,38.18],[16.45,38.48],[16.78,38.78],points.crotoneEast,
+   [17.65,39.30],[18.15,39.72],points.otrantoEast,
+   [18.85,40.10],[19.10,40.28],points.vloreWest,
+   [19.18,40.05],[19.28,39.82],points.sarandeWest,
+   [19.82,39.72],points.corfuWest,[19.98,39.45],points.paxosWest,[20.28,39.08],[20.48,38.94],points.lefkadaWest
   ]},
   {name:'Greek Island Sabbatical',zoomBoost:2.65,labels:['lefkada','ithaca','kefalonia','zakynthos','pylos'],coords:[
-   points.lefkadaSea,[20.70,38.66],[20.72,38.52],points.ithacaEast,
-   [20.73,38.31],points.kefaloniaEast,[20.67,38.14],[20.62,38.05],points.kefaloniaSouth,
-   [20.66,37.90],[20.78,37.83],points.zakynthosEast,points.zakynthosSouth,
-   [20.92,37.50],[21.00,37.30],[21.15,37.12],[21.38,36.98],points.pylosSea
+   points.lefkadaWest,[20.57,38.66],[20.58,38.50],points.ithacaWest,
+   [20.64,38.30],points.kefaloniaEastSea,[20.68,38.10],points.kefaloniaSouthSea,
+   [20.72,37.88],points.zakynthosEastSea,points.zakynthosSouthSea,
+   [20.92,37.45],[21.02,37.25],[21.18,37.08],[21.42,36.96],points.pylosWest
   ]},
   {name:'Mediterranean Crossing West',zoomBoost:1.08,labels:['pylos','malta','trapani','cagliari','mallorca','gibraltar'],coords:[
-   points.pylosSea,[20.10,36.42],[18.45,36.12],[16.80,35.93],[15.45,35.88],points.maltaSea,
-   [14.20,36.28],[13.70,36.72],[13.15,37.28],[12.72,37.70],points.trapaniSea,
-   [12.05,38.20],[11.10,38.40],[10.10,38.58],[9.48,38.82],points.cagliariPort,
-   [8.10,38.60],[6.70,38.68],[5.15,38.92],[3.75,39.12],points.mallorcaPort,
-   [1.45,38.22],[-0.85,37.32],[-2.65,36.52],[-4.38,36.14],points.gibraltar
+   points.pylosWest,[20.0,36.40],[18.4,36.12],[16.7,35.95],[15.35,35.90],points.maltaWest,
+   [14.05,36.20],[13.55,36.70],[13.05,37.25],[12.65,37.72],points.trapaniWest,
+   [11.95,38.18],[11.00,38.38],[10.15,38.55],[9.55,38.82],points.cagliariSouth,
+   [8.0,38.55],[6.5,38.65],[5.0,38.90],[3.65,39.05],points.mallorcaSouth,
+   [1.45,38.20],[-0.8,37.30],[-2.7,36.50],[-4.35,36.15],points.gibraltarSea
   ]},
   {name:'Atlantic Islands',zoomBoost:.9,labels:['gibraltar','canaries','capeVerde'],coords:[
    points.gibraltar,[-8.6,35.0],[-10.8,33.0],[-12.8,31.0],[-14.7,29.5],points.canaries,
@@ -265,14 +286,6 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
   .attr('aria-label',en?'Interactive season route map 2027':'Interaktive Saisonroutenkarte 2027');
 
  const viewport=svg.append('g').attr('class','route-map-viewport');
- const defs=viewport.append('defs');
- const waterMask=defs.append('mask')
-  .attr('id','route-water-mask')
-  .attr('maskUnits','userSpaceOnUse')
-  .attr('x',0).attr('y',0).attr('width',width).attr('height',height);
- waterMask.append('rect')
-  .attr('x',0).attr('y',0).attr('width',width).attr('height',height)
-  .attr('fill','white');
  const projection=d3.geoMercator()
   .center([-18,29])
   .scale(265)
@@ -281,7 +294,7 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
 
  viewport.append('rect').attr('class','route-ocean').attr('x',0).attr('y',0).attr('width',width).attr('height',height);
  const landLayer=viewport.append('g').attr('class','route-land-layer');
- const routeLayer=viewport.append('g').attr('class','route-lines').attr('mask','url(#route-water-mask)');
+ const routeLayer=viewport.append('g').attr('class','route-lines');
  const markerLayer=viewport.append('g').attr('class','route-markers');
 
  const line=d3.line()
@@ -351,11 +364,6 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
    landLayer.selectAll('path').data(countries.features).join('path')
     .attr('class','route-country')
     .attr('d',geoPath);
-   waterMask.selectAll('path').data(countries.features).join('path')
-    .attr('d',geoPath)
-    .attr('fill','black')
-    .attr('stroke','black')
-    .attr('stroke-width',1.5);
   }catch(err){console.error('Route land drawing failed',err);}
  }
 
