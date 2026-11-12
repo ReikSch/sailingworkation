@@ -181,3 +181,12 @@
  .trip-route-marker text{font-size:8px}
  .route-map-tools button{width:34px;height:34px}
 }
+
+
+/* Conversion CTAs */
+.section-cta{margin-top:28px;display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.section-head .section-cta{align-self:end;margin-top:0}
+.trip-cta{display:inline-flex;align-items:center;justify-content:center;margin-top:22px;padding:11px 16px;border-radius:999px;text-decoration:none;font-size:.7rem;font-weight:900;transition:transform .2s ease,opacity .2s ease}
+.trip-cta:hover{transform:translateY(-1px);opacity:.92}
+.trip-leg .trip-cta{background:var(--orange);color:white}
+@media(max-width:650px){.section-cta{margin-top:22px}.section-head .section-cta{margin-top:8px}.section-cta .btn,.trip-cta{width:100%;justify-content:center;text-align:center}}
