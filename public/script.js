@@ -452,7 +452,19 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
     for(let i=0;i<binary.length;i++) bytes[i]=binary.charCodeAt(i);
     return URL.createObjectURL(new Blob([bytes],{type:'image/jpeg'}));
   };
+  const directImages={
+    cabin:'/assets/myelli/cabin-new.jpg?v=1',
+    bath:'/assets/myelli/bath-new.jpg?v=1'
+  };
   await Promise.all(Object.entries(groups).map(async([key,nodes])=>{
+    if(directImages[key]){
+      nodes.forEach(img=>{
+        img.onload=()=>img.classList.add('myelli-loaded');
+        img.onerror=()=>console.error(`My Elli ${key} image load failed`);
+        img.src=directImages[key];
+      });
+      return;
+    }
     const count=chunkCounts[key];
     if(!count)return;
     try{
