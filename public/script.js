@@ -439,7 +439,7 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
 
 /* My Elli gallery image loader */
 (async()=>{
-  const chunkCounts={cockpit:8,salon:8,galley:8,cabin:10,bath:10};
+  const chunkCounts={cockpit:8,salon:8,galley:8,cabin:3,bath:3};
   const groups=[...document.querySelectorAll('[data-myelli-image]')].reduce((acc,img)=>{
     const key=img.dataset.myelliImage;
     (acc[key] ||= []).push(img);
@@ -452,24 +452,12 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
     for(let i=0;i<binary.length;i++) bytes[i]=binary.charCodeAt(i);
     return URL.createObjectURL(new Blob([bytes],{type:'image/jpeg'}));
   };
-  const directImages={
-    cabin:'/assets/myelli/cabin-new.jpg?v=1',
-    bath:'/assets/myelli/bath-new.jpg?v=1'
-  };
   await Promise.all(Object.entries(groups).map(async([key,nodes])=>{
-    if(directImages[key]){
-      nodes.forEach(img=>{
-        img.onload=()=>img.classList.add('myelli-loaded');
-        img.onerror=()=>console.error(`My Elli ${key} image load failed`);
-        img.src=directImages[key];
-      });
-      return;
-    }
     const count=chunkCounts[key];
     if(!count)return;
     try{
       const parts=await Promise.all(Array.from({length:count},async(_,i)=>{
-        const url=`/assets/myelli/${key}-${String(i+1).padStart(2,'0')}.b64?v=2`;
+        const url=`/assets/myelli/${key}-${String(i+1).padStart(2,'0')}.b64?v=3`;
         const r=await fetch(url,{cache:'no-cache'});
         if(!r.ok)throw new Error(`Failed to load ${url}: ${r.status}`);
         const text=(await r.text()).trim();
