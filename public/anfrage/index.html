@@ -14,7 +14,7 @@
 <main class="form-page"><section class="form-hero"><div class="shell narrow">
  <span class="kicker">UNVERBINDLICH VORMERKEN</span>
  <h1>Dein Arbeitsplatz darf weiterziehen.</h1>
- <p>Wähle deine Wunsch-Etappe und schick uns eine unverbindliche Anfrage. Wir melden uns persönlich, lernen uns kurz kennen und klären gemeinsam Format, Crew-Fit, Verfügbarkeit und die nächsten Schritte. Die endgültige Zuordnung der Etappe zu Sabbatical oder Workation erfolgt erst anhand der passenden Anfragen.</p>
+ <p>Wähle eine oder mehrere aufeinanderfolgende Reisen und schick uns eine unverbindliche Anfrage. Wir melden uns persönlich, lernen uns kurz kennen und klären gemeinsam Format, Crew-Fit, Verfügbarkeit und die nächsten Schritte. Die endgültige Zuordnung der Etappe zu Sabbatical oder Workation erfolgt erst anhand der passenden Anfragen.</p>
  <form class="booking-form" action="https://formsubmit.co/booking@sailingworkation.com" method="POST" data-booking-form>
   <div class="form-grid">
     <label><span>Name *</span><input type="text" name="Name" autocomplete="name" required></label>
@@ -37,16 +37,23 @@
       <option>Segelschein vorhanden</option>
     </select></label>
 
-    <label><span>Gewünschter Saisonblock *</span><select name="Saisonblock" required>
-      <option value="">Bitte wählen</option>
-      <option>01 · Atlantic Crossing East · Mitte Mai–Anfang Juni 2027 · 1.650 € p. P.</option>
-      <option>02 · Atlantic to Mediterranean · Mitte Juni–Mitte Juli 2027 · 2.350 € p. P.</option>
-      <option>03 · Mediterranean Expedition East · Mitte Juli–Ende August 2027 · 4.500 € p. P.</option>
-      <option>04 · Greek Island Sabbatical · Anfang September–Ende September 2027 · 3.400 € p. P.</option>
-      <option>05 · Mediterranean Crossing West · Ende September–Ende Oktober 2027 · 3.150 € p. P.</option>
-      <option>06 · Atlantic Islands · Ende Oktober–Mitte November 2027 · 1.575 € p. P.</option>
-      <option>07 · Atlantic Crossing West · Ende November–Mitte Dezember 2027 · 1.575 € p. P.</option>
-    </select></label>
+    <fieldset class="trip-picker full" data-trip-picker><legend>Gewünschte Törns *</legend><p class="trip-picker-help">Wähle einen oder mehrere Törns. Aufeinanderfolgende Etappen kannst du als einen langen Aufenthalt an Bord kombinieren – ohne Zwischenwechsel.</p><div class="trip-choice-grid">
+<label class="trip-choice"><input type="checkbox" data-trip-option data-id="01" data-price="2025"><span><strong>01 · Karibikstart & Bermuda</strong><small>01.05.2027 – 18.05.2027 · 18 Tage · 2.025 € p. P.</small></span></label>
+<label class="trip-choice"><input type="checkbox" data-trip-option data-id="02" data-price="3060"><span><strong>02 · Atlantiküberquerung Ost & Azoren</strong><small>19.05.2027 – 17.06.2027 · 30 Tage · 3.060 € p. P.</small></span></label>
+<label class="trip-choice"><input type="checkbox" data-trip-option data-id="03" data-price="1365"><span><strong>03 · Azoren bis zur Algarve</strong><small>18.06.2027 – 30.06.2027 · 13 Tage · 1.365 € p. P.</small></span></label>
+<label class="trip-choice"><input type="checkbox" data-trip-option data-id="04" data-price="1750"><span><strong>04 · Algarve, Andalusien & Balearen</strong><small>01.07.2027 – 14.07.2027 · 14 Tage · 1.750 € p. P.</small></span></label>
+<label class="trip-choice"><input type="checkbox" data-trip-option data-id="05" data-price="1890"><span><strong>05 · Mallorca, Menorca & Sardinien</strong><small>15.07.2027 – 28.07.2027 · 14 Tage · 1.890 € p. P.</small></span></label>
+<label class="trip-choice"><input type="checkbox" data-trip-option data-id="06" data-price="1960"><span><strong>06 · Sardinien & Siziliens Inselwelten</strong><small>29.07.2027 – 11.08.2027 · 14 Tage · 1.960 € p. P.</small></span></label>
+<label class="trip-choice"><input type="checkbox" data-trip-option data-id="07" data-price="1960"><span><strong>07 · Süditalien, Albanien & Korfu</strong><small>12.08.2027 – 25.08.2027 · 14 Tage · 1.960 € p. P.</small></span></label>
+<label class="trip-choice"><input type="checkbox" data-trip-option data-id="08" data-price="2030"><span><strong>08 · Ionische Inseln & Slow Sailing</strong><small>26.08.2027 – 08.09.2027 · 14 Tage · 2.030 € p. P.</small></span></label>
+<label class="trip-choice"><input type="checkbox" data-trip-option data-id="09" data-price="2030"><span><strong>09 · Ionisches Meer & Peloponnes</strong><small>09.09.2027 – 22.09.2027 · 14 Tage · 2.030 € p. P.</small></span></label>
+<label class="trip-choice"><input type="checkbox" data-trip-option data-id="10" data-price="1960"><span><strong>10 · Peloponnes, Gozo & Malta</strong><small>23.09.2027 – 06.10.2027 · 14 Tage · 1.960 € p. P.</small></span></label>
+<label class="trip-choice"><input type="checkbox" data-trip-option data-id="11" data-price="1890"><span><strong>11 · Malta, Sizilien & Mallorca</strong><small>07.10.2027 – 20.10.2027 · 14 Tage · 1.890 € p. P.</small></span></label>
+<label class="trip-choice"><input type="checkbox" data-trip-option data-id="12" data-price="1955"><span><strong>12 · Balearen, Gibraltar & Kanaren</strong><small>21.10.2027 – 06.11.2027 · 17 Tage · 1.955 € p. P.</small></span></label>
+<label class="trip-choice"><input type="checkbox" data-trip-option data-id="13" data-price="1200"><span><strong>13 · Kanaren & Kap Verde</strong><small>07.11.2027 – 18.11.2027 · 12 Tage · 1.200 € p. P.</small></span></label>
+<label class="trip-choice"><input type="checkbox" data-trip-option data-id="14" data-price="2565"><span><strong>14 · Atlantiküberquerung West</strong><small>19.11.2027 – 15.12.2027 · 27 Tage · 2.565 € p. P.</small></span></label>
+<label class="trip-choice"><input type="checkbox" data-trip-option data-id="15" data-price="4060"><span><strong>15 · BVI Weihnachten & Silvester</strong><small>20.12.2027 – 02.01.2028 · 14 Tage · 4.060 € p. P.</small></span></label>
+</div><p class="trip-selection-summary" data-trip-summary aria-live="polite"></p><input type="hidden" name="Ausgewählte Etappen" data-selected-trips><input type="hidden" name="Preisindikation" data-price-quote></fieldset>
 
     <label><span>Bevorzugtes Format *</span><select name="Format-Präferenz" required>
       <option value="">Bitte wählen</option>

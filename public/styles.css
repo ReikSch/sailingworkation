@@ -190,3 +190,18 @@
 .trip-cta:hover{transform:translateY(-1px);opacity:.92}
 .trip-leg .trip-cta{background:var(--orange);color:white}
 @media(max-width:650px){.section-cta{margin-top:22px}.section-head .section-cta{margin-top:8px}.section-cta .btn,.trip-cta{width:100%;justify-content:center;text-align:center}}
+
+/* Multiple sailing legs: enquiry form */
+.form-grid .trip-picker{grid-column:1/-1;min-width:0;margin:0;padding:19px;border:1px solid var(--line,rgba(0,0,0,.13));border-radius:20px}
+.trip-picker legend{padding:0 8px;font-size:.86rem;font-weight:800}
+.trip-picker-help{margin:2px 0 15px!important;font-size:.83rem!important;line-height:1.6!important;color:var(--muted,#6b7074)!important}
+.trip-choice-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.form-grid label.trip-choice{display:flex;align-items:flex-start;gap:11px;padding:13px;border:1px solid var(--line,rgba(0,0,0,.13));border-radius:13px;cursor:pointer;transition:background .15s,border-color .15s}
+.form-grid .trip-choice input[type="checkbox"]{width:19px;height:19px;margin:1px 0 0;flex:0 0 19px;accent-color:var(--coral,var(--orange,#117c88))}
+.form-grid .trip-choice>span{display:grid;gap:5px;flex:1;font-size:.79rem;font-weight:400;letter-spacing:0;line-height:1.45}
+.trip-choice strong{font-size:.78rem;line-height:1.5}
+.trip-choice small{font-size:.72rem;color:var(--muted,#6b7074)}
+.form-grid label.trip-choice:has(input:checked){background:rgba(34,154,159,.08);border-color:rgba(25,135,140,.65)}
+.trip-selection-summary{margin:16px 0 0!important;padding:12px 13px;background:rgba(34,154,159,.08);border-radius:12px;font-size:.8rem!important;line-height:1.5!important;font-weight:700}
+.trip-selection-summary[data-empty="1"]{background:rgba(168,88,55,.09)}
+@media(max-width:700px){.trip-choice-grid{grid-template-columns:1fr}.form-grid .trip-picker{grid-column:auto;padding:15px}}

@@ -14,7 +14,7 @@
 <main class="form-page"><section class="form-hero"><div class="shell narrow">
  <span class="kicker">NON-BINDING ENQUIRY</span>
  <h1>Your workspace can keep moving.</h1>
- <p>Choose your preferred leg and send us a non-binding inquiry. We will get back to you personally with availability, next steps and all booking details.</p>
+ <p>Choose one or more consecutive trips and send us a non-binding inquiry. We will get back to you personally with availability, next steps and all booking details.</p>
  <form class="booking-form" action="https://formsubmit.co/booking@sailingworkation.com" method="POST" data-booking-form>
   <div class="form-grid">
     <label><span>Name *</span><input type="text" name="Name" autocomplete="name" required></label>
@@ -37,16 +37,23 @@
       <option>Sailing licence / certificate</option>
     </select></label>
 
-    <label><span>Preferred season block *</span><select name="Season block" required>
-      <option value="">Select</option>
-      <option>01 · Atlantic Crossing East · Mid May–Early June 2027 · €1,650 p.p.</option>
-      <option>02 · Atlantic to Mediterranean · Mid June–Mid July 2027 · €2,350 p.p.</option>
-      <option>03 · Mediterranean Expedition East · Mid July–Late August 2027 · €4,500 p.p.</option>
-      <option>04 · Greek Island Sabbatical · Early September–Late September 2027 · €3,400 p.p.</option>
-      <option>05 · Mediterranean Crossing West · Late September–Late October 2027 · €3,150 p.p.</option>
-      <option>06 · Atlantic Islands · Late October–Mid November 2027 · €1,575 p.p.</option>
-      <option>07 · Atlantic Crossing West · Late November–Mid December 2027 · €1,575 p.p.</option>
-    </select></label>
+    <fieldset class="trip-picker full" data-trip-picker><legend>Preferred trips *</legend><p class="trip-picker-help">Select one or more trips. Consecutive legs can be combined into one longer stay aboard with no mid-trip crew change.</p><div class="trip-choice-grid">
+<label class="trip-choice"><input type="checkbox" data-trip-option data-id="01" data-price="2025"><span><strong>01 · Caribbean Start & Bermuda</strong><small>01.05.2027 – 18.05.2027 · 18 days · €2,025 pp</small></span></label>
+<label class="trip-choice"><input type="checkbox" data-trip-option data-id="02" data-price="3060"><span><strong>02 · Eastbound Atlantic & Azores</strong><small>19.05.2027 – 17.06.2027 · 30 days · €3,060 pp</small></span></label>
+<label class="trip-choice"><input type="checkbox" data-trip-option data-id="03" data-price="1365"><span><strong>03 · Azores to the Algarve</strong><small>18.06.2027 – 30.06.2027 · 13 days · €1,365 pp</small></span></label>
+<label class="trip-choice"><input type="checkbox" data-trip-option data-id="04" data-price="1750"><span><strong>04 · Algarve, Andalusia & Balearics</strong><small>01.07.2027 – 14.07.2027 · 14 days · €1,750 pp</small></span></label>
+<label class="trip-choice"><input type="checkbox" data-trip-option data-id="05" data-price="1890"><span><strong>05 · Mallorca, Menorca & Sardinia</strong><small>15.07.2027 – 28.07.2027 · 14 days · €1,890 pp</small></span></label>
+<label class="trip-choice"><input type="checkbox" data-trip-option data-id="06" data-price="1960"><span><strong>06 · Sardinia & Sicily's Islands</strong><small>29.07.2027 – 11.08.2027 · 14 days · €1,960 pp</small></span></label>
+<label class="trip-choice"><input type="checkbox" data-trip-option data-id="07" data-price="1960"><span><strong>07 · Southern Italy, Albania & Corfu</strong><small>12.08.2027 – 25.08.2027 · 14 days · €1,960 pp</small></span></label>
+<label class="trip-choice"><input type="checkbox" data-trip-option data-id="08" data-price="2030"><span><strong>08 · Ionian Islands & Slow Sailing</strong><small>26.08.2027 – 08.09.2027 · 14 days · €2,030 pp</small></span></label>
+<label class="trip-choice"><input type="checkbox" data-trip-option data-id="09" data-price="2030"><span><strong>09 · Ionian Sea & Peloponnese</strong><small>09.09.2027 – 22.09.2027 · 14 days · €2,030 pp</small></span></label>
+<label class="trip-choice"><input type="checkbox" data-trip-option data-id="10" data-price="1960"><span><strong>10 · Peloponnese, Gozo & Malta</strong><small>23.09.2027 – 06.10.2027 · 14 days · €1,960 pp</small></span></label>
+<label class="trip-choice"><input type="checkbox" data-trip-option data-id="11" data-price="1890"><span><strong>11 · Malta, Sicily & Mallorca</strong><small>07.10.2027 – 20.10.2027 · 14 days · €1,890 pp</small></span></label>
+<label class="trip-choice"><input type="checkbox" data-trip-option data-id="12" data-price="1955"><span><strong>12 · Balearics, Gibraltar & Canaries</strong><small>21.10.2027 – 06.11.2027 · 17 days · €1,955 pp</small></span></label>
+<label class="trip-choice"><input type="checkbox" data-trip-option data-id="13" data-price="1200"><span><strong>13 · Canaries & Cape Verde</strong><small>07.11.2027 – 18.11.2027 · 12 days · €1,200 pp</small></span></label>
+<label class="trip-choice"><input type="checkbox" data-trip-option data-id="14" data-price="2565"><span><strong>14 · Westbound Atlantic Crossing</strong><small>19.11.2027 – 15.12.2027 · 27 days · €2,565 pp</small></span></label>
+<label class="trip-choice"><input type="checkbox" data-trip-option data-id="15" data-price="4060"><span><strong>15 · BVI Christmas & New Year</strong><small>20.12.2027 – 02.01.2028 · 14 days · €4,060 pp</small></span></label>
+</div><p class="trip-selection-summary" data-trip-summary aria-live="polite"></p><input type="hidden" name="Selected trips" data-selected-trips><input type="hidden" name="Indicative fare" data-price-quote></fieldset>
 
     <label><span>Preferred format *</span><select name="Format preference" required>
       <option value="">Select</option>

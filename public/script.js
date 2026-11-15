@@ -216,66 +216,39 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
  };
 
  const legs=[
-  {name:'Atlantic Crossing East',zoomBoost:.64,labels:['bvi','azores'],coords:[
-   points.bvi,[-61.5,20.2],[-56.0,24.3],[-49.0,29.0],[-41.5,33.2],[-34.5,36.4],points.azores
-  ]},
-  {name:'Atlantic to Mediterranean',zoomBoost:.9,labels:['azores','gibraltar','mallorca','cagliari','palermo'],coords:[
-   points.azores,[-24.0,37.0],[-18.0,35.5],[-11.0,35.6],points.gibraltarSea,
-   [-4.0,36.3],[-1.5,36.8],[0.4,37.6],[1.9,38.7],points.mallorcaSouth,
-   [3.8,39.1],[5.7,39.2],[7.4,39.0],points.cagliariSouth,
-   [10.0,38.6],[11.5,38.35],[12.6,38.22],points.palermoNorth
-  ]},
-  {name:'Mediterranean Expedition East',zoomBoost:2.15,labels:['palermo','crotone','otranto','vlore','corfu','paxos','lefkada'],coords:[
-   points.palermoNorth,[13.8,38.32],[14.5,38.38],[15.15,38.34],points.messinaNorth,
-   [15.72,38.05],[15.95,38.02],[16.18,38.18],[16.45,38.48],[16.78,38.78],points.crotoneEast,
-   [17.65,39.30],[18.15,39.72],points.otrantoEast,
-   [18.85,40.10],[19.10,40.28],points.vloreWest,
-   [19.18,40.05],[19.28,39.82],points.sarandeWest,
-   [19.82,39.72],points.corfuWest,[19.98,39.45],points.paxosWest,[20.28,39.08],[20.48,38.94],points.lefkadaWest
-  ]},
-  {name:'Greek Island Sabbatical',zoomBoost:2.65,labels:['lefkada','ithaca','kefalonia','zakynthos','pylos'],coords:[
-   points.lefkadaWest,[20.57,38.66],[20.58,38.50],points.ithacaWest,
-   [20.64,38.30],points.kefaloniaEastSea,[20.68,38.10],points.kefaloniaSouthSea,
-   [20.72,37.88],points.zakynthosEastSea,points.zakynthosSouthSea,
-   [20.92,37.45],[21.02,37.25],[21.18,37.08],[21.42,36.96],points.pylosWest
-  ]},
-  {name:'Mediterranean Crossing West',zoomBoost:1.08,labels:['pylos','malta','trapani','cagliari','mallorca','gibraltar'],coords:[
-   points.pylosWest,[20.0,36.40],[18.4,36.12],[16.7,35.95],[15.35,35.90],points.maltaWest,
-   [14.05,36.20],[13.55,36.70],[13.05,37.25],[12.65,37.72],points.trapaniWest,
-   [11.95,38.18],[11.00,38.38],[10.15,38.55],[9.55,38.82],points.cagliariSouth,
-   [8.0,38.55],[6.5,38.65],[5.0,38.90],[3.65,39.05],points.mallorcaSouth,
-   [1.45,38.20],[-0.8,37.30],[-2.7,36.50],[-4.35,36.15],points.gibraltarSea
-  ]},
-  {name:'Atlantic Islands',zoomBoost:.9,labels:['gibraltar','canaries','capeVerde'],coords:[
-   points.gibraltar,[-8.6,35.0],[-10.8,33.0],[-12.8,31.0],[-14.7,29.5],points.canaries,
-   [-17.4,25.8],[-19.1,22.2],[-21.2,18.7],points.capeVerde
-  ]},
-  {name:'Atlantic Crossing West',zoomBoost:.78,labels:['capeVerde','bvi'],coords:[
-   points.capeVerde,[-30.0,14.2],[-38.0,14.0],[-46.0,14.6],[-53.5,15.6],[-59.5,17.0],points.bvi
-  ]}
+  {name:en?"Caribbean Start & Bermuda":"Karibikstart & Bermuda",zoomBoost:0.95,labels:["bvi","sxm","bermuda"],coords:[[-64.62,18.42],[-63.1,18.03],[-63.3,22],[-63.7,27],[-64.2,30],[-64.68,32.38]]},
+  {name:en?"Eastbound Atlantic & Azores":"Atlantiküberquerung Ost & Azoren",zoomBoost:0.95,labels:["bermuda","horta","pdl"],coords:[[-64.68,32.38],[-58,33.5],[-51,35.5],[-43,37.5],[-35,38.4],[-28.63,38.53],[-25.67,37.74]]},
+  {name:en?"Azores to the Algarve":"Azoren bis zur Algarve",zoomBoost:0.95,labels:["pdl","lagos"],coords:[[-25.67,37.74],[-20,37.3],[-15,36.8],[-10,36.7],[-8.67,37.1]]},
+  {name:en?"Algarve, Andalusia & Balearics":"Algarve, Andalusien & Balearen",zoomBoost:0.95,labels:["lagos","gib","palma"],coords:[[-8.67,37.1],[-5.35,36.14],[-4.43,36.72],[-1.8,36.8],[0.5,38],[1.42,38.91],[2.65,39.57]]},
+  {name:en?"Mallorca, Menorca & Sardinia":"Mallorca, Menorca & Sardinien",zoomBoost:0.95,labels:["palma","cagliari"],coords:[[2.65,39.57],[4.1,39.9],[6,40.2],[8.2,40],[9.12,39.22]]},
+  {name:en?"Sardinia & Sicily's Islands":"Sardinien & Siziliens Inselwelten",zoomBoost:0.95,labels:["cagliari","catania"],coords:[[9.12,39.22],[10.8,38.6],[12.4,38],[13.36,38.12],[14.8,38.5],[15.09,37.5]]},
+  {name:en?"Southern Italy, Albania & Corfu":"Süditalien, Albanien & Korfu",zoomBoost:0.95,labels:["catania","corfu"],coords:[[15.09,37.5],[16,38],[17.1,39],[18.5,40.1],[19.3,39.9],[19.92,39.62]]},
+  {name:en?"Ionian Islands & Slow Sailing":"Ionische Inseln & Slow Sailing",zoomBoost:1.35,labels:["corfu","lefkada"],coords:[[19.92,39.62],[20.1,39.2],[20.58,38.82],[20.6,38.37],[20.62,37.95],[20.58,38.82]]},
+  {name:en?"Ionian Sea & Peloponnese":"Ionisches Meer & Peloponnes",zoomBoost:1.35,labels:["lefkada","kalamata"],coords:[[20.58,38.82],[20.8,37.75],[21.7,36.95],[21.8,36.8],[22.11,37.04]]},
+  {name:en?"Peloponnese, Gozo & Malta":"Peloponnes, Gozo & Malta",zoomBoost:0.95,labels:["kalamata","malta"],coords:[[22.11,37.04],[20.2,36.4],[18.4,36],[16.2,36],[14.3,36.06],[14.52,35.9]]},
+  {name:en?"Malta, Sicily & Mallorca":"Malta, Sizilien & Mallorca",zoomBoost:0.95,labels:["malta","palma"],coords:[[14.52,35.9],[12.8,37.7],[9.1,39.2],[6,39],[2.65,39.57]]},
+  {name:en?"Balearics, Gibraltar & Canaries":"Balearen, Gibraltar & Kanaren",zoomBoost:0.95,labels:["palma","gib","canaries"],coords:[[2.65,39.57],[1.42,38.91],[-0.5,37],[-5.35,36.14],[-9.5,34],[-12,31],[-15.43,28.12]]},
+  {name:en?"Canaries & Cape Verde":"Kanaren & Kap Verde",zoomBoost:0.95,labels:["canaries","mindelo"],coords:[[-15.43,28.12],[-17.3,25.6],[-20,21],[-24.99,16.89]]},
+  {name:en?"Westbound Atlantic Crossing":"Atlantiküberquerung West",zoomBoost:0.95,labels:["mindelo","bvi"],coords:[[-24.99,16.89],[-32,14.2],[-42,14.5],[-51,15.2],[-60,17],[-64.62,18.42]]},
+  {name:en?"BVI Christmas & New Year":"BVI Weihnachten & Silvester",zoomBoost:1.5,labels:["bvi"],coords:[[-64.62,18.42],[-64.44,18.44],[-64.35,18.52],[-64.73,18.45],[-64.6,18.72],[-64.62,18.42]]}
  ];
-
  const labels=[
-  {key:'bvi',name:'BVI',coord:points.bvi},
-  {key:'azores',name:en?'Azores':'Azoren',coord:points.azores},
-  {key:'gibraltar',name:'Gibraltar',coord:points.gibraltar},
-  {key:'palermo',name:en?'Sicily':'Sizilien',coord:points.palermo},
-  {key:'crotone',name:'Crotone',coord:points.crotone},
-  {key:'otranto',name:'Otranto',coord:points.otranto},
-  {key:'vlore',name:'Vlorë',coord:points.vlore},
-  {key:'corfu',name:en?'Corfu':'Korfu',coord:points.corfu},
-  {key:'paxos',name:'Paxos',coord:points.paxos},
-  {key:'lefkada',name:'Lefkada',coord:points.lefkada},
-  {key:'ithaca',name:en?'Ithaca':'Ithaka',coord:points.ithaca},
-  {key:'kefalonia',name:'Kefalonia',coord:points.kefalonia},
-  {key:'zakynthos',name:'Zakynthos',coord:points.zakynthos},
-  {key:'pylos',name:'Pylos',coord:points.pylos},
-  {key:'malta',name:'Malta',coord:points.malta},
-  {key:'trapani',name:en?'Sicily':'Sizilien',coord:points.trapani},
-  {key:'cagliari',name:en?'Sardinia':'Sardinien',coord:points.cagliari},
-  {key:'mallorca',name:'Mallorca',coord:points.mallorca},
-  {key:'canaries',name:en?'Canaries':'Kanaren',coord:points.canaries},
-  {key:'capeVerde',name:en?'Cape Verde':'Kap Verde',coord:points.capeVerde}
+  {key:"bvi",name:en?"BVI":"BVI",coord:[-64.62,18.42]},
+  {key:"sxm",name:en?"Sint Maarten":"Sint Maarten",coord:[-63.1,18.03]},
+  {key:"bermuda",name:en?"Bermuda":"Bermuda",coord:[-64.68,32.38]},
+  {key:"horta",name:en?"Horta":"Horta",coord:[-28.63,38.53]},
+  {key:"pdl",name:en?"Ponta Delgada":"Ponta Delgada",coord:[-25.67,37.74]},
+  {key:"lagos",name:en?"Lagos":"Lagos",coord:[-8.67,37.1]},
+  {key:"gib",name:en?"Gibraltar":"Gibraltar",coord:[-5.35,36.14]},
+  {key:"palma",name:en?"Palma":"Palma",coord:[2.65,39.57]},
+  {key:"cagliari",name:en?"Cagliari":"Cagliari",coord:[9.12,39.22]},
+  {key:"catania",name:en?"Catania":"Catania",coord:[15.09,37.5]},
+  {key:"corfu",name:en?"Corfu":"Korfu",coord:[19.92,39.62]},
+  {key:"lefkada",name:en?"Lefkada":"Lefkada",coord:[20.58,38.82]},
+  {key:"kalamata",name:en?"Kalamata":"Kalamata",coord:[22.11,37.04]},
+  {key:"malta",name:en?"Malta":"Malta",coord:[14.52,35.9]},
+  {key:"canaries",name:en?"Canaries":"Kanaren",coord:[-15.43,28.12]},
+  {key:"mindelo",name:en?"Mindelo":"Mindelo",coord:[-24.99,16.89]}
  ];
  const cards=[...document.querySelectorAll('[data-route-leg]')];
  const title=document.querySelector('[data-route-map-title]');
@@ -472,4 +445,58 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
       });
     }catch(err){console.error(`My Elli ${key} image load failed`,err);}
   }));
+})();
+
+/* 2027 itinerary: multi-leg selection, quote, and query-string preselection */
+(()=>{
+ const de=(document.documentElement.lang||'de').toLowerCase().startsWith('de');
+ const money=n=>new Intl.NumberFormat(de?'de-DE':'en-GB',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(n);
+ document.querySelectorAll('[data-booking-form]').forEach(form=>{
+  const options=[...form.querySelectorAll('[data-trip-option]')];
+  if(!options.length)return;
+  const chosen=form.querySelector('[data-selected-trips]');
+  const estimate=form.querySelector('[data-price-quote]');
+  const status=form.querySelector('[data-trip-summary]');
+  const cabin=form.querySelector('[data-cabin]');
+  const guests=form.querySelector('[data-guests]');
+  const requested=new URLSearchParams(location.search).get('trip');
+  const optionFromUrl=options.find(item=>item.dataset.id===requested);
+  if(optionFromUrl)optionFromUrl.checked=true;
+  const refresh=()=>{
+   const selected=options.filter(item=>item.checked);
+   const amount=selected.reduce((sum,item)=>sum+Number(item.dataset.price||0),0);
+   const privateCabin=/(Einzelkabine|Private cabin)/i.test(cabin?.value||'');
+   const individual=Math.round(amount*(privateCabin?1.85:1));
+   const headCount=Number(guests?.value||0);
+   const labels=selected.map(item=>item.parentElement?.querySelector('strong')?.textContent?.trim()||item.dataset.id);
+   const indexes=selected.map(item=>options.indexOf(item));
+   const contiguous=indexes.every((idx,i)=>i===0||idx===indexes[i-1]+1);
+   const seaGap=indexes.includes(13)&&indexes.includes(14);
+   chosen.value=labels.join(' | ');
+   estimate.value=selected.length?money(individual)+(de?' pro Person (Richtwert)':' per person (estimate)'):'';
+   if(!selected.length){
+    status.textContent=de?'Bitte mindestens einen Törn auswählen.':'Please select at least one trip.';
+    status.dataset.empty='1';
+    return;
+   }
+   status.dataset.empty='0';
+   let info=(de?selected.length+' Törn(e) ausgewählt · Richtpreis ':'Selected '+selected.length+' trip(s) · indicative fare ')+money(individual)+(de?' pro Person':' per person');
+   if(headCount===1||headCount===2)info+=(de?' · zusammen ':' · combined ')+money(individual*headCount);
+   if(selected.length>1)info+=' · '+(contiguous?(de?'durchgehender Aufenthalt möglich':'continuous stay possible'):(de?'Termine nicht durchgehend':'dates not consecutive'));
+   if(seaGap)info+=' · '+(de?'16.–19.12. sind ein wetterabhängiger Ankunftspuffer':'16–19 Dec is a weather-dependent arrival buffer');
+   status.textContent=info;
+  };
+  options.forEach(opt=>opt.addEventListener('change',refresh));
+  cabin?.addEventListener('change',refresh);
+  guests?.addEventListener('change',refresh);
+  form.addEventListener('submit',event=>{
+   if(options.some(opt=>opt.checked))return;
+   event.preventDefault();
+   event.stopImmediatePropagation();
+   status.textContent=de?'Bitte wähle mindestens einen Törn aus.':'Please choose at least one trip.';
+   status.dataset.empty='1';
+   status.scrollIntoView({behavior:'smooth',block:'center'});
+  },true);
+  refresh();
+ });
 })();
