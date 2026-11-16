@@ -301,3 +301,9 @@
 .hero-workation-de .hero-copy>p:not(.hero-human){max-width:570px;font-size:1.015rem;line-height:1.7;text-wrap:pretty}
 .hero-workation-de .hero-media img{object-position:52% center}
 @media(max-width:650px){.hero-workation-de .hero-copy h1{font-size:clamp(2.8rem,10.5vw,4.4rem);line-height:1.03}.hero-workation-de .hero-copy>p:not(.hero-human){font-size:.92rem;max-width:100%}}
+.infra-fit-note{max-width:940px;margin:28px 0 0;padding:20px 24px;border:1px solid rgba(255,255,255,.22);border-radius:18px;background:rgba(255,255,255,.06);color:#d4e3e3;font-size:.93rem;line-height:1.75}
+.infra-fit-note strong{color:white}
+.infra-fit-note a{color:#f6c18e;font-weight:800;text-underline-offset:4px}
+.format-recommendations article>a.stage-detail-link{background:transparent;color:#16464e;border:1px solid rgba(22,70,78,.26);margin-top:10px}
+.trip-leg[id^="etappe-"]{scroll-margin-top:95px}
+@media(max-width:650px){.infra-fit-note{padding:17px 18px;font-size:.85rem}.format-recommendations article>a{width:100%;justify-content:center;text-align:center}}
