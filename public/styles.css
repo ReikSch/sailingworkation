@@ -205,3 +205,17 @@
 .trip-selection-summary{margin:16px 0 0!important;padding:12px 13px;background:rgba(34,154,159,.08);border-radius:12px;font-size:.8rem!important;line-height:1.5!important;font-weight:700}
 .trip-selection-summary[data-empty="1"]{background:rgba(168,88,55,.09)}
 @media(max-width:700px){.trip-choice-grid{grid-template-columns:1fr}.form-grid .trip-picker{grid-column:auto;padding:15px}}
+
+/* 2027 featured multi-leg packages */
+.trips-tease .section-head{max-width:1050px}
+.trips-tease-intro{max-width:720px;margin:18px 0 32px;color:#637c81;line-height:1.65}
+.trips-tease .trip{display:flex;flex-direction:column;min-height:365px}
+.trip-card-meta{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:22px;padding:13px 0;border-top:1px solid rgba(7,31,42,.15);border-bottom:1px solid rgba(7,31,42,.15)}
+.trip-card-meta b{font-size:.64rem;line-height:1.45;color:#395d62;max-width:58%}
+.trip-card-meta strong{font-size:1.1rem;color:#07313b;white-space:nowrap}
+.trips-tease .trip h3{font-size:clamp(1.35rem,2.05vw,2rem);line-height:1.1;margin:24px 0 12px}
+.trips-tease .trip p{margin:0 0 24px}
+.trips-tease .trip a{margin-top:auto}
+.trips-price-note{color:#637c81;font-size:.7rem;line-height:1.55;margin:16px 0 0}
+@media(max-width:1000px){.trips-tease .trip{min-height:385px}.trip-card-meta{display:block}.trip-card-meta strong{display:block;margin-top:8px}}
+@media(max-width:680px){.trips-tease .trip{min-height:auto}.trip-card-meta{display:flex}.trip-card-meta strong{margin-top:0}}
