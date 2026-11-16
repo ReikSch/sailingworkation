@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#092b38"><title>Caribbean Sailing Trips 2028 | Sailing Workation</title><meta name="description" content="12 Caribbean sailing legs 2028, BVI to Panama. Workation and Sabbatical routes, 21–35 days, distances, prices and enquiries."><link rel="canonical" href="https://sailingworkation.com/en/2028/"><link rel="alternate" hreflang="de" href="https://sailingworkation.com/2028/"><link rel="alternate" hreflang="en" href="https://sailingworkation.com/en/2028/"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><meta property="og:type" content="website"><meta property="og:title" content="Caribbean Sailing Trips 2028 | Sailing Workation"><meta property="og:description" content="12 Caribbean sailing legs 2028, BVI to Panama. Workation and Sabbatical routes, 21–35 days, distances, prices and enquiries."><meta property="og:image" content="https://sailingworkation.com/assets/images/work-hero.webp"><meta property="og:url" content="https://sailingworkation.com/en/2028/"><style>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#061f2a"><title>Caribbean Sailing Trips 2028 | Sailing Workation</title><meta name="description" content="12 Caribbean sailing legs 2028, BVI to Panama. Workation and Sabbatical routes, 21–35 days, distances, prices and enquiries."><link rel="canonical" href="https://sailingworkation.com/en/2028/"><link rel="alternate" hreflang="de" href="https://sailingworkation.com/2028/"><link rel="alternate" hreflang="en" href="https://sailingworkation.com/en/2028/"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><meta property="og:type" content="website"><meta property="og:title" content="Caribbean Sailing Trips 2028 | Sailing Workation"><meta property="og:description" content="12 Caribbean sailing legs 2028, BVI to Panama. Workation and Sabbatical routes, 21–35 days, distances, prices and enquiries."><meta property="og:image" content="https://sailingworkation.com/assets/images/work-hero.webp"><meta property="og:url" content="https://sailingworkation.com/en/2028/"><style>
 :root{--bg:#f3f5f3;--paper:#fff;--ink:#122f39;--mute:#5a7278;--edge:#dce7e5;--accent:#e9b782;--accentink:#27353b;--navy:#092b38;--soft:#eef2ed;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);line-height:1.55}a{color:inherit}button,input,select,textarea{font:inherit}.plan28-shell{width:min(1190px,calc(100% - 44px));margin-inline:auto}
 .plan28-top{position:relative;z-index:5;background:#092b38;color:#fff;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:12px max(22px,calc((100vw - 1190px)/2));min-height:85px}
@@ -80,6 +80,51 @@
 #plan28-map .map28-svg{width:720px;min-width:720px;max-width:none}
 .plan28-mapnote:after{content:"  ↔ Auf dem Handy lässt sich die Karte seitlich verschieben."}}
 
+
+/* Readable, restrained itinerary focus — coastal geography stays in context */
+#plan28-map .map28-svg{display:block;width:100%;height:auto;min-height:unset;aspect-ratio:1280/700}
+.map28-route.active .map28-route-halo{stroke-width:17;stroke-opacity:1}
+.map28-route.active .map28-route-stroke{stroke-width:10;stroke-dasharray:none;filter:url(#map28-shadow)}
+.map28-route.dimmed,.map28-marker.dimmed{opacity:.32}
+.map28-marker.active circle{stroke-width:4;fill:#153e4b}
+.plan28-current{background:#edf5f3;padding:9px 12px;border-radius:12px;display:inline-block;align-self:flex-start;color:#0b5867}
+.plan28-leg.plan28-selected{border-color:#8cbcb6;box-shadow:0 10px 32px #0e667322}
+.plan28-maphead small{color:#4b6b71}
+
+/* Workation identity: marine navy, turquoise and coral — no mustard/beige carryover */
+.plan28-workation{--accent:#73dad5;--accentink:#092e3a;--bg:#eef5f5;--soft:#e5f2f2;--edge:#cbdcde;--mute:#476a73;--navy:#061f2a}
+.plan28-workation .plan28-top,.plan28-workation .plan28-footer{background:#061f2a}
+.plan28-workation .plan28-hero{background:#073846}
+.plan28-workation .plan28-hero:before{background:linear-gradient(90deg,rgba(3,27,36,.9),rgba(4,46,56,.68) 56%,rgba(3,33,46,.3)),var(--hero) center 52%/cover no-repeat}
+.plan28-workation .plan28-kicker{color:#0c7785}
+.plan28-workation .plan28-hero .plan28-kicker{color:#8ce8dd}
+.plan28-workation .plan28-yearbar{background:#f0f7f7}
+.plan28-workation .plan28-intro aside{background:#e5f3f1;border-color:#c9e5e0}
+.plan28-workation .plan28-notes{background:#082e3a}
+.plan28-workation .plan28-notes article{background:#104554;border-color:#30626c}
+.plan28-workation .plan28-maintenance{background:#114656;border-color:#40707b}
+.plan28-workation .plan28-inquiry{background:#e3eff0}
+.plan28-workation .plan28-inquiryform{border-color:#c9e3e4}
+.plan28-workation .plan28-maprail{border-color:#c5dde0;background:#f8fcfc}
+.plan28-workation .plan28-maplegend i{background:#098997}
+.plan28-workation .plan28-maplegend i.sabbatical{background:#d9805b}
+.plan28-workation .plan28-focus{color:#006b77;background:#ddf3f0}
+.plan28-workation .plan28-focus.sabbatical{color:#965035;background:#fce7dc}
+.plan28-workation .plan28-meta .price{background:#e0f5f1;color:#075e65;border-color:#b3dfd9}
+.plan28-workation .plan28-cardcta{color:#006d82}
+.plan28-workation .map28-route.workation .map28-route-stroke{stroke:#058b99}
+.plan28-workation .map28-route.sabbatical .map28-route-stroke{stroke:#d9805b}
+.plan28-workation .map28-marker.workation circle{stroke:#058b99}
+.plan28-workation .map28-marker.sabbatical circle{stroke:#d9805b}
+.plan28-workation .map28-land{fill:#d3e3d8;stroke:#8eb0ac}
+.plan28-workation .map28-place.small{stroke:#e2eee9;fill:#39666e}
+.plan28-workation .map28-place.large{stroke:#caddd8;fill:#567f85}
+.plan28-workation .map28-grid{stroke:#e6f6f4;stroke-opacity:.65}
+.plan28-workation #map28-ocean stop:first-child{stop-color:#a8d4d8}
+.plan28-workation #map28-ocean stop:nth-child(2){stop-color:#91c7d1}
+.plan28-workation #map28-ocean stop:last-child{stop-color:#6faabc}
+.plan28-workation .plan28-current{background:#e1f2f1;color:#065965}
+
 </style></head>
  <body class="plan28-workation">
  <header class="plan28-top"><a class="plan28-brand" href="/en/" aria-label="Sailing Workation"><img src="/assets/brand/sailing-workation-logo-new.webp?v=1" alt="Sailing Workation"></a><nav class="plan28-nav" aria-label="Main navigation"><a href="/en/trips/">2027 trips</a><a href="/en/2028/" aria-current="page">2028 season</a><a href="https://sailingsabbatical.com/">Prefer to unplug? ↗</a><a href="/2028/" hreflang="de">DE</a><a class="outline" href="#2028-anfrage">Send enquiry</a></nav></header>
@@ -99,7 +144,7 @@
 <article class="plan28-leg" id="plan28-leg-09" data-plan28-focus="sabbatical"><div class="plan28-number">09</div><div><div class="plan28-cardtop"><span class="plan28-focus sabbatical">SABBATICAL</span><span>18 Aug–21 Sep 2028</span></div><h3>Aruba to Colombia’s coast</h3><p class="plan28-route">Aruba → Cabo de la Vela → Santa Marta → Cartagena</p><p class="plan28-desc">Five weeks including demanding passages and weather reserves. Coastal stops depend on seas, clearance and local conditions.</p><div class="plan28-meta"><span>35 days</span><span>380–520 nm</span><span class="price">Indicative price pp: 3.990 €</span></div><a class="plan28-cardcta" href="#2028-anfrage" data-plan28-stage="09">Enquire about this leg →</a> <button type="button" data-plan28-mapstage="09" style="border:0;background:transparent;color:#6d898d;font-size:12px;font-weight:750;cursor:pointer;padding:6px 0 6px 12px;">Show on map</button></div></article>
 <article class="plan28-leg" id="plan28-leg-10" data-plan28-focus="workation"><div class="plan28-number">10</div><div><div class="plan28-cardtop"><span class="plan28-focus workation">WORKATION</span><span>24 Sep–21 Oct 2028</span></div><h3>Colombia’s island worlds</h3><p class="plan28-route">Cartagena → Islas del Rosario → San Bernardo → Cartagena</p><p class="plan28-desc">A deliberately slow month around Cartagena with longer anchor stays. Work connectivity and local charter rules will be checked ahead.</p><div class="plan28-meta"><span>28 days</span><span>100–160 nm</span><span class="price">Indicative price pp: 3.250 €</span></div><a class="plan28-cardcta" href="#2028-anfrage" data-plan28-stage="10">Enquire about this leg →</a> <button type="button" data-plan28-mapstage="10" style="border:0;background:transparent;color:#6d898d;font-size:12px;font-weight:750;cursor:pointer;padding:6px 0 6px 12px;">Show on map</button></div></article>
 <article class="plan28-leg" id="plan28-leg-11" data-plan28-focus="sabbatical"><div class="plan28-number">11</div><div><div class="plan28-cardtop"><span class="plan28-focus sabbatical">SABBATICAL</span><span>24 Oct–27 Nov 2028</span></div><h3>Colombia to San Blas</h3><p class="plan28-route">Cartagena → Karibikküste → Guna-Yala-Archipel</p><p class="plan28-desc">After the coastal passage, we spend many days among the San Blas islands. A genuine break, not a schedule full of video calls.</p><div class="plan28-meta"><span>35 days</span><span>220–320 nm</span><span class="price">Indicative price pp: 3.850 €</span></div><a class="plan28-cardcta" href="#2028-anfrage" data-plan28-stage="11">Enquire about this leg →</a> <button type="button" data-plan28-mapstage="11" style="border:0;background:transparent;color:#6d898d;font-size:12px;font-weight:750;cursor:pointer;padding:6px 0 6px 12px;">Show on map</button></div></article>
-<article class="plan28-leg" id="plan28-leg-12" data-plan28-focus="sabbatical"><div class="plan28-number">12</div><div><div class="plan28-cardtop"><span class="plan28-focus sabbatical">SABBATICAL</span><span>30 Nov 2028–3 Jan 2029</span></div><h3>San Blas to Bocas del Toro</h3><p class="plan28-route">San Blas → Portobelo / Linton Bay → Bocas del Toro</p><p class="plan28-desc">Five weeks among islands and Panama’s Caribbean coast. Christmas and New Year aboard together; the trip finishes in Bocas del Toro.</p><div class="plan28-meta"><span>35 days</span><span>220–330 nm</span><span class="price">Indicative price pp: 4.550 €</span></div><a class="plan28-cardcta" href="#2028-anfrage" data-plan28-stage="12">Enquire about this leg →</a> <button type="button" data-plan28-mapstage="12" style="border:0;background:transparent;color:#6d898d;font-size:12px;font-weight:750;cursor:pointer;padding:6px 0 6px 12px;">Show on map</button></div></article></div><aside class="plan28-maprail"><div class="plan28-maphead"><strong>Explore the route</strong><small>Tap a colored route or a stage number to view its details.</small><div class="plan28-current" data-plan28-current>Full 2028 route</div></div><div class="plan28-maplegend"><span><i></i>Workation</span><span><i class="sabbatical"></i>Sabbatical</span><button type="button" data-plan28-reset-map>Show full route ↗</button></div><div id="plan28-map" role="region" aria-label="Interactive Caribbean overview map"><svg class="map28-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 700" aria-label="Geografische Karte der Karibik mit zwölf farbigen Segelstrecken von den British Virgin Islands bis Panama" role="group">
+<article class="plan28-leg" id="plan28-leg-12" data-plan28-focus="sabbatical"><div class="plan28-number">12</div><div><div class="plan28-cardtop"><span class="plan28-focus sabbatical">SABBATICAL</span><span>30 Nov 2028–3 Jan 2029</span></div><h3>San Blas to Bocas del Toro</h3><p class="plan28-route">San Blas → Portobelo / Linton Bay → Bocas del Toro</p><p class="plan28-desc">Five weeks among islands and Panama’s Caribbean coast. Christmas and New Year aboard together; the trip finishes in Bocas del Toro.</p><div class="plan28-meta"><span>35 days</span><span>220–330 nm</span><span class="price">Indicative price pp: 4.550 €</span></div><a class="plan28-cardcta" href="#2028-anfrage" data-plan28-stage="12">Enquire about this leg →</a> <button type="button" data-plan28-mapstage="12" style="border:0;background:transparent;color:#6d898d;font-size:12px;font-weight:750;cursor:pointer;padding:6px 0 6px 12px;">Show on map</button></div></article></div><aside class="plan28-maprail"><div class="plan28-maphead"><strong>Explore the route</strong><small>Tap a colored route or a stage number to view its details.</small><div class="plan28-current" data-plan28-current>Full 2028 route</div></div><div class="plan28-maplegend"><span><i></i>Workation</span><span><i class="sabbatical"></i>Sabbatical</span><button type="button" data-plan28-reset-map>Show full route ↗</button></div><div id="plan28-map" role="region" aria-label="Interactive Caribbean overview map"><svg class="map28-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 700" aria-label="Geographic map of the Caribbean, with twelve colored sailing routes from the British Virgin Islands to Panama" role="group">
 <defs><linearGradient id="map28-ocean" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#b5dfdf"/><stop offset="55%" stop-color="#93cad2"/><stop offset="100%" stop-color="#70b3c5"/></linearGradient><linearGradient id="map28-land" x1="0" y1="0" x2="0.9" y2="1"><stop offset="0%" stop-color="#e9e9d3"/><stop offset="100%" stop-color="#c5d8bb"/></linearGradient><filter id="map28-shadow" x="-15%" y="-15%" width="130%" height="130%"><feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="#225a68" flood-opacity=".22"/></filter></defs>
 <rect width="1280" height="700" fill="url(#map28-ocean)"/>
 <line class="map28-grid" x1="0" x2="1280" y1="650" y2="650"/><text class="map28-degree" x="14" y="645">8° N</text>
@@ -219,89 +264,106 @@
 <option value="12 · San Blas to Bocas del Toro">12 · San Blas to Bocas del Toro (30 Nov 2028–3 Jan 2029)</option></select></label><label class="full">Other legs or wishes (optional)<input name="Additional legs" type="text" placeholder="e.g. 04 and 05"></label><label class="full">What matters to you aboard? (optional)<textarea name="Message" rows="4" placeholder="Work schedule, experience, preferences…"></textarea></label></div><label class="plan28-terms"><input type="checkbox" required><span>I have read the privacy policy. <a href="/en/privacy/" target="_blank" rel="noopener noreferrer">Privacy policy</a></span></label><input type="text" name="_honey" class="plan28-honey" tabindex="-1" autocomplete="off"><input type="hidden" name="Saison" value="2028"><input type="hidden" name="Marke" value="Sailing Workation"><input type="hidden" name="_captcha" value="false"><input type="hidden" name="_template" value="table"><input type="hidden" name="_subject" value="Sailing Workation – 2028 enquiry"><input type="hidden" name="_next" value="https://sailingworkation.com/en/thank-you/"><button class="plan28-btn" type="submit">Send enquiry</button><p class="plan28-formnote">We select our crew personally. This is an enquiry, not a booking or a payment. A place becomes confirmed only after we accept you and the agreed deposit is received.</p></form></div></section></main>
  <footer class="plan28-footer"><div class="plan28-shell plan28-footflex"><div><strong>Sailing Workation</strong><br><small>One boat. Two ways to enjoy more time.</small></div><div><a href="/en/trips/">2027 trips</a><a href="/en/">Home</a><a href="https://sailingsabbatical.com/">Sailing Sabbatical</a><a href="/en/privacy/">Privacy</a><a href="/en/legal-notice/">Legal notice</a></div></div></footer><script type="application/json" id="plan28-points">[{"n":"01","title":"BVI & USVI – island time","days":21,"miles":"70–130","focus":"workation","pos":[18.42,-64.63]},{"n":"02","title":"From the BVIs to St. Martin","days":25,"miles":"110–180","focus":"sabbatical","pos":[18.07,-63.06]},{"n":"03","title":"Leeward island discoveries","days":26,"miles":"130–200","focus":"sabbatical","pos":[17.05,-61.76]},{"n":"04","title":"Guadeloupe & the French Caribbean","days":21,"miles":"120–190","focus":"workation","pos":[15.5,-61.32]},{"n":"05","title":"Slow sailing through the Grenadines","days":25,"miles":"160–240","focus":"workation","pos":[12.64,-61.36]},{"n":"06","title":"Offshore adventure to Bonaire","days":27,"miles":"390–520","focus":"sabbatical","pos":[12.16,-68.27]},{"n":"07","title":"Bonaire & Curaçao","days":28,"miles":"60–110","focus":"workation","pos":[12.11,-68.93]},{"n":"08","title":"Curaçao to Aruba","days":28,"miles":"80–130","focus":"workation","pos":[12.51,-70.04]},{"n":"09","title":"Aruba to Colombia’s coast","days":35,"miles":"380–520","focus":"sabbatical","pos":[11.24,-74.21]},{"n":"10","title":"Colombia’s island worlds","days":28,"miles":"100–160","focus":"workation","pos":[10.18,-75.75]},{"n":"11","title":"Colombia to San Blas","days":35,"miles":"220–320","focus":"sabbatical","pos":[9.55,-78.8]},{"n":"12","title":"San Blas to Bocas del Toro","days":35,"miles":"220–330","focus":"sabbatical","pos":[9.34,-82.24]}]</script><script type="application/json" id="plan28-routes">[{"n":"01","focus":"workation","de":"BVI & USVI – Inselzeit","en":"BVI & USVI – Inselzeit","coords":[[18.38,-64.65],[18.34,-64.55],[18.38,-64.35],[18.46,-64.27],[18.72,-64.39],[18.58,-64.58],[18.54,-64.8],[18.44,-64.76],[18.31,-64.82],[18.3,-64.71],[18.38,-64.65]]},{"n":"02","focus":"sabbatical","de":"Von den BVIs nach St. Martin","en":"Von den BVIs nach St. Martin","coords":[[18.38,-64.65],[18.36,-64.24],[18.31,-63.54],[18.31,-63.28],[18.05,-63.34],[17.82,-63.16],[17.88,-62.86]]},{"n":"03","focus":"sabbatical","de":"Inseln unter dem Wind","en":"Inseln unter dem Wind","coords":[[17.88,-62.86],[18.04,-63.1],[17.62,-63.27],[17.47,-63.03],[17.28,-63.04],[17.12,-62.66],[17.02,-62.62],[17,-61.81]]},{"n":"04","focus":"workation","de":"Guadeloupe & die französische Karibik","en":"Guadeloupe & die französische Karibik","coords":[[17,-61.81],[16.35,-61.86],[16.26,-61.94],[16.02,-61.85],[15.86,-61.62],[15.59,-61.51],[15.3,-61.48],[14.73,-61.2],[14.58,-61.23],[14.37,-61.16],[14.44,-60.89]]},{"n":"05","focus":"workation","de":"Grenadinen mit viel Zeit","en":"Grenadinen mit viel Zeit","coords":[[14.44,-60.89],[14.08,-60.98],[13.88,-61.14],[13.5,-61.5],[13.08,-61.52],[12.96,-61.26],[12.64,-61.36],[12.46,-61.49],[12.34,-61.86],[12.04,-61.78]]},{"n":"06","focus":"sabbatical","de":"Offshore-Abenteuer nach Bonaire","en":"Offshore-Abenteuer nach Bonaire","coords":[[12.04,-61.78],[12.38,-62.1],[12.62,-63.1],[12.66,-64.7],[12.66,-66.4],[12.6,-67.65],[12.46,-68.14],[12.28,-68.44],[12.16,-68.3]]},{"n":"07","focus":"workation","de":"Bonaire & Curaçao","en":"Bonaire & Curaçao","coords":[[12.16,-68.3],[12.13,-68.38],[12,-68.76],[12.04,-68.98],[12.08,-68.96]]},{"n":"08","focus":"workation","de":"Curaçao → Aruba","en":"Curaçao → Aruba","coords":[[12.08,-68.96],[12.03,-69.06],[12.07,-69.24],[12.29,-69.45],[12.43,-69.94],[12.43,-70.06],[12.49,-70.07]]},{"n":"09","focus":"sabbatical","de":"Aruba zur kolumbianischen Küste","en":"Aruba zur kolumbianischen Küste","coords":[[12.49,-70.07],[12.7,-70.75],[12.78,-71.6],[12.68,-72.26],[12.21,-72.18],[12.09,-72.72],[11.76,-73.5],[11.31,-74.29],[11.24,-74.21],[11.35,-74.6],[11.25,-75],[10.83,-75.44],[10.45,-75.69],[10.4,-75.59]]},{"n":"10","focus":"workation","de":"Kolumbiens Inselwelten","en":"Kolumbiens Inselwelten","coords":[[10.4,-75.59],[10.31,-75.7],[10.19,-75.77],[9.77,-75.85],[9.98,-76.04],[10.31,-75.93],[10.45,-75.63],[10.4,-75.59]]},{"n":"11","focus":"sabbatical","de":"Kolumbien → San Blas","en":"Kolumbien → San Blas","coords":[[10.4,-75.59],[10.52,-76.1],[10.36,-77.1],[10.11,-78.1],[9.78,-78.6],[9.55,-78.8]]},{"n":"12","focus":"sabbatical","de":"San Blas → Bocas del Toro","en":"San Blas → Bocas del Toro","coords":[[9.55,-78.8],[9.62,-79.24],[9.72,-79.4],[9.75,-79.74],[9.73,-80.18],[9.75,-81.04],[9.6,-81.65],[9.46,-82.03],[9.35,-82.21]]}]</script><script>
 (()=>{
+ 'use strict';
+ const mapBox=document.getElementById('plan28-map');
+ const svg=mapBox?.querySelector('svg.map28-svg');
+ if(!mapBox||!svg)return;
  const cards=[...document.querySelectorAll('[data-plan28-focus]')];
  const filters=[...document.querySelectorAll('[data-plan28-filter]')];
  const stageSelect=document.getElementById('plan28-stage-select');
- const isEnglish=document.documentElement.lang==='en';
- const mapBox=document.getElementById('plan28-map');
- const svg=mapBox?.querySelector('.map28-svg');
- const routeEls=[...document.querySelectorAll('[data-map28-leg]')];
- const markerEls=[...document.querySelectorAll('[data-map28-choose]')];
- const resetBtn=document.querySelector('[data-plan28-reset-map]');
+ const routeEls=[...mapBox.querySelectorAll('[data-map28-leg]')];
+ const markerEls=[...mapBox.querySelectorAll('[data-map28-choose]')];
  const mapTitle=document.querySelector('[data-plan28-current]');
- const pointNodes=JSON.parse(document.getElementById('plan28-points').textContent);
- const legMeta=Object.fromEntries(pointNodes.map(p=>[p.n,p]));
- let selected=null,filter='all';
- const origin='0 0 1280 700';
- const legTitle=n=>legMeta[n]?.title||n;
- function render(){
-  routeEls.forEach(el=>{
-   const n=el.dataset.map28Leg;
-   const focus=legMeta[n]?.focus||'sabbatical';
-   el.classList.toggle('active',selected===n);
-   el.classList.toggle('dimmed',selected?selected!==n:filter!=='all'&&focus!==filter);
-  });
-  markerEls.forEach(el=>{
-   const n=el.dataset.map28Choose;
-   const focus=legMeta[n]?.focus||'sabbatical';
-   el.classList.toggle('active',selected===n);
-   el.classList.toggle('dimmed',selected?selected!==n:filter!=='all'&&focus!==filter);
-  });
+ const resetBtn=document.querySelector('[data-plan28-reset-map]');
+ const english=document.documentElement.lang==='en';
+ const meta=JSON.parse(document.getElementById('plan28-points').textContent);
+ const routes=JSON.parse(document.getElementById('plan28-routes').textContent);
+ const details=Object.fromEntries(meta.map(m=>[m.n,m]));
+ const segments=Object.fromEntries(routes.map(r=>[r.n,r]));
+ let active=null,currentFilter='all';
+ const originalView='0 0 1280 700';
+ const mapCoordinates=coords=>coords.map(([lat,lon])=>[(lon+84)*1280/25,(21-lat)*700/14]);
+ const drawFocus=()=>{
+   for(const el of routeEls){
+     const n=el.dataset.map28Leg;
+     el.classList.toggle('active',n===active);
+     el.classList.toggle('dimmed',active?n!==active:currentFilter!=='all'&&details[n]?.focus!==currentFilter);
+   }
+   for(const el of markerEls){
+     const n=el.dataset.map28Choose;
+     el.classList.toggle('active',n===active);
+     el.classList.toggle('dimmed',active?n!==active:currentFilter!=='all'&&details[n]?.focus!==currentFilter);
+   }
+   cards.forEach(c=>c.classList.toggle('plan28-selected',c.id==='plan28-leg-'+active));
+ };
+ function focusView(n){
+   const coords=segments[n]?.coords;
+   if(!Array.isArray(coords)||coords.length<2)return;
+   const projected=mapCoordinates(coords);
+   const bounds={
+     minX:Math.min(...projected.map(p=>p[0])),maxX:Math.max(...projected.map(p=>p[0])),
+     minY:Math.min(...projected.map(p=>p[1])),maxY:Math.max(...projected.map(p=>p[1]))
+   };
+   // Keep most of the Caribbean visible: never zoom down to one marker or a tiny stretch of sea.
+   const w=1020,h=w*700/1280;
+   const centerX=(bounds.minX+bounds.maxX)/2;
+   const centerY=(bounds.minY+bounds.maxY)/2;
+   const left=Math.max(0,Math.min(1280-w,centerX-w/2));
+   const top=Math.max(0,Math.min(700-h,centerY-h/2));
+   svg.setAttribute('viewBox', [left.toFixed(1),top.toFixed(1),w,h.toFixed(1)].join(' '));
  }
- function selectLeg(n,zoom,scroll){
-  const route=routeEls.find(el=>el.dataset.map28Leg===n);
-  if(!route||!svg)return;
-  const card=document.getElementById('plan28-leg-'+n);
-  if(card?.hidden){filters.find(b=>b.dataset.plan28Filter==='all')?.click();}
-  selected=n;
-  render();
-  if(mapTitle)mapTitle.textContent=n+' · '+legTitle(n);
-  if(zoom){
-   const path=route.querySelector('.map28-route-stroke');
-   const bb=path.getBBox();
-   let w=Math.max(385,bb.width+150),h=Math.max(215,bb.height+125);
-   const ratio=1280/700;
-   if(w/h<ratio)w=h*ratio;else h=w/ratio;
-   w=Math.min(1280,w);h=Math.min(700,h);
-   const x=Math.max(0,Math.min(1280-w,bb.x+bb.width/2-w/2));
-   const y=Math.max(0,Math.min(700-h,bb.y+bb.height/2-h/2));
-   svg.setAttribute('viewBox',[x.toFixed(1),y.toFixed(1),w.toFixed(1),h.toFixed(1)].join(' '));
-  }
-  if(card){
-   card.classList.add('highlight');
-   window.setTimeout(()=>card.classList.remove('highlight'),1250);
-   if(scroll)card.scrollIntoView({behavior:'smooth',block:'center'});
-  }
+ function allVisible(){
+   active=null;
+   svg.setAttribute('viewBox',originalView);
+   if(mapTitle)mapTitle.textContent=english?'Entire 2028 route · 12 stages':'Gesamte Route 2028 · 12 Etappen';
+   drawFocus();
  }
- function reset(){
-  selected=null;svg?.setAttribute('viewBox',origin);render();
-  if(mapTitle)mapTitle.textContent=isEnglish?'Full 2028 route':'Gesamtroute 2028';
+ function choose(n,scrollMap=false){
+   if(!segments[n]||!details[n])return;
+   const card=document.getElementById('plan28-leg-'+n);
+   if(card?.hidden)filters.find(b=>b.dataset.plan28Filter==='all')?.click();
+   active=n;
+   const leg=details[n];
+   if(mapTitle)mapTitle.textContent=n+' · '+leg.title+' · '+leg.miles+(english?' nm':' sm');
+   focusView(n);
+   drawFocus();
+   if(scrollMap){
+     mapBox.scrollIntoView({behavior:'smooth',block:'center'});
+   }
+   if(card){
+     card.classList.add('highlight');
+     window.setTimeout(()=>card.classList.remove('highlight'),1200);
+   }
  }
  filters.forEach(b=>b.addEventListener('click',()=>{
-  filter=b.dataset.plan28Filter;
-  filters.forEach(f=>f.setAttribute('aria-pressed',String(f===b)));
-  cards.forEach(c=>{c.hidden=filter!=='all'&&c.dataset.plan28Focus!==filter;});
-  render();
+   currentFilter=b.dataset.plan28Filter;
+   filters.forEach(f=>f.setAttribute('aria-pressed',String(f===b)));
+   cards.forEach(card=>{card.hidden=currentFilter!=='all'&&card.dataset.plan28Focus!==currentFilter;});
+   if(active&&currentFilter!=='all'&&details[active]?.focus!==currentFilter){
+     active=null;svg.setAttribute('viewBox',originalView);
+     if(mapTitle)mapTitle.textContent=english?'Full 2028 route':'Gesamtroute 2028';
+   }
+   drawFocus();
  }));
  document.querySelectorAll('[data-plan28-stage]').forEach(a=>a.addEventListener('click',()=>{
-  if(stageSelect)stageSelect.value=a.dataset.plan28Stage;
+   if(stageSelect)stageSelect.value=a.dataset.plan28Stage;
  }));
- function pickFrom(el){
-  const n=el.closest('[data-map28-leg]')?.dataset.map28Leg||el.closest('[data-map28-choose]')?.dataset.map28Choose;
-  if(n)selectLeg(n,true,true);
- }
- mapBox?.addEventListener('click',e=>{if(e.target.closest('[data-map28-leg],[data-map28-choose]'))pickFrom(e.target);});
- mapBox?.addEventListener('keydown',e=>{
-  if(e.key==='Enter'||e.key===' '){
-   if(e.target.closest('[data-map28-leg],[data-map28-choose]')){e.preventDefault();pickFrom(e.target);}
-  }
+ resetBtn?.addEventListener('click',allVisible);
+ mapBox.addEventListener('click',e=>{
+   const found=e.target?.closest?.('[data-map28-leg],[data-map28-choose]');
+   if(found)choose(found.dataset.map28Leg||found.dataset.map28Choose);
  });
- resetBtn?.addEventListener('click',reset);
- document.querySelectorAll('[data-plan28-mapstage]').forEach(btn=>btn.addEventListener('click',()=>{
-  selectLeg(btn.dataset.plan28Mapstage,true,false);
-  mapBox?.scrollIntoView({behavior:'smooth',block:'center'});
- }));
- // The coastlines and every route are embedded in the page: visible on first paint, offline.
- render();
+ mapBox.addEventListener('keydown',e=>{
+   if(e.key==='Enter'||e.key===' '){
+     const found=e.target?.closest?.('[data-map28-leg],[data-map28-choose]');
+     if(found){e.preventDefault();choose(found.dataset.map28Leg||found.dataset.map28Choose);}
+   }
+ });
+ document.querySelectorAll('[data-plan28-mapstage]').forEach(b=>b.addEventListener('click',()=>choose(b.dataset.plan28Mapstage,true)));
+ // Show the entire route before any interaction; no remote tiles, frameworks or map initialization required.
+ allVisible();
+ if(window.matchMedia&&window.matchMedia('(max-width:650px)').matches){
+   mapBox.scrollLeft=mapBox.scrollWidth-mapBox.clientWidth;
+ }
 })();
 </script></body></html>
