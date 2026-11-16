@@ -643,30 +643,37 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
   const status=form.querySelector('[data-trip-summary]');
   const cabin=form.querySelector('[data-cabin]');
   const guests=form.querySelector('[data-guests]');
-  const requested=new URLSearchParams(location.search).get('trip');
-  const optionFromUrl=options.find(item=>item.dataset.id===requested);
-  if(optionFromUrl)optionFromUrl.checked=true;
-  else if(disclosure)disclosure.open=true;
+  const query=new URLSearchParams(location.search);
+  const requested=(query.get('trips')||query.get('trip')||'').split(',').map(id=>id.trim());
+  const matches=options.filter(item=>requested.includes(item.dataset.id));
+  matches.forEach(item=>{item.checked=true;});
+  if(!matches.length&&disclosure)disclosure.open=true;
   const refresh=()=>{
    const selected=options.filter(item=>item.checked);
    const amount=selected.reduce((sum,item)=>sum+Number(item.dataset.price||0),0);
    const privateCabin=/(Einzelkabine|Private cabin)/i.test(cabin?.value||'');
    const individual=Math.round(amount*(privateCabin?1.85:1));
+   const sailingDays=selected.reduce((sum,item)=>{
+    const match=item.parentElement?.querySelector('small')?.textContent?.match(/(\d+)\s*(?:Tage|days)/i);
+    return sum+(match?Number(match[1]):0);
+   },0);
+   const onboardFund=Math.round(sailingDays*200/7/10)*10;
    const headCount=Number(guests?.value||0);
    const labels=selected.map(item=>item.parentElement?.querySelector('strong')?.textContent?.trim()||item.dataset.id);
    const indexes=selected.map(item=>options.indexOf(item));
    const contiguous=indexes.every((idx,i)=>i===0||idx===indexes[i-1]+1);
    const seaGap=indexes.includes(13)&&indexes.includes(14);
    chosen.value=labels.join(' | ');
-   estimate.value=selected.length?money(individual)+(de?' pro Person (Richtwert)':' per person (estimate)'):'';
+   estimate.value=selected.length?(de?'Törnpreis ':'Trip fare ')+money(individual)+(de?' p.P. + geschätzte Bordkasse ':' pp + estimated shared fund ')+money(onboardFund):'';
    if(!selected.length){
     status.textContent=de?'Bitte mindestens einen Törn auswählen.':'Please select at least one trip.';
     status.dataset.empty='1';
     return;
    }
    status.dataset.empty='0';
-   let info=(de?selected.length+' Törn(e) ausgewählt · Richtpreis ':'Selected '+selected.length+' trip(s) · indicative fare ')+money(individual)+(de?' pro Person':' per person');
-   if(headCount===1||headCount===2)info+=(de?' · zusammen ':' · combined ')+money(individual*headCount);
+   let info=(de?selected.length+' Törn(e) · Törnpreis ':'Selected '+selected.length+' trip(s) · trip fare ')+money(individual)+(de?' p.P.':' pp');
+   info+=(de?' + ca. ':' + approx. ')+money(onboardFund)+(de?' Bordkasse p.P. · geschätzt gesamt ':' onboard fund pp · estimated total ')+money(individual+onboardFund)+(de?' p.P.':' pp');
+   if(headCount===1||headCount===2)info+=(de?' · für '+headCount+' Person(en) ca. ':' · for '+headCount+' guest(s) approx. ')+money((individual+onboardFund)*headCount);
    if(selected.length>1)info+=' · '+(contiguous?(de?'durchgehender Aufenthalt möglich':'continuous stay possible'):(de?'Termine nicht durchgehend':'dates not consecutive'));
    if(seaGap)info+=' · '+(de?'16.–19.12. sind ein wetterabhängiger Ankunftspuffer':'16–19 Dec is a weather-dependent arrival buffer');
    if(selected.some(item=>item.dataset.fit==='offshore'))info+=' · '+(de?'Hochsee: keine planbaren Meetings':'Offshore: no dependable meeting times');

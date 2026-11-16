@@ -265,3 +265,34 @@
 .feedback-grid .feedback-teaser{margin-top:0;min-width:0}
 .feedback-grid .feedback-teaser small{display:block;margin-top:14px}
 @media(max-width:700px){.crew-together{grid-template-columns:1fr}.crew-together img{height:260px;object-position:55% 28%}.crew-together>div{padding:0 22px 25px}.feedback-grid{grid-template-columns:1fr}.crew-photo img,.crew-photo{min-height:290px}}
+/* Booking clarity and readable enquiry navigation — 2027 */
+.form-site-page .sw-header{background:#061f2a!important;color:#fff!important;border-bottom:1px solid rgba(255,255,255,.2)}
+.form-site-page .sw-nav a,.form-site-page .lang{color:#fff!important;opacity:1}
+.form-site-page .sw-nav a:focus-visible,.form-site-page .lang:focus-visible{outline:2px solid #7ee0da;outline-offset:6px}
+@media(max-width:980px){.form-site-page .sw-nav{display:flex;gap:18px;margin:auto}}
+@media(max-width:650px){.form-site-page .sw-nav a:nth-child(2){display:none}.form-site-page .sw-nav{font-size:.69rem;gap:9px}.form-site-page .sw-header{padding:0 11px}}
+.concept-badge{display:inline-flex;align-items:center;border-radius:999px;padding:7px 11px;margin:0 7px 10px 0;font-size:.68rem;font-weight:900;letter-spacing:.015em;line-height:1.2}
+.concept-sabbatical{background:#f2dfcf;color:#854723}
+.concept-workation{background:#d5efeb;color:#115c60}
+.concept-badge a{text-decoration:none;color:inherit}
+.format-summary{padding:36px 0 10px}
+.format-summary .shell{max-width:1050px}
+.format-summary h2{font:700 clamp(1.55rem,3vw,2.5rem)/1.15 Georgia;margin:8px 0}
+.format-summary p{color:var(--muted);line-height:1.7;max-width:920px}
+.format-recommendations{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:20px}
+.format-recommendations a{padding:20px;border-radius:18px;background:#e2f0ed;text-decoration:none;display:grid;gap:8px;line-height:1.4}
+.format-recommendations strong{font:700 1.25rem Georgia}
+.format-recommendations span{font-size:.78rem;color:var(--ink)}
+.format-recommendations article{background:#f3f8f7;border:1px solid rgba(25,63,72,.14);border-radius:20px;padding:22px;display:flex;flex-direction:column;align-items:flex-start;gap:10px}
+.format-recommendations article h3{margin:0;font:700 1.25rem/1.25 Georgia;color:#183c47}
+.format-recommendations article p{margin:0 0 auto}
+.format-recommendations article>a{display:inline-flex;padding:10px 15px;border-radius:999px;background:#163f49;color:#fff;font-size:.82rem;font-weight:800;margin-top:10px}
+.format-recommendations .concept-badge{font-size:.65rem;color:#115c60}
+.format-recommendations .concept-sabbatical{color:#854723}
+.crew-promise{padding:52px 0;background:#e4efeb}
+.crew-promise h2{font:700 clamp(2rem,4vw,3.8rem)/1.08 Georgia;letter-spacing:-.04em;max-width:850px;margin:12px 0 14px}
+.crew-promise p{max-width:850px;line-height:1.75;color:var(--muted)}
+.crew-promise-points{display:flex;flex-wrap:wrap;gap:9px;margin-top:18px}
+.crew-promise-points span{border:1px solid rgba(20,65,72,.2);border-radius:99px;padding:10px 15px;font-size:.76rem;font-weight:800}
+@media(max-width:700px){.format-summary{padding:28px 0 6px}.format-recommendations{grid-template-columns:1fr}.crew-promise{padding:42px 0}.crew-promise-points{display:grid;grid-template-columns:1fr 1fr}.crew-promise-points span{border-radius:12px;font-size:.7rem}}
+
