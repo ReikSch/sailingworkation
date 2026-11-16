@@ -340,8 +340,186 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
   }catch(err){console.error('Route land drawing failed',err);}
  }
 
+
+ // Derive visually plausible sea-only overview paths from coastline geography.
+ // This is an indicative itinerary, never a navigational route or chart.
+ function routeAtSea(world){
+  const land=topojson.feature(world,world.objects.countries);
+  const widthPx=480,heightPx=360,step=3;
+  const canvas=document.createElement('canvas');
+  canvas.width=widthPx;canvas.height=heightPx;
+  const ctx=canvas.getContext('2d',{willReadFrequently:true});
+  if(!ctx)return;
+  const landPath=d3.geoPath().context(ctx);
+  const directions=[[1,0,1],[-1,0,1],[0,1,1],[0,-1,1],[1,1,Math.SQRT2],[1,-1,Math.SQRT2],[-1,1,Math.SQRT2],[-1,-1,Math.SQRT2]];
+  const countX=Math.ceil(widthPx/step),countY=Math.ceil(heightPx/step);
+  const interpolate=(a,b,t)=>[a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t];
+  const crossesCountry=(a,b)=>{
+   for(let i=1;i<42;i++){
+    if(d3.geoContains(land,interpolate(a,b,i/42)))return true;
+   }
+   return false;
+  };
+  function segmentAtSea(from,to,padding=0.58){
+   if(!crossesCountry(from,to))return [from,to];
+   const dx=Math.abs(from[0]-to[0]),dy=Math.abs(from[1]-to[1]);
+   const xPad=Math.max(0.38,dx*padding),yPad=Math.max(0.33,dy*padding);
+   const left=Math.max(-179,Math.min(from[0],to[0])-xPad);
+   const right=Math.min(179,Math.max(from[0],to[0])+xPad);
+   const bottom=Math.max(-78,Math.min(from[1],to[1])-yPad);
+   const top=Math.min(78,Math.max(from[1],to[1])+yPad);
+   const local=d3.geoMercator().fitExtent([[15,15],[widthPx-15,heightPx-15]],{
+    type:'MultiPoint',coordinates:[[left,bottom],[right,top]]
+   });
+   ctx.clearRect(0,0,widthPx,heightPx);
+   ctx.fillStyle='#111';
+   ctx.beginPath();
+   landPath.projection(local)(land);
+   ctx.fill('evenodd');
+   const pixels=ctx.getImageData(0,0,widthPx,heightPx).data;
+   const onLand=(x,y)=>{
+    const px=Math.floor(x),py=Math.floor(y);
+    if(px<0||py<0||px>=widthPx||py>=heightPx)return true;
+    return pixels[(py*widthPx+px)*4+3]>0;
+   };
+   const gridBlocked=new Uint8Array(countX*countY);
+   for(let gy=0;gy<countY;gy++)for(let gx=0;gx<countX;gx++){
+    gridBlocked[gy*countX+gx]=onLand(gx*step+step/2,gy*step+step/2)?1:0;
+   }
+   const id=(x,y)=>y*countX+x;
+   const fromId=position=>{
+    const projected=local(position);
+    return [Math.max(0,Math.min(countX-1,Math.floor(projected[0]/step))),
+            Math.max(0,Math.min(countY-1,Math.floor(projected[1]/step)))];
+   };
+   const nearestSea=position=>{
+    const [x,y]=fromId(position);
+    if(!gridBlocked[id(x,y)])return [x,y];
+    for(let radius=1;radius<=26;radius++){
+     let choice=null,best=Infinity;
+     for(let yy=Math.max(0,y-radius);yy<=Math.min(countY-1,y+radius);yy++){
+      for(let xx=Math.max(0,x-radius);xx<=Math.min(countX-1,x+radius);xx++){
+       if(Math.max(Math.abs(xx-x),Math.abs(yy-y))!==radius||gridBlocked[id(xx,yy)])continue;
+       const distance=(xx-x)**2+(yy-y)**2;
+       if(distance<best){best=distance;choice=[xx,yy];}
+      }
+     }
+     if(choice)return choice;
+    }
+    return null;
+   };
+   const a=nearestSea(from),b=nearestSea(to);
+   if(!a||!b)return null;
+   const start=id(...a),goal=id(...b);
+   const previous=new Int32Array(countX*countY).fill(-1);
+   const costs=new Float64Array(countX*countY).fill(Infinity);
+   const closed=new Uint8Array(countX*countY);
+   const heap=[];
+   const push=(cell,priority)=>{
+    let n=heap.length;heap.push({cell,priority});
+    while(n>0){const parent=(n-1)>>1;if(heap[parent].priority<=priority)break;heap[n]=heap[parent];n=parent;}
+    heap[n]={cell,priority};
+   };
+   const pop=()=>{
+    const first=heap[0],tail=heap.pop();
+    if(heap.length&&tail){
+     let n=0;
+     while(n*2+1<heap.length){
+      let child=n*2+1;
+      if(child+1<heap.length&&heap[child+1].priority<heap[child].priority)child++;
+      if(heap[child].priority>=tail.priority)break;
+      heap[n]=heap[child];n=child;
+     }
+     heap[n]=tail;
+    }
+    return first;
+   };
+   const h=cell=>{
+    const x=cell%countX,y=Math.floor(cell/countX);
+    return Math.hypot(x-b[0],y-b[1]);
+   };
+   costs[start]=0;push(start,h(start));
+   let visited=0;
+   while(heap.length&&visited++<countX*countY){
+    const item=pop();
+    if(!item)break;
+    const current=item.cell;
+    if(closed[current])continue;
+    if(current===goal)break;
+    closed[current]=1;
+    const x=current%countX,y=Math.floor(current/countX);
+    for(const [vx,vy,cost] of directions){
+     const nx=x+vx,ny=y+vy;
+     if(nx<0||ny<0||nx>=countX||ny>=countY)continue;
+     const next=id(nx,ny);
+     if(gridBlocked[next]||closed[next])continue;
+     if(vx&&vy&&(gridBlocked[id(nx,y)]||gridBlocked[id(x,ny)]))continue;
+     const nextCost=costs[current]+cost;
+     if(nextCost<costs[next]){
+      costs[next]=nextCost;previous[next]=current;
+      push(next,nextCost+h(next));
+     }
+    }
+   }
+   if(!Number.isFinite(costs[goal]))return null;
+   const raw=[];
+   for(let node=goal;node>=0;node=previous[node]){
+    raw.push([node%countX,Math.floor(node/countX)]);
+    if(node===start)break;
+   }
+   raw.reverse();
+   const clear=(a,b)=>{
+    const ax=a[0]*step+step/2,ay=a[1]*step+step/2;
+    const bx=b[0]*step+step/2,by=b[1]*step+step/2;
+    const steps=Math.ceil(Math.hypot(bx-ax,by-ay));
+    for(let i=1;i<steps;i++){
+     const t=i/steps;
+     if(onLand(ax+(bx-ax)*t,ay+(by-ay)*t))return false;
+    }
+    return true;
+   };
+   const reduced=[raw[0]];
+   for(let i=0;i<raw.length-1;){
+    let j=raw.length-1;
+    while(j>i+1&&!clear(raw[i],raw[j]))j--;
+    reduced.push(raw[j]);i=j;
+   }
+   const intermediate=reduced.map(([x,y])=>local.invert([x*step+step/2,y*step+step/2]));
+   return [from,...intermediate,to];
+  }
+  const routeInSea=leg=>{
+   const all=[];
+   let failures=0;
+   for(let i=1;i<leg.coords.length;i++){
+    const start=leg.coords[i-1],end=leg.coords[i];
+    let segment=segmentAtSea(start,end);
+    if(!segment)segment=segmentAtSea(start,end,1.7);
+    if(!segment){failures++;segment=[start,end];}
+    if(i===1)all.push(segment[0]);
+    all.push(...segment.slice(1));
+   }
+   return {coords:all,failures};
+  };
+  let index=0,missing=0;
+  function routeNext(){
+   if(index>=legs.length){
+    el.dataset.coastalRoutes=String(legs.length-missing);
+    if(missing)console.warn('Some sea-route segments could not be resolved:',missing);
+    return;
+   }
+   const result=routeInSea(legs[index]);
+   if(result.failures)missing++;
+   legs[index].coords=result.coords;
+   d3.select(routePaths.nodes()[index]).attr('d',line(result.coords));
+   index++;
+   // Spread map work over frames to keep scrolling and zoom controls responsive.
+   requestAnimationFrame(routeNext);
+  }
+  requestAnimationFrame(routeNext);
+ }
+
  d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-50m.json')
-  .then(drawLand)
+  .then(world=>{drawLand(world);routeAtSea(world)})
   .catch(err=>console.error('Route map geography load failed',err));
 
  const zoomIn=el.querySelector('[data-map-zoom-in]');
