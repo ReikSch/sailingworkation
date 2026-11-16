@@ -353,15 +353,7 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
   const landPath=d3.geoPath().context(ctx);
   const directions=[[1,0,1],[-1,0,1],[0,1,1],[0,-1,1],[1,1,Math.SQRT2],[1,-1,Math.SQRT2],[-1,1,Math.SQRT2],[-1,-1,Math.SQRT2]];
   const countX=Math.ceil(widthPx/step),countY=Math.ceil(heightPx/step);
-  const interpolate=(a,b,t)=>[a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t];
-  const crossesCountry=(a,b)=>{
-   for(let i=1;i<42;i++){
-    if(d3.geoContains(land,interpolate(a,b,i/42)))return true;
-   }
-   return false;
-  };
   function segmentAtSea(from,to,padding=0.58){
-   if(!crossesCountry(from,to))return [from,to];
    const dx=Math.abs(from[0]-to[0]),dy=Math.abs(from[1]-to[1]);
    const xPad=Math.max(0.38,dx*padding),yPad=Math.max(0.33,dy*padding);
    const left=Math.max(-179,Math.min(from[0],to[0])-xPad);
@@ -377,6 +369,19 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
    landPath.projection(local)(land);
    ctx.fill('evenodd');
    const pixels=ctx.getImageData(0,0,widthPx,heightPx).data;
+   const endpointA=local(from),endpointB=local(to);
+   const landBetween=(()=>{
+    const distance=Math.hypot(endpointB[0]-endpointA[0],endpointB[1]-endpointA[1]);
+    const samples=Math.ceil(distance/2);
+    for(let j=3;j<samples-3;j++){
+     const t=j/samples;
+     const px=Math.max(0,Math.min(widthPx-1,Math.floor(endpointA[0]+(endpointB[0]-endpointA[0])*t)));
+     const py=Math.max(0,Math.min(heightPx-1,Math.floor(endpointA[1]+(endpointB[1]-endpointA[1])*t)));
+     if(pixels[(py*widthPx+px)*4+3]>0)return true;
+    }
+    return false;
+   })();
+   if(!landBetween)return [from,to];
    const onLand=(x,y)=>{
     const px=Math.floor(x),py=Math.floor(y);
     if(px<0||py<0||px>=widthPx||py>=heightPx)return true;
@@ -507,7 +512,7 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
     if(missing)console.warn('Some sea-route segments could not be resolved:',missing);
     return;
    }
-   const result=routeInSea(legs[index]);
+   const result=([0,1,2,12,13].includes(index))?{coords:legs[index].coords,failures:0}:routeInSea(legs[index]);
    if(result.failures)missing++;
    legs[index].coords=result.coords;
    d3.select(routePaths.nodes()[index]).attr('d',line(result.coords));
