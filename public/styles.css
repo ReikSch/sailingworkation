@@ -308,3 +308,30 @@
 .format-recommendations article>a.stage-detail-link{background:transparent;color:#16464e;border:1px solid rgba(22,70,78,.26);margin-top:10px}
 .trip-leg[id^="etappe-"]{scroll-margin-top:95px}
 @media(max-width:650px){.infra-fit-note{padding:17px 18px;font-size:.85rem}.format-recommendations article>a{width:100%;justify-content:center;text-align:center}}
+
+
+/* Built-in route atlas: coastline and every leg are painted in HTML before JavaScript. */
+.season-route-map{touch-action:pan-y;isolation:isolate}
+.season-route-map .season-atlas{display:block;width:100%;height:100%;cursor:default;background:#9cc8d7}
+.season-atlas .route-atlas-grid path{fill:none;stroke:#fff;stroke-opacity:.22;stroke-width:.8;vector-effect:non-scaling-stroke}
+.season-atlas .route-country{fill:#ecddc4;stroke:#c5ad8e;stroke-width:1.15;vector-effect:non-scaling-stroke}
+.season-atlas .route-ocean{fill:#9cc8d7}
+.season-atlas .route-water-labels text{font:800 13px Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#174654;opacity:.35;letter-spacing:3px;pointer-events:none}
+.season-atlas .route-place-label{font:800 10px Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#183d47;stroke:#f4ead6;stroke-width:3px;stroke-linejoin:round;paint-order:stroke fill;pointer-events:none}
+.season-atlas .trip-route-line{stroke-width:3.1;opacity:.4;pointer-events:stroke;cursor:pointer;stroke:#174959}
+.season-atlas .trip-route-line.is-muted{opacity:.34}
+.season-atlas .trip-route-line.is-active{opacity:1;stroke:#d66c42;stroke-width:5.2}
+.season-atlas .trip-route-marker circle{fill:#fff7e8;stroke:#154550;stroke-width:2}
+.season-atlas .trip-route-marker.is-active circle{fill:#ef8154;stroke:#fff9ed}
+.season-route-map .route-map-tools button{box-shadow:0 3px 14px rgba(6,36,48,.16)}
+@media(max-width:650px){.season-atlas .route-place-label{font-size:9px}.season-atlas .route-water-labels text{font-size:11px}}
+
+/* Workation: cooler nautical palette and high-contrast route interaction. */
+.season-route-map,.season-route-map .season-atlas{background:#aad4db}
+.season-atlas .route-ocean{fill:#aad4db}
+.season-atlas .route-country{fill:#edf0e5;stroke:#a9bfc2}
+.season-atlas .route-place-label{fill:#094655;stroke:#f1f4e9}
+.season-atlas .trip-route-line{stroke:#10637a}
+.season-atlas .trip-route-line.is-active{stroke:#ef8056}
+.season-atlas .trip-route-marker.is-active circle{fill:#ef8056;stroke:#fff}
+.season-route-map .route-map-tools button{background:#f5fffd;color:#0a4858;border-color:rgba(12,72,88,.3)}
