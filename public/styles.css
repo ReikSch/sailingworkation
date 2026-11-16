@@ -296,3 +296,8 @@
 .crew-promise-points span{border:1px solid rgba(20,65,72,.2);border-radius:99px;padding:10px 15px;font-size:.76rem;font-weight:800}
 @media(max-width:700px){.format-summary{padding:28px 0 6px}.format-recommendations{grid-template-columns:1fr}.crew-promise{padding:42px 0}.crew-promise-points{display:grid;grid-template-columns:1fr 1fr}.crew-promise-points span{border-radius:12px;font-size:.7rem}}
 
+/* Deutscher Workation-Einstieg: eigenständiger als die englische Variante. */
+.hero-workation-de .hero-copy h1{font-size:clamp(3.45rem,4.85vw,5.45rem);line-height:1;letter-spacing:-.047em;margin:22px 0 24px;text-wrap:balance}
+.hero-workation-de .hero-copy>p:not(.hero-human){max-width:570px;font-size:1.015rem;line-height:1.7;text-wrap:pretty}
+.hero-workation-de .hero-media img{object-position:52% center}
+@media(max-width:650px){.hero-workation-de .hero-copy h1{font-size:clamp(2.8rem,10.5vw,4.4rem);line-height:1.03}.hero-workation-de .hero-copy>p:not(.hero-human){font-size:.92rem;max-width:100%}}
