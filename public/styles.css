@@ -219,3 +219,34 @@
 .trips-price-note{color:#637c81;font-size:.7rem;line-height:1.55;margin:16px 0 0}
 @media(max-width:1000px){.trips-tease .trip{min-height:385px}.trip-card-meta{display:block}.trip-card-meta strong{display:block;margin-top:8px}}
 @media(max-width:680px){.trips-tease .trip{min-height:auto}.trip-card-meta{display:flex}.trip-card-meta strong{margin-top:0}}
+
+/* 2027 launch: clearer offers, real skipper trust and low-friction enquiry */
+.hero-offer{display:grid;gap:5px;max-width:610px;margin-top:20px;padding:13px 16px;border:1px solid rgba(255,255,255,.3);border-radius:16px;background:rgba(8,31,39,.64);backdrop-filter:blur(9px);color:#fff}
+.hero-offer strong{font-size:clamp(.91rem,1.35vw,1.09rem);line-height:1.3;letter-spacing:0}
+.hero-offer span{color:#e3eae7;font-size:.7rem;line-height:1.55}
+.hero .hero-human,.ss-hero .hero-human{max-width:610px;margin-top:12px;font-size:.73rem;line-height:1.5;color:#f6e2ca}
+.quick-trust{background:#f6eee4;color:#213840;border-bottom:1px solid rgba(20,49,57,.11)}
+.quick-trust-inner{display:grid;grid-template-columns:1fr 1.2fr;gap:36px;align-items:center;padding-top:19px;padding-bottom:19px}
+.quick-trust-inner p{margin:0;font-size:.74rem;line-height:1.6}
+.quick-trust-inner p:first-child{font-size:.79rem}
+.quick-trust-inner strong{display:block;font-size:.87rem}
+.quick-trust-inner a{font-weight:800;text-decoration:underline;text-underline-offset:3px;color:inherit}
+.quick-trust-inner em{font-family:Georgia,serif;font-size:.92rem;line-height:1.3}
+.quick-trust-inner span{white-space:nowrap;font-size:.67rem;opacity:.75}
+.trip-picker-disclosure{margin:12px 0;border:1px solid rgba(30,70,77,.2);border-radius:14px;overflow:hidden}
+.trip-picker-disclosure>summary{padding:13px 15px;font-weight:800;font-size:.78rem;cursor:pointer;list-style-position:inside;background:rgba(12,87,99,.06)}
+.trip-picker-disclosure[open]>summary{border-bottom:1px solid rgba(30,70,77,.15)}
+.trip-picker-disclosure .trip-choice-grid{padding:12px}
+.form-grid .form-short-note{grid-column:1/-1;margin:0;font-size:.78rem;line-height:1.6;color:#65777a}
+@media(max-width:850px){.quick-trust-inner{grid-template-columns:1fr;gap:9px}.quick-trust-inner p{max-width:700px}}
+@media(max-width:650px){.hero-offer{padding:12px;margin-top:15px}.quick-trust-inner{padding-top:18px;padding-bottom:18px}.quick-trust-inner span{white-space:normal}}
+.fit-badge{display:inline-block;max-width:max-content;margin-bottom:9px;border-radius:999px;padding:6px 10px;font-size:.65rem;font-weight:900;letter-spacing:.015em}
+.fit-good{background:#dff5e7;color:#195b42}
+.fit-flex{background:#fff0d5;color:#83531e}
+.fit-offshore{background:#fae2dc;color:#963e2c}
+.trip-leg .fit-badge{display:inline-block}
+.trips-fit-guide{background:#f2f8f5;border-left:4px solid #287b79;padding:16px 20px;border-radius:9px;margin:20px 0 4px}
+.trips-fit-guide h2{font-size:1.06rem!important;line-height:1.3!important;margin:0 0 7px}
+.trips-fit-guide p{font-size:.78rem;line-height:1.6;margin:0}
+.trips-fit-guide .fit-badge{margin:4px 5px 0 0}
+@media(max-width:650px){.hero{padding-top:105px;padding-bottom:55px}.hero-copy h1{font-size:clamp(3.2rem,13vw,5rem)}.hero-media{height:370px}}

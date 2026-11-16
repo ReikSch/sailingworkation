@@ -454,6 +454,7 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
  document.querySelectorAll('[data-booking-form]').forEach(form=>{
   const options=[...form.querySelectorAll('[data-trip-option]')];
   if(!options.length)return;
+  const disclosure=form.querySelector('[data-trip-disclosure]');
   const chosen=form.querySelector('[data-selected-trips]');
   const estimate=form.querySelector('[data-price-quote]');
   const status=form.querySelector('[data-trip-summary]');
@@ -462,6 +463,7 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
   const requested=new URLSearchParams(location.search).get('trip');
   const optionFromUrl=options.find(item=>item.dataset.id===requested);
   if(optionFromUrl)optionFromUrl.checked=true;
+  else if(disclosure)disclosure.open=true;
   const refresh=()=>{
    const selected=options.filter(item=>item.checked);
    const amount=selected.reduce((sum,item)=>sum+Number(item.dataset.price||0),0);
@@ -484,6 +486,7 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
    if(headCount===1||headCount===2)info+=(de?' · zusammen ':' · combined ')+money(individual*headCount);
    if(selected.length>1)info+=' · '+(contiguous?(de?'durchgehender Aufenthalt möglich':'continuous stay possible'):(de?'Termine nicht durchgehend':'dates not consecutive'));
    if(seaGap)info+=' · '+(de?'16.–19.12. sind ein wetterabhängiger Ankunftspuffer':'16–19 Dec is a weather-dependent arrival buffer');
+   if(selected.some(item=>item.dataset.fit==='offshore'))info+=' · '+(de?'Hochsee: keine planbaren Meetings':'Offshore: no dependable meeting times');
    status.textContent=info;
   };
   options.forEach(opt=>opt.addEventListener('change',refresh));
@@ -493,6 +496,7 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
    if(options.some(opt=>opt.checked))return;
    event.preventDefault();
    event.stopImmediatePropagation();
+   if(disclosure)disclosure.open=true;
    status.textContent=de?'Bitte wähle mindestens einen Törn aus.':'Please choose at least one trip.';
    status.dataset.empty='1';
    status.scrollIntoView({behavior:'smooth',block:'center'});
