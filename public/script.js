@@ -185,13 +185,14 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
   const b=bounds[active];
   const mx=b?(b.xmin+b.xmax)/2:W/2,my=b?(b.ymin+b.ymax)/2:H/2;
   const factor=W/view.w;
+  const landmarkPriority={'BVI':20,'Bermuda':20,'Ponta Delgada':19,'Gibraltar':18,'Palma':17,'Korfu':16,'Malta':15,'Kanaren':14,'Mindelo':13,'Catania':8,'Lefkada':7,'Cagliari':7,'Horta':6,'Lagos':5,'Kalamata':4,'Sint Maarten':3};
   const candidates=labels.map((node,index)=>{
    const px=Number(node.getAttribute('x')),py=Number(node.getAttribute('y'));
    const x=(px-view.x)*factor,y=(py-view.y)*factor;
    const width=Math.min(205,(node.textContent||'').trim().length*10+8);
    const rect={left:x-4,right:x+width+4,top:y-23,bottom:y+7};
-   return {node,index,rect,priority:Math.hypot(px-mx,py-my)};
-  }).sort((a,b)=>factor>=2?a.priority-b.priority:a.index-b.index);
+   return {node,index,rect,priority:Math.hypot(px-mx,py-my),importance:landmarkPriority[node.textContent?.trim()]||0};
+  }).sort((a,b)=>factor>=2?a.priority-b.priority:b.importance-a.importance||a.index-b.index);
   const occupied=[];
   for(const label of candidates){
    const r=label.rect;
