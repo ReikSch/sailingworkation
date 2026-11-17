@@ -131,6 +131,25 @@
 .map28-place.large{font-size:calc(15px * var(--map28-stage-scale,1))}
 .map28-marker text{font-size:calc(14px * var(--map28-stage-scale,1))}
 .map28-route-halo,.map28-route-stroke,.map28-route-hit,.map28-marker circle{vector-effect:non-scaling-stroke}
+
+/* Map readability: clearer active journey and a truthful two-color legend. */
+.map28-place.small{font-size:calc(12px * var(--map28-stage-scale,1))}
+.map28-place.large{font-size:calc(16px * var(--map28-stage-scale,1))}
+.map28-route.active .map28-route-stroke{stroke-width:9}
+.map28-route.dimmed,.map28-marker.dimmed{opacity:.24}
+.map28-marker circle{filter:drop-shadow(0 1px 2px rgba(16,57,69,.16))}
+
+/* Workation map finish: cool nautical teal, warm coral only for Sabbatical legs. */
+.plan28-workation .map28-place.small{fill:#234e59;stroke:#e9f2ed;stroke-opacity:.96}
+.plan28-workation .map28-place.large{fill:#3d6972;stroke:#e2ede7;stroke-opacity:.94}
+.plan28-workation .map28-route.workation .map28-route-stroke{stroke:#067f8c}
+.plan28-workation .map28-route.sabbatical .map28-route-stroke{stroke:#ca7350}
+.plan28-workation .map28-marker.workation circle{stroke:#067f8c}
+.plan28-workation .map28-marker.sabbatical circle{stroke:#ca7350}
+.plan28-workation .plan28-maplegend i:not(.sabbatical){border-top-color:#067f8c;background:#067f8c;border-top-style:dashed}
+.plan28-workation .plan28-maplegend i.sabbatical{border-top-color:#ca7350;background:#ca7350;border-top-style:solid}
+.plan28-workation .plan28-leg.plan28-selected{border-color:#4daab0;box-shadow:0 9px 28px rgba(3,113,128,.16)}
+
 </style></head>
  <body class="plan28-workation">
  <header class="plan28-top"><a class="plan28-brand" href="/" aria-label="Sailing Workation"><img src="/assets/brand/sailing-workation-logo-new.webp?v=1" alt="Sailing Workation"></a><nav class="plan28-nav" aria-label="Hauptnavigation"><a href="/trips/">Törnplan 2027</a><a href="/2028/" aria-current="page">Saison 2028</a><a href="https://sailingsabbatical.com/">Lieber abschalten? ↗</a><a href="/en/2028/" hreflang="en">EN</a><a class="outline" href="#2028-anfrage">Unverbindlich anfragen</a></nav></header>
@@ -366,7 +385,7 @@
    filters.forEach(f=>f.setAttribute('aria-pressed',String(f===b)));
    cards.forEach(card=>{card.hidden=currentFilter!=='all'&&card.dataset.plan28Focus!==currentFilter;});
    if(active&&currentFilter!=='all'&&details[active]?.focus!==currentFilter){
-     active=null;svg.setAttribute('viewBox',originalView);
+     active=null;svg.setAttribute('viewBox',originalView);scaleMapDetails(1280);
      if(mapTitle)mapTitle.textContent=english?'Full 2028 route':'Gesamtroute 2028';
    }
    drawFocus();
