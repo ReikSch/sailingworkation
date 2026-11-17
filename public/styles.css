@@ -335,3 +335,6 @@
 .season-atlas .trip-route-line.is-active{stroke:#ef8056}
 .season-atlas .trip-route-marker.is-active circle{fill:#ef8056;stroke:#fff}
 .season-route-map .route-map-tools button{background:#f5fffd;color:#0a4858;border-color:rgba(12,72,88,.3)}
+
+/* Keep map labels legible while the geographic SVG viewport changes. */
+.season-atlas .route-place-label{font-size:var(--atlas-label-size,18px)}

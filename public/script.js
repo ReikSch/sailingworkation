@@ -154,23 +154,36 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
  const routes=[...svg.querySelectorAll('[data-route-segment]')];
  const markers=[...svg.querySelectorAll('[data-route-marker]')];
  const heading=document.querySelector('[data-route-map-title]');
- const bounds=[{"xmin":104.24,"xmax":116.61,"ymin":null,"ymax":null},{"xmin":104.24,"xmax":409.54,"ymin":null,"ymax":null},{"xmin":409.54,"xmax":542.58,"ymin":null,"ymax":null},{"xmin":542.58,"xmax":631.17,"ymin":null,"ymax":null},{"xmin":631.17,"xmax":681.81,"ymin":null,"ymax":null},{"xmin":681.81,"xmax":728.53,"ymin":null,"ymax":null},{"xmin":728.53,"xmax":766.33,"ymin":null,"ymax":null},{"xmin":766.33,"xmax":771.81,"ymin":null,"ymax":null},{"xmin":771.5,"xmax":783.47,"ymin":null,"ymax":null},{"xmin":722.35,"xmax":783.47,"ymin":null,"ymax":null},{"xmin":631.17,"xmax":724.07,"ymin":null,"ymax":null},{"xmin":489.68,"xmax":631.17,"ymin":null,"ymax":null},{"xmin":414.86,"xmax":489.68,"ymin":null,"ymax":null},{"xmin":104.71,"xmax":414.86,"ymin":null,"ymax":null},{"xmin":103.85,"xmax":106.83,"ymin":null,"ymax":null}];
+ const bounds=routes.map(route=>{
+  const coords=[...(route.getAttribute('d')||'').matchAll(/(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)/g)].map(m=>[Number(m[1]),Number(m[2])]);
+  if(!coords.length)return null;
+  return {xmin:Math.min(...coords.map(p=>p[0])),xmax:Math.max(...coords.map(p=>p[0])),ymin:Math.min(...coords.map(p=>p[1])),ymax:Math.max(...coords.map(p=>p[1]))};
+ });
  const W=900,H=620,aspect=W/H;
  let active=0,view={x:0,y:0,w:W,h:H},scrollScheduled=false,drag=null;
  function setView(x,y,w){
-  w=Math.min(W,Math.max(W/2.8,w));
+  w=Math.min(W,Math.max(W/18,w));
   const h=w/aspect;
   x=Math.max(0,Math.min(W-w,x));
   y=Math.max(0,Math.min(H-h,y));
   view={x,y,w,h};
   svg.setAttribute('viewBox',[x,y,w,h].map(n=>n.toFixed(2)).join(' '));
   host.dataset.zoom=(W/w).toFixed(2);
+  // Keep map labels and endpoint markers readable at every geographic scale.
+  svg.style.setProperty('--atlas-label-size',Math.max(.9,18*w/W).toFixed(2)+'px');
+  svg.querySelectorAll('.trip-route-marker circle').forEach(dot=>{
+   if(!dot.dataset.baseRadius)dot.dataset.baseRadius=dot.getAttribute('r')||'4';
+   dot.setAttribute('r',Math.max(.6,Number(dot.dataset.baseRadius)*2*w/W).toFixed(2));
+  });
+  const waterLabels=svg.querySelector('.route-water-labels');
+  if(waterLabels)waterLabels.style.display=W/w>2.5?'none':'';
  }
  function zoomForLeg(index){
-  const b=bounds[index];if(!b)return;
+  const b=bounds[index];if(!b||![b.xmin,b.xmax,b.ymin,b.ymax].every(Number.isFinite))return;
   const cx=(b.xmin+b.xmax)/2,cy=(b.ymin+b.ymax)/2;
-  // Keep surrounding countries, islands and ocean visible; never zoom into a lone point.
-  const w=Math.max(W/1.9,b.xmax-b.xmin+150,(b.ymax-b.ymin+135)*aspect);
+  const dx=b.xmax-b.xmin,dy=b.ymax-b.ymin;
+  // Stage-adaptive framing: show the full passage plus enough coast/islands for context.
+  const w=Math.max(62,dx*1.64+50,(dy*1.7+32)*aspect);
   setView(cx-w/2,cy-w/aspect/2,w);
  }
  function activate(index,focus){
