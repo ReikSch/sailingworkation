@@ -353,3 +353,10 @@
 .season-atlas .trip-route-line{stroke:#176b7c}
 .season-atlas .trip-route-line.is-active{stroke:#ed7851}
 .season-atlas .trip-route-marker.is-active circle{fill:#ed7851;stroke:#fff}
+
+/* Mobile trip atlas: readable labels, easy controls and less unused sea space. */
+@media(max-width:650px){
+ .season-route-map{height:300px}
+ .real-route-card{scroll-margin-top:12px}
+ .season-route-map .route-map-tools button{min-width:44px;min-height:44px}
+}
