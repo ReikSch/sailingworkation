@@ -190,6 +190,20 @@
 @media(max-width:900px){.plan28-focus-panel{display:none!important}}
 @media(max-width:650px){[data-plan28-mapstage],.plan28-maplegend button{min-height:44px}}
 
+
+
+/* 2028 route browsing: compact keyboard-accessible navigation directly above the atlas */
+.plan28-mapnav{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;padding:0 9px 14px}
+.plan28-mapnav button{min-height:44px;padding:9px 16px;border-radius:999px;border:1px solid #b6d3d1;background:#eaf6f4;color:#0c5865;font-size:13px;font-weight:850;cursor:pointer;transition:background .15s,border-color .15s}
+.plan28-mapnav button:hover:not(:disabled){background:#d7efec;border-color:#77b8b5}
+.plan28-mapnav button:focus-visible{outline:3px solid #4b9fa6;outline-offset:2px}
+.plan28-mapnav button:disabled{opacity:.4;cursor:not-allowed}
+.plan28-mapnav [data-plan28-nav-status]{font-size:12px;font-weight:850;letter-spacing:.06em;color:#48656d;min-width:96px;text-align:center}
+.plan28-sabbatical .plan28-mapnav button{background:#fff1e3;border-color:#e8c7a8;color:#794b29}
+.plan28-sabbatical .plan28-mapnav button:hover:not(:disabled){background:#f9e0c9;border-color:#d3a777}
+.plan28-workation .plan28-mapnav button{background:#e4f7f3;border-color:#a4d8d2;color:#075f67}
+.plan28-workation .plan28-mapnav button:hover:not(:disabled){background:#c8ece6;border-color:#60bdb6}
+@media(max-width:500px){.plan28-mapnav{gap:7px;justify-content:space-between;padding:0 3px 12px}.plan28-mapnav button{padding:9px 12px;font-size:12px}.plan28-mapnav [data-plan28-nav-status]{min-width:72px;font-size:11px}}
 </style></head>
  <body class="plan28-workation">
  <header class="plan28-top"><a class="plan28-brand" href="/en/" aria-label="Sailing Workation"><img src="/assets/brand/sailing-workation-logo-new.webp?v=1" alt="Sailing Workation"></a><nav class="plan28-nav" aria-label="Main navigation"><a href="/en/trips/">2027 trips</a><a href="/en/2028/" aria-current="page">2028 season</a><a href="https://sailingsabbatical.com/">Prefer to unplug? ↗</a><a href="/2028/" hreflang="de">DE</a><a class="outline" href="#2028-anfrage">Send enquiry</a></nav></header>
@@ -209,7 +223,7 @@
 <article class="plan28-leg" id="plan28-leg-09" data-plan28-focus="sabbatical"><div class="plan28-number">09</div><div><div class="plan28-cardtop"><span class="plan28-focus sabbatical">SABBATICAL</span><span>18 Aug–21 Sep 2028</span></div><h3>Aruba to Colombia’s coast</h3><p class="plan28-route">Aruba → Cabo de la Vela → Santa Marta → Cartagena</p><p class="plan28-desc">Five weeks including demanding passages and weather reserves. Coastal stops depend on seas, clearance and local conditions.</p><div class="plan28-meta"><span>35 days</span><span>380–520 nm</span><span class="price">Indicative price pp: 3.990 €</span></div><a class="plan28-cardcta" href="#2028-anfrage" data-plan28-stage="09">Enquire about this leg →</a> <button type="button" data-plan28-mapstage="09" style="border:0;background:transparent;color:#6d898d;font-size:12px;font-weight:750;cursor:pointer;padding:6px 0 6px 12px;">Show on map</button></div></article>
 <article class="plan28-leg" id="plan28-leg-10" data-plan28-focus="workation"><div class="plan28-number">10</div><div><div class="plan28-cardtop"><span class="plan28-focus workation">WORKATION</span><span>24 Sep–21 Oct 2028</span></div><h3>Colombia’s island worlds</h3><p class="plan28-route">Cartagena → Islas del Rosario → San Bernardo → Cartagena</p><p class="plan28-desc">A deliberately slow month around Cartagena with longer anchor stays. Work connectivity and local charter rules will be checked ahead.</p><div class="plan28-meta"><span>28 days</span><span>100–160 nm</span><span class="price">Indicative price pp: 3.250 €</span></div><a class="plan28-cardcta" href="#2028-anfrage" data-plan28-stage="10">Enquire about this leg →</a> <button type="button" data-plan28-mapstage="10" style="border:0;background:transparent;color:#6d898d;font-size:12px;font-weight:750;cursor:pointer;padding:6px 0 6px 12px;">Show on map</button></div></article>
 <article class="plan28-leg" id="plan28-leg-11" data-plan28-focus="sabbatical"><div class="plan28-number">11</div><div><div class="plan28-cardtop"><span class="plan28-focus sabbatical">SABBATICAL</span><span>24 Oct–27 Nov 2028</span></div><h3>Colombia to San Blas</h3><p class="plan28-route">Cartagena → Karibikküste → Guna-Yala-Archipel</p><p class="plan28-desc">After the coastal passage, we spend many days among the San Blas islands. A genuine break, not a schedule full of video calls.</p><div class="plan28-meta"><span>35 days</span><span>220–320 nm</span><span class="price">Indicative price pp: 3.850 €</span></div><a class="plan28-cardcta" href="#2028-anfrage" data-plan28-stage="11">Enquire about this leg →</a> <button type="button" data-plan28-mapstage="11" style="border:0;background:transparent;color:#6d898d;font-size:12px;font-weight:750;cursor:pointer;padding:6px 0 6px 12px;">Show on map</button></div></article>
-<article class="plan28-leg" id="plan28-leg-12" data-plan28-focus="sabbatical"><div class="plan28-number">12</div><div><div class="plan28-cardtop"><span class="plan28-focus sabbatical">SABBATICAL</span><span>30 Nov 2028–3 Jan 2029</span></div><h3>San Blas to Bocas del Toro</h3><p class="plan28-route">San Blas → Portobelo / Linton Bay → Bocas del Toro</p><p class="plan28-desc">Five weeks among islands and Panama’s Caribbean coast. Christmas and New Year aboard together; the trip finishes in Bocas del Toro.</p><div class="plan28-meta"><span>35 days</span><span>220–330 nm</span><span class="price">Indicative price pp: 4.550 €</span></div><a class="plan28-cardcta" href="#2028-anfrage" data-plan28-stage="12">Enquire about this leg →</a> <button type="button" data-plan28-mapstage="12" style="border:0;background:transparent;color:#6d898d;font-size:12px;font-weight:750;cursor:pointer;padding:6px 0 6px 12px;">Show on map</button></div></article></div><aside class="plan28-maprail"><div class="plan28-maphead"><strong>Explore the route</strong><small>Tap a colored route or a stage number to view its details.</small><div class="plan28-current" data-plan28-current>Full 2028 route</div></div><div class="plan28-maplegend"><span><i></i>Workation</span><span><i class="sabbatical"></i>Sabbatical</span><button type="button" data-plan28-reset-map>Show full route ↗</button></div><div id="plan28-map" role="region" aria-label="Interactive Caribbean overview map"><svg class="map28-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 700" aria-label="Geographic map of the Caribbean, with twelve colored sailing routes from the British Virgin Islands to Panama" role="group">
+<article class="plan28-leg" id="plan28-leg-12" data-plan28-focus="sabbatical"><div class="plan28-number">12</div><div><div class="plan28-cardtop"><span class="plan28-focus sabbatical">SABBATICAL</span><span>30 Nov 2028–3 Jan 2029</span></div><h3>San Blas to Bocas del Toro</h3><p class="plan28-route">San Blas → Portobelo / Linton Bay → Bocas del Toro</p><p class="plan28-desc">Five weeks among islands and Panama’s Caribbean coast. Christmas and New Year aboard together; the trip finishes in Bocas del Toro.</p><div class="plan28-meta"><span>35 days</span><span>220–330 nm</span><span class="price">Indicative price pp: 4.550 €</span></div><a class="plan28-cardcta" href="#2028-anfrage" data-plan28-stage="12">Enquire about this leg →</a> <button type="button" data-plan28-mapstage="12" style="border:0;background:transparent;color:#6d898d;font-size:12px;font-weight:750;cursor:pointer;padding:6px 0 6px 12px;">Show on map</button></div></article></div><aside class="plan28-maprail"><div class="plan28-maphead"><strong>Explore the route</strong><small>Tap a colored route or a stage number to view its details.</small><div class="plan28-current" data-plan28-current>Full 2028 route</div></div><div class="plan28-maplegend"><span><i></i>Workation</span><span><i class="sabbatical"></i>Sabbatical</span><button type="button" data-plan28-reset-map>Show full route ↗</button></div><div class="plan28-mapnav" role="group" aria-label="Browse 2028 sailing stages"><button type="button" data-plan28-prev aria-label="Previous stage" disabled>← Previous</button><span data-plan28-nav-status>12 stages</span><button type="button" data-plan28-next aria-label="Next stage">Next →</button></div><div id="plan28-map" role="region" aria-label="Interactive Caribbean overview map"><svg class="map28-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 700" aria-label="Geographic map of the Caribbean, with twelve colored sailing routes from the British Virgin Islands to Panama" role="group">
 <defs><linearGradient id="map28-ocean" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#b5dfdf"/><stop offset="55%" stop-color="#93cad2"/><stop offset="100%" stop-color="#70b3c5"/></linearGradient><linearGradient id="map28-land" x1="0" y1="0" x2="0.9" y2="1"><stop offset="0%" stop-color="#e9e9d3"/><stop offset="100%" stop-color="#c5d8bb"/></linearGradient><filter id="map28-shadow" x="-15%" y="-15%" width="130%" height="130%"><feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="#225a68" flood-opacity=".22"/></filter></defs>
 <rect x="-800" y="-500" width="2880" height="1700" fill="url(#map28-ocean)"/>
 <line class="map28-grid" x1="0" x2="1280" y1="650" y2="650"/><text class="map28-degree" x="14" y="645">8° N</text>
@@ -341,6 +355,9 @@
  const markerEls=[...mapBox.querySelectorAll('[data-map28-choose]')];
  const mapTitle=document.querySelector('[data-plan28-current]');
  const resetBtn=document.querySelector('[data-plan28-reset-map]');
+ const prevBtn=document.querySelector('[data-plan28-prev]');
+ const nextBtn=document.querySelector('[data-plan28-next]');
+ const navStatus=document.querySelector('[data-plan28-nav-status]');
  const english=document.documentElement.lang==='en';
  const meta=JSON.parse(document.getElementById('plan28-points').textContent);
  const routes=JSON.parse(document.getElementById('plan28-routes').textContent);
@@ -357,6 +374,13 @@
  let active=null,currentFilter='all';
  const originalView='0 0 1280 700';
  const mapCoordinates=coords=>coords.map(([lat,lon])=>[(lon+84)*1280/25,(21-lat)*700/14]);
+ const visibleStages=()=>routes.filter(r=>currentFilter==='all'||details[r.n]?.focus===currentFilter).map(r=>r.n);
+ const syncNav=()=>{
+   const stages=visibleStages(),index=stages.indexOf(active);
+   if(prevBtn)prevBtn.disabled=index<=0;
+   if(nextBtn)nextBtn.disabled=!stages.length||index===stages.length-1;
+   if(navStatus)navStatus.textContent=active&&index>=0?(english?'Stage ':'Etappe ')+String(index+1).padStart(2,'0')+'/'+stages.length:(english?stages.length+' stages':stages.length+' Etappen');
+ };
  const drawFocus=()=>{
    for(const el of routeEls){
      const n=el.dataset.map28Leg;
@@ -369,6 +393,7 @@
      el.classList.toggle('dimmed',active?n!==active:currentFilter!=='all'&&details[n]?.focus!==currentFilter);
    }
    cards.forEach(c=>c.classList.toggle('plan28-selected',c.id==='plan28-leg-'+active));
+   syncNav();
  };
 
  function scaleMapDetails(width){
@@ -403,8 +428,9 @@
    const w=Math.min(1280,Math.max(240,dx*1.65+85,(dy*1.75+70)*1280/700)),h=w*700/1280;
    const centerX=(bounds.minX+bounds.maxX)/2;
    const centerY=(bounds.minY+bounds.maxY)/2;
-   const left=centerX-w/2;
-   const top=centerY-h/2;
+   // Keep the viewport over the mapped geography, including the western and southern edge stages.
+   const left=Math.max(0,Math.min(1280-w,centerX-w/2));
+   const top=Math.max(0,Math.min(700-h,centerY-h/2));
    focusPanel.dataset.side=centerX<640?'right':'left';
    mapBox.classList.add('is-focused');
    mapRail?.classList.add('is-focused-map');
@@ -460,6 +486,8 @@
    if(stageSelect)stageSelect.value=a.dataset.plan28Stage;
  }));
  resetBtn?.addEventListener('click',allVisible);
+ prevBtn?.addEventListener('click',()=>{const stages=visibleStages(),i=stages.indexOf(active);if(i>0)choose(stages[i-1]);});
+ nextBtn?.addEventListener('click',()=>{const stages=visibleStages(),i=stages.indexOf(active);if(i<stages.length-1)choose(stages[i+1]);});
  mapBox.addEventListener('click',e=>{
    const found=e.target?.closest?.('[data-map28-leg],[data-map28-choose]');
    if(found)choose(found.dataset.map28Leg||found.dataset.map28Choose);
