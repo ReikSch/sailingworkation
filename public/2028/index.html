@@ -125,6 +125,12 @@
 .plan28-workation #map28-ocean stop:last-child{stop-color:#6faabc}
 .plan28-workation .plan28-current{background:#e1f2f1;color:#065965}
 
+
+/* Keep readable labels and route strokes when focusing a single 2028 stage. */
+.map28-place.small{font-size:calc(11px * var(--map28-stage-scale,1))}
+.map28-place.large{font-size:calc(15px * var(--map28-stage-scale,1))}
+.map28-marker text{font-size:calc(14px * var(--map28-stage-scale,1))}
+.map28-route-halo,.map28-route-stroke,.map28-route-hit,.map28-marker circle{vector-effect:non-scaling-stroke}
 </style></head>
  <body class="plan28-workation">
  <header class="plan28-top"><a class="plan28-brand" href="/" aria-label="Sailing Workation"><img src="/assets/brand/sailing-workation-logo-new.webp?v=1" alt="Sailing Workation"></a><nav class="plan28-nav" aria-label="Hauptnavigation"><a href="/trips/">Törnplan 2027</a><a href="/2028/" aria-current="page">Saison 2028</a><a href="https://sailingsabbatical.com/">Lieber abschalten? ↗</a><a href="/en/2028/" hreflang="en">EN</a><a class="outline" href="#2028-anfrage">Unverbindlich anfragen</a></nav></header>
@@ -296,6 +302,23 @@
    }
    cards.forEach(c=>c.classList.toggle('plan28-selected',c.id==='plan28-leg-'+active));
  };
+
+ function scaleMapDetails(width){
+   const scale=width/1280;
+   svg.style.setProperty('--map28-stage-scale',scale.toFixed(5));
+   for(const marker of markerEls){
+     const circle=marker.querySelector('circle');
+     const label=marker.querySelector('text');
+     if(!circle)continue;
+     if(!circle.dataset.originalRadius)circle.dataset.originalRadius=circle.getAttribute('r')||'17.5';
+     circle.setAttribute('r',(Number(circle.dataset.originalRadius)*scale).toFixed(2));
+     if(label){
+       const cy=Number(circle.getAttribute('cy'));
+       if(!label.dataset.originalOffset)label.dataset.originalOffset=String(Number(label.getAttribute('y'))-cy);
+       label.setAttribute('y',(cy+Number(label.dataset.originalOffset)*scale).toFixed(2));
+     }
+   }
+ }
  function focusView(n){
    const coords=segments[n]?.coords;
    if(!Array.isArray(coords)||coords.length<2)return;
@@ -304,17 +327,20 @@
      minX:Math.min(...projected.map(p=>p[0])),maxX:Math.max(...projected.map(p=>p[0])),
      minY:Math.min(...projected.map(p=>p[1])),maxY:Math.max(...projected.map(p=>p[1]))
    };
-   // Keep most of the Caribbean visible: never zoom down to one marker or a tiny stretch of sea.
-   const w=1020,h=w*700/1280;
+   // Focus each stage at the scale of its full route, keeping coastlines and nearby islands visible.
+   const dx=bounds.maxX-bounds.minX,dy=bounds.maxY-bounds.minY;
+   const w=Math.min(1280,Math.max(240,dx*1.65+85,(dy*1.75+70)*1280/700)),h=w*700/1280;
    const centerX=(bounds.minX+bounds.maxX)/2;
    const centerY=(bounds.minY+bounds.maxY)/2;
    const left=Math.max(0,Math.min(1280-w,centerX-w/2));
    const top=Math.max(0,Math.min(700-h,centerY-h/2));
    svg.setAttribute('viewBox', [left.toFixed(1),top.toFixed(1),w,h.toFixed(1)].join(' '));
+   scaleMapDetails(w);
  }
  function allVisible(){
    active=null;
    svg.setAttribute('viewBox',originalView);
+   scaleMapDetails(1280);
    if(mapTitle)mapTitle.textContent=english?'Entire 2028 route · 12 stages':'Gesamte Route 2028 · 12 Etappen';
    drawFocus();
  }
