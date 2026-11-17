@@ -165,6 +165,31 @@
  [data-plan28-mapstage]{min-height:44px;font-size:14px!important;padding:10px 12px!important}
 }
 
+
+/* Map polish: full-route framing, accessible controls and contextual stage card */
+#plan28-map{position:relative}
+.map28-route:focus,.map28-marker:focus{outline:none}
+.map28-route:focus-visible .map28-route-halo{stroke:#fff;stroke-opacity:1;stroke-width:17}
+.map28-marker:focus-visible circle{stroke-width:5;filter:drop-shadow(0 0 5px #fff)}
+.plan28-focus-panel{position:absolute;top:17px;left:17px;z-index:3;display:none;flex-direction:column;gap:6px;width:min(285px,31%);padding:16px 18px;border:1px solid #ffffff69;border-radius:16px;background:rgba(5,39,51,.92);box-shadow:0 8px 26px #092b3850;color:#fff;backdrop-filter:blur(7px);pointer-events:none}
+#plan28-map.is-focused .plan28-focus-panel{display:flex}
+.plan28-focus-panel[data-side="right"]{left:auto;right:17px}
+.plan28-focus-kicker{color:#f1bc8f;font-size:11px;font-weight:900;letter-spacing:.16em}
+.plan28-workation .plan28-focus-kicker{color:#91e6df}
+.plan28-focus-title{font-size:clamp(17px,1.8vw,22px);line-height:1.2;font-weight:850}
+.plan28-focus-meta{font-size:13px;font-weight:650;color:#d4eeec}
+[data-plan28-mapstage]{min-height:39px;color:#0e6876!important;background:#e9f6f5!important;border:1px solid #bedbd9!important;border-radius:999px!important;padding:8px 13px!important;font-size:13px!important;font-weight:850!important;transition:background .15s,color .15s}
+[data-plan28-mapstage]:hover{color:#074651!important;background:#d2eee9!important}
+[data-plan28-mapstage]:focus-visible,.plan28-maplegend button:focus-visible{outline:3px solid #4b9fa6;outline-offset:2px}
+.plan28-sabbatical [data-plan28-mapstage]{color:#80502b!important;background:#fff0e1!important;border-color:#e9caad!important}
+.plan28-sabbatical [data-plan28-mapstage]:hover{background:#f8dfc6!important}
+.plan28-maplegend button{min-height:39px;border:1px solid #bad5d5;border-radius:999px;background:#edf7f5;padding:8px 13px;text-decoration:none}
+.plan28-maplegend button:hover{background:#d8eeeb}
+.plan28-workation .plan28-hero h1 em{color:#f4b493}
+.plan28-workation .plan28-hero .plan28-btn:not(.secondary){background:#f39b74;border-color:#f39b74;color:#09333d}
+@media(max-width:900px){.plan28-focus-panel{display:none!important}}
+@media(max-width:650px){[data-plan28-mapstage],.plan28-maplegend button{min-height:44px}}
+
 </style></head>
  <body class="plan28-workation">
  <header class="plan28-top"><a class="plan28-brand" href="/en/" aria-label="Sailing Workation"><img src="/assets/brand/sailing-workation-logo-new.webp?v=1" alt="Sailing Workation"></a><nav class="plan28-nav" aria-label="Main navigation"><a href="/en/trips/">2027 trips</a><a href="/en/2028/" aria-current="page">2028 season</a><a href="https://sailingsabbatical.com/">Prefer to unplug? ↗</a><a href="/2028/" hreflang="de">DE</a><a class="outline" href="#2028-anfrage">Send enquiry</a></nav></header>
@@ -186,7 +211,7 @@
 <article class="plan28-leg" id="plan28-leg-11" data-plan28-focus="sabbatical"><div class="plan28-number">11</div><div><div class="plan28-cardtop"><span class="plan28-focus sabbatical">SABBATICAL</span><span>24 Oct–27 Nov 2028</span></div><h3>Colombia to San Blas</h3><p class="plan28-route">Cartagena → Karibikküste → Guna-Yala-Archipel</p><p class="plan28-desc">After the coastal passage, we spend many days among the San Blas islands. A genuine break, not a schedule full of video calls.</p><div class="plan28-meta"><span>35 days</span><span>220–320 nm</span><span class="price">Indicative price pp: 3.850 €</span></div><a class="plan28-cardcta" href="#2028-anfrage" data-plan28-stage="11">Enquire about this leg →</a> <button type="button" data-plan28-mapstage="11" style="border:0;background:transparent;color:#6d898d;font-size:12px;font-weight:750;cursor:pointer;padding:6px 0 6px 12px;">Show on map</button></div></article>
 <article class="plan28-leg" id="plan28-leg-12" data-plan28-focus="sabbatical"><div class="plan28-number">12</div><div><div class="plan28-cardtop"><span class="plan28-focus sabbatical">SABBATICAL</span><span>30 Nov 2028–3 Jan 2029</span></div><h3>San Blas to Bocas del Toro</h3><p class="plan28-route">San Blas → Portobelo / Linton Bay → Bocas del Toro</p><p class="plan28-desc">Five weeks among islands and Panama’s Caribbean coast. Christmas and New Year aboard together; the trip finishes in Bocas del Toro.</p><div class="plan28-meta"><span>35 days</span><span>220–330 nm</span><span class="price">Indicative price pp: 4.550 €</span></div><a class="plan28-cardcta" href="#2028-anfrage" data-plan28-stage="12">Enquire about this leg →</a> <button type="button" data-plan28-mapstage="12" style="border:0;background:transparent;color:#6d898d;font-size:12px;font-weight:750;cursor:pointer;padding:6px 0 6px 12px;">Show on map</button></div></article></div><aside class="plan28-maprail"><div class="plan28-maphead"><strong>Explore the route</strong><small>Tap a colored route or a stage number to view its details.</small><div class="plan28-current" data-plan28-current>Full 2028 route</div></div><div class="plan28-maplegend"><span><i></i>Workation</span><span><i class="sabbatical"></i>Sabbatical</span><button type="button" data-plan28-reset-map>Show full route ↗</button></div><div id="plan28-map" role="region" aria-label="Interactive Caribbean overview map"><svg class="map28-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 700" aria-label="Geographic map of the Caribbean, with twelve colored sailing routes from the British Virgin Islands to Panama" role="group">
 <defs><linearGradient id="map28-ocean" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#b5dfdf"/><stop offset="55%" stop-color="#93cad2"/><stop offset="100%" stop-color="#70b3c5"/></linearGradient><linearGradient id="map28-land" x1="0" y1="0" x2="0.9" y2="1"><stop offset="0%" stop-color="#e9e9d3"/><stop offset="100%" stop-color="#c5d8bb"/></linearGradient><filter id="map28-shadow" x="-15%" y="-15%" width="130%" height="130%"><feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="#225a68" flood-opacity=".22"/></filter></defs>
-<rect width="1280" height="700" fill="url(#map28-ocean)"/>
+<rect x="-800" y="-500" width="2880" height="1700" fill="url(#map28-ocean)"/>
 <line class="map28-grid" x1="0" x2="1280" y1="650" y2="650"/><text class="map28-degree" x="14" y="645">8° N</text>
 <line class="map28-grid" x1="0" x2="1280" y1="550" y2="550"/><text class="map28-degree" x="14" y="545">10° N</text>
 <line class="map28-grid" x1="0" x2="1280" y1="450" y2="450"/><text class="map28-degree" x="14" y="445">12° N</text>
@@ -321,6 +346,14 @@
  const routes=JSON.parse(document.getElementById('plan28-routes').textContent);
  const details=Object.fromEntries(meta.map(m=>[m.n,m]));
  const segments=Object.fromEntries(routes.map(r=>[r.n,r]));
+ const focusPanel=document.createElement('aside');
+ focusPanel.className='plan28-focus-panel';
+ focusPanel.setAttribute('aria-live','polite');
+ focusPanel.innerHTML='<span class="plan28-focus-kicker"></span><strong class="plan28-focus-title"></strong><span class="plan28-focus-meta"></span>';
+ mapBox.appendChild(focusPanel);
+ const focusKicker=focusPanel.querySelector('.plan28-focus-kicker');
+ const focusTitle=focusPanel.querySelector('.plan28-focus-title');
+ const focusMeta=focusPanel.querySelector('.plan28-focus-meta');
  let active=null,currentFilter='all';
  const originalView='0 0 1280 700';
  const mapCoordinates=coords=>coords.map(([lat,lon])=>[(lon+84)*1280/25,(21-lat)*700/14]);
@@ -370,8 +403,9 @@
    const w=Math.min(1280,Math.max(240,dx*1.65+85,(dy*1.75+70)*1280/700)),h=w*700/1280;
    const centerX=(bounds.minX+bounds.maxX)/2;
    const centerY=(bounds.minY+bounds.maxY)/2;
-   const left=Math.max(0,Math.min(1280-w,centerX-w/2));
-   const top=Math.max(0,Math.min(700-h,centerY-h/2));
+   const left=centerX-w/2;
+   const top=centerY-h/2;
+   focusPanel.dataset.side=centerX<640?'right':'left';
    mapBox.classList.add('is-focused');
    mapRail?.classList.add('is-focused-map');
    svg.setAttribute('viewBox', [left.toFixed(1),top.toFixed(1),w,h.toFixed(1)].join(' '));
@@ -394,6 +428,9 @@
    if(card?.hidden)filters.find(b=>b.dataset.plan28Filter==='all')?.click();
    active=n;
    const leg=details[n];
+   focusKicker.textContent=leg.focus==='workation'?'WORKATION':'SABBATICAL';
+   focusTitle.textContent=leg.title;
+   focusMeta.textContent=leg.days+(english?' days · ':' Tage · ')+leg.miles+(english?' nm planned':' sm geplant');
    if(mapTitle)mapTitle.textContent=n+' · '+leg.title+' · '+leg.miles+(english?' nm':' sm');
    focusView(n);
    drawFocus();
