@@ -177,6 +177,30 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
   });
   const waterLabels=svg.querySelector('.route-water-labels');
   if(waterLabels)waterLabels.style.display=W/w>2.5?'none':'';
+  layoutPlaceLabels();
+ }
+ // Avoid overlapping place names in the whole-season view; prioritize local names on focused legs.
+ function layoutPlaceLabels(){
+  const labels=[...svg.querySelectorAll('.route-place-label')];
+  const b=bounds[active];
+  const mx=b?(b.xmin+b.xmax)/2:W/2,my=b?(b.ymin+b.ymax)/2:H/2;
+  const factor=W/view.w;
+  const candidates=labels.map((node,index)=>{
+   const px=Number(node.getAttribute('x')),py=Number(node.getAttribute('y'));
+   const x=(px-view.x)*factor,y=(py-view.y)*factor;
+   const width=Math.min(205,(node.textContent||'').trim().length*10+8);
+   const rect={left:x-4,right:x+width+4,top:y-23,bottom:y+7};
+   return {node,index,rect,priority:Math.hypot(px-mx,py-my)};
+  }).sort((a,b)=>factor>=2?a.priority-b.priority:a.index-b.index);
+  const occupied=[];
+  for(const label of candidates){
+   const r=label.rect;
+   const onMap=r.right>3&&r.left<W-3&&r.bottom>4&&r.top<H-4;
+   const overlap=occupied.some(o=>r.left<o.right+9&&r.right>o.left-9&&r.top<o.bottom+5&&r.bottom>o.top-5);
+   const visible=onMap&&!overlap;
+   label.node.style.display=visible?'':'none';
+   if(visible)occupied.push(r);
+  }
  }
  function zoomForLeg(index){
   const b=bounds[index];if(!b||![b.xmin,b.xmax,b.ymin,b.ymax].every(Number.isFinite))return;
