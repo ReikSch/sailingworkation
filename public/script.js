@@ -170,10 +170,13 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
   svg.setAttribute('viewBox',[x,y,w,h].map(n=>n.toFixed(2)).join(' '));
   host.dataset.zoom=(W/w).toFixed(2);
   // Keep map labels and endpoint markers readable at every geographic scale.
-  svg.style.setProperty('--atlas-label-size',Math.max(.9,18*w/W).toFixed(2)+'px');
+  const phone=window.matchMedia('(max-width:650px)').matches;
+  const labelBoost=phone?Math.min(2.15,820/Math.max(1,svg.getBoundingClientRect().width)):1;
+  svg.dataset.labelBoost=labelBoost.toFixed(2);
+  svg.style.setProperty('--atlas-label-size',(Math.max(.9,18*w/W)*labelBoost).toFixed(2)+'px');
   svg.querySelectorAll('.trip-route-marker circle').forEach(dot=>{
    if(!dot.dataset.baseRadius)dot.dataset.baseRadius=dot.getAttribute('r')||'4';
-   dot.setAttribute('r',Math.max(.6,Number(dot.dataset.baseRadius)*2*w/W).toFixed(2));
+   dot.setAttribute('r',Math.max(.6,Number(dot.dataset.baseRadius)*2*w/W*(phone?1.5:1)).toFixed(2));
   });
   const waterLabels=svg.querySelector('.route-water-labels');
   if(waterLabels)waterLabels.style.display=W/w>2.5?'none':'';
@@ -184,13 +187,13 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
   const labels=[...svg.querySelectorAll('.route-place-label')];
   const b=bounds[active];
   const mx=b?(b.xmin+b.xmax)/2:W/2,my=b?(b.ymin+b.ymax)/2:H/2;
-  const factor=W/view.w;
+  const factor=W/view.w,boost=Number(svg.dataset.labelBoost)||1;
   const landmarkPriority={'BVI':20,'Bermuda':20,'Ponta Delgada':19,'Gibraltar':18,'Palma':17,'Korfu':16,'Malta':15,'Kanaren':14,'Mindelo':13,'Catania':8,'Lefkada':7,'Cagliari':7,'Horta':6,'Lagos':5,'Kalamata':4,'Sint Maarten':3};
   const candidates=labels.map((node,index)=>{
    const px=Number(node.getAttribute('x')),py=Number(node.getAttribute('y'));
    const x=(px-view.x)*factor,y=(py-view.y)*factor;
-   const width=Math.min(205,(node.textContent||'').trim().length*10+8);
-   const rect={left:x-4,right:x+width+4,top:y-23,bottom:y+7};
+   const width=Math.min(boost>1?300:205,(node.textContent||'').trim().length*10*boost+8);
+   const rect={left:x-4,right:x+width+4,top:y-23*boost,bottom:y+7*boost};
    return {node,index,rect,priority:Math.hypot(px-mx,py-my),importance:landmarkPriority[node.textContent?.trim()]||0};
   }).sort((a,b)=>factor>=2?a.priority-b.priority:b.importance-a.importance||a.index-b.index);
   const occupied=[];
@@ -221,7 +224,14 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
   if(heading&&title)heading.textContent=title;
   if(focus)zoomForLeg(index);
  }
- cards.forEach((card,i)=>card.addEventListener('click',()=>activate(i,true)));
+ cards.forEach((card,i)=>card.addEventListener('click',event=>{
+  if(event.target?.closest?.('a,button,input,select,textarea'))return;
+  activate(i,true);
+  if(window.matchMedia('(max-width:980px)').matches){
+   const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+   host.scrollIntoView({behavior:reduce?'auto':'smooth',block:'center'});
+  }
+ }));
  routes.forEach((route,i)=>route.addEventListener('click',()=>{
   activate(i,true);
   if(cards[i])cards[i].scrollIntoView({behavior:'smooth',block:'center'});
@@ -252,13 +262,14 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
  svg.addEventListener('pointercancel',()=>{drag=null});
  function sync(){
   scrollScheduled=false;
-  if(!cards.length)return;
+  if(!cards.length||window.matchMedia('(max-width:980px)').matches)return;
   const lineY=window.innerHeight*.52;
   let next=0;
   cards.forEach((card,i)=>{if(card.getBoundingClientRect().top<=lineY)next=i});
   if(next!==active)activate(next,true);
  }
  window.addEventListener('scroll',()=>{if(!scrollScheduled){scrollScheduled=true;requestAnimationFrame(sync)}},{passive:true});
+ window.addEventListener('resize',()=>setView(view.x,view.y,view.w),{passive:true});
  // Full-year overview is visible immediately; selecting a leg gradually reveals regional detail.
  activate(0,false);
  setView(0,0,W);
