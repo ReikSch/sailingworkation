@@ -150,6 +150,21 @@
 .plan28-workation .plan28-maplegend i.sabbatical{border-top-color:#ca7350;background:#ca7350;border-top-style:solid}
 .plan28-workation .plan28-leg.plan28-selected{border-color:#4daab0;box-shadow:0 9px 28px rgba(3,113,128,.16)}
 
+
+/* Mobile overview remains explorable; focused legs fit on the phone without sideways scrolling. */
+@media(max-width:650px){
+ #plan28-map{overscroll-behavior-x:contain}
+ #plan28-map.is-focused{overflow-x:hidden}
+ #plan28-map.is-focused .map28-svg{width:100%;min-width:0;max-width:100%;height:auto}
+ .plan28-maprail.is-focused-map .plan28-mapnote:after{content:"  · Die ausgewählte Etappe ist vollständig eingeblendet."}
+ html[lang="en"] .plan28-mapnote:after{content:"  ↔ Swipe horizontally to explore the full map."}
+ html[lang="en"] .plan28-maprail.is-focused-map .plan28-mapnote:after{content:"  · The selected leg fits on your screen."}
+ .map28-route.active .map28-route-stroke{stroke-width:7}
+ .map28-route.active .map28-route-halo{stroke-width:12}
+ .plan28-filter button,.plan28-maplegend button{min-height:44px}
+ [data-plan28-mapstage]{min-height:44px;font-size:14px!important;padding:10px 12px!important}
+}
+
 </style></head>
  <body class="plan28-workation">
  <header class="plan28-top"><a class="plan28-brand" href="/en/" aria-label="Sailing Workation"><img src="/assets/brand/sailing-workation-logo-new.webp?v=1" alt="Sailing Workation"></a><nav class="plan28-nav" aria-label="Main navigation"><a href="/en/trips/">2027 trips</a><a href="/en/2028/" aria-current="page">2028 season</a><a href="https://sailingsabbatical.com/">Prefer to unplug? ↗</a><a href="/2028/" hreflang="de">DE</a><a class="outline" href="#2028-anfrage">Send enquiry</a></nav></header>
@@ -291,6 +306,7 @@
 (()=>{
  'use strict';
  const mapBox=document.getElementById('plan28-map');
+ const mapRail=mapBox?.closest('.plan28-maprail');
  const svg=mapBox?.querySelector('svg.map28-svg');
  if(!mapBox||!svg)return;
  const cards=[...document.querySelectorAll('[data-plan28-focus]')];
@@ -323,7 +339,10 @@
  };
 
  function scaleMapDetails(width){
-   const scale=width/1280;
+   const displayWidth=svg.getBoundingClientRect().width||1280;
+   const mobile=window.matchMedia('(max-width:650px)').matches;
+   const boost=mobile?Math.min(3.2,1100/displayWidth):1;
+   const scale=width/1280*boost;
    svg.style.setProperty('--map28-stage-scale',scale.toFixed(5));
    for(const marker of markerEls){
      const circle=marker.querySelector('circle');
@@ -353,13 +372,19 @@
    const centerY=(bounds.minY+bounds.maxY)/2;
    const left=Math.max(0,Math.min(1280-w,centerX-w/2));
    const top=Math.max(0,Math.min(700-h,centerY-h/2));
+   mapBox.classList.add('is-focused');
+   mapRail?.classList.add('is-focused-map');
    svg.setAttribute('viewBox', [left.toFixed(1),top.toFixed(1),w,h.toFixed(1)].join(' '));
+   mapBox.scrollLeft=0;
    scaleMapDetails(w);
  }
  function allVisible(){
    active=null;
+   mapBox.classList.remove('is-focused');
+   mapRail?.classList.remove('is-focused-map');
    svg.setAttribute('viewBox',originalView);
    scaleMapDetails(1280);
+   if(window.matchMedia('(max-width:650px)').matches)mapBox.scrollLeft=mapBox.scrollWidth-mapBox.clientWidth;
    if(mapTitle)mapTitle.textContent=english?'Entire 2028 route · 12 stages':'Gesamte Route 2028 · 12 Etappen';
    drawFocus();
  }
@@ -385,7 +410,11 @@
    filters.forEach(f=>f.setAttribute('aria-pressed',String(f===b)));
    cards.forEach(card=>{card.hidden=currentFilter!=='all'&&card.dataset.plan28Focus!==currentFilter;});
    if(active&&currentFilter!=='all'&&details[active]?.focus!==currentFilter){
-     active=null;svg.setAttribute('viewBox',originalView);scaleMapDetails(1280);
+     active=null;
+     mapBox.classList.remove('is-focused');
+     mapRail?.classList.remove('is-focused-map');
+     svg.setAttribute('viewBox',originalView);scaleMapDetails(1280);
+     if(window.matchMedia('(max-width:650px)').matches)mapBox.scrollLeft=mapBox.scrollWidth-mapBox.clientWidth;
      if(mapTitle)mapTitle.textContent=english?'Full 2028 route':'Gesamtroute 2028';
    }
    drawFocus();
@@ -407,8 +436,6 @@
  document.querySelectorAll('[data-plan28-mapstage]').forEach(b=>b.addEventListener('click',()=>choose(b.dataset.plan28Mapstage,true)));
  // Show the entire route before any interaction; no remote tiles, frameworks or map initialization required.
  allVisible();
- if(window.matchMedia&&window.matchMedia('(max-width:650px)').matches){
-   mapBox.scrollLeft=mapBox.scrollWidth-mapBox.clientWidth;
- }
+ window.addEventListener('resize',()=>scaleMapDetails(svg.viewBox.baseVal.width||1280),{passive:true});
 })();
 </script></body></html>
