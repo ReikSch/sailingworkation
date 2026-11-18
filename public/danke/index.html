@@ -18,6 +18,15 @@
  <div class="form-actions"><a class="form-submit inline" href="/trips/">Törnplan ansehen →</a><a class="form-secondary" href="/">Zur Startseite</a></div>
 </div></section></main>
 <footer class="sw-footer"><div class="shell footer-bottom"><span>© 2026 Sailing Workation · R16 Consulting LLC</span><span>Work remotely. Sail somewhere new.</span></div></footer>
-<script src="/script.js?v=23"></script>
-<script>addEventListener("load",()=>{setTimeout(()=>{if(typeof trackEvent==="function")trackEvent("booking_inquiry_complete",{page_location:location.href})},250)});</script>
+<script src="/script.js?v=65"></script>
+<script>addEventListener('load',()=>{
+ const key='sailing_inquiry_confirmation';
+ let verifiedFlow=false;
+ try{
+  const timestamp=Number(sessionStorage.getItem(key));
+  sessionStorage.removeItem(key);
+  verifiedFlow=timestamp>0&&Date.now()-timestamp<10*60*1000;
+ }catch{}
+ if(verifiedFlow&&typeof trackEvent==='function')setTimeout(()=>trackEvent('booking_inquiry_complete',{page_location:location.href}),250);
+});</script>
 </body></html>
