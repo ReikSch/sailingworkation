@@ -397,6 +397,10 @@
    stageSelect.dispatchEvent(new Event('change',{bubbles:true}));
  };
 
+ const inquiryForm=document.querySelector('.plan28-inquiryform');
+ inquiryForm?.addEventListener('submit',()=>{
+   try{sessionStorage.setItem('sailing_inquiry_confirmation',String(Date.now()))}catch{}
+ });
  const stagePicker=document.querySelector('[data-plan28-stage-picker]');
  const stageButtons=routes.map(route=>{
    const button=document.createElement('button');
