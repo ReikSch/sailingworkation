@@ -392,3 +392,20 @@
 .crew-trust .feedback-teaser p{font-size:.82rem}
 @media(max-width:900px){.crew-decision-grid{grid-template-columns:1fr}.crew-meet{align-items:flex-start;flex-direction:column}.crew-decisions{padding:24px}}
 @media(max-width:650px){.crew-decisions{padding:18px;margin-top:25px}.crew-decision{padding:20px}.crew-meet{padding:23px}.crew-meet a{width:100%;box-sizing:border-box;text-align:center}.crew-trust .crew-card{gap:16px;padding:18px}}
+
+/* Personal skipper story — inherit the distinct Sabbatical/Workation crew palette. */
+.crew-trust .crew-cards{align-items:start}
+.crew-trust .crew-bio-details{grid-column:1/-1;min-width:0;border-top:1px solid color-mix(in srgb,var(--crew-accent) 25%,transparent);padding-top:17px}
+.crew-trust .crew-bio-details summary{display:flex;align-items:center;justify-content:space-between;gap:12px;list-style:none;cursor:pointer;color:var(--crew-dark);font-weight:850;font-size:.83rem;line-height:1.45;min-height:44px}
+.crew-trust .crew-bio-details summary::-webkit-details-marker{display:none}
+.crew-trust .crew-bio-details summary:hover{color:var(--crew-accent)}
+.crew-trust .crew-bio-details summary:focus-visible{outline:3px solid var(--crew-accent);outline-offset:5px;border-radius:6px}
+.crew-trust .crew-bio-toggle{width:27px;height:27px;flex:0 0 27px;display:inline-flex;align-items:center;justify-content:center;background:var(--crew-light);border-radius:50%;color:var(--crew-dark)}
+.crew-trust .crew-bio-toggle::before{content:"+";font-size:1.35rem;line-height:1;font-weight:500}
+.crew-trust .crew-bio-details[open] .crew-bio-toggle::before{content:"−"}
+.crew-trust .crew-bio-story{margin-top:16px;padding:23px;border-radius:18px;background:var(--crew-light);border:1px solid color-mix(in srgb,var(--crew-accent) 13%,transparent)}
+.crew-trust .crew-bio-story .crew-bio-kicker{color:var(--crew-accent);font-size:.62rem;font-weight:900;letter-spacing:.1em;line-height:1.5}
+.crew-trust .crew-bio-story .crew-bio-quote{color:var(--crew-dark);font:700 clamp(1.2rem,1.6vw,1.5rem)/1.3 Georgia,"Times New Roman",serif;margin:12px 0 18px}
+.crew-trust .crew-bio-body{display:grid;gap:13px}
+.crew-trust .crew-bio-body p{color:var(--crew-dark);font-size:.86rem;line-height:1.78;margin:0}
+@media(max-width:650px){.crew-trust .crew-bio-story{padding:19px}.crew-trust .crew-bio-body p{font-size:.88rem}}
