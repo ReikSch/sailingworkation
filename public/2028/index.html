@@ -408,7 +408,7 @@
    button.textContent=route.n;
    button.dataset.stage=route.n;
    button.dataset.focus=route.focus;
-   button.title=(english?'Stage ':'Etappe ')+route.n+': '+(english?route.en:route.de);
+   button.title=(english?'Stage ':'Etappe ')+route.n+': '+(details[route.n]?.title||(english?route.en:route.de));
    button.setAttribute('aria-label',button.title);
    button.setAttribute('aria-pressed','false');
    button.addEventListener('click',()=>choose(route.n));
