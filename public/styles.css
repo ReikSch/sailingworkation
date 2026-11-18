@@ -360,3 +360,35 @@
  .real-route-card{scroll-margin-top:12px}
  .season-route-map .route-map-tools button{min-width:44px;min-height:44px}
 }
+
+/* Crew & trust: genuine skipper profiles, decision-making and conversation CTA. */
+.crew-trust{--crew-accent:#0b8385;--crew-light:#e5f7f3;--crew-highlight:#a9ebe2;--crew-dark:#0d3e4b}
+.crew-trust .section-head{max-width:860px;margin-bottom:34px}
+.crew-trust .section-head h2{max-width:820px}
+.crew-trust .crew-intro{max-width:740px;margin:17px 0 0;font-size:clamp(.93rem,1.35vw,1.08rem);line-height:1.72;color:var(--muted,#667f84)}
+.crew-trust .crew-card{box-shadow:0 14px 38px rgba(13,56,66,.045)}
+.crew-trust .crew-role{color:var(--crew-accent);opacity:1;font-size:.65rem}
+.crew-trust .crew-card p{font-size:.85rem;line-height:1.7}
+.crew-trust .crew-facts span{font-size:.65rem;background:var(--crew-light);color:var(--crew-dark)}
+.crew-trust .crew-together{background:var(--crew-dark)}
+.crew-trust .crew-together span{color:var(--crew-highlight)}
+.crew-decisions{margin-top:38px;padding:32px;border-radius:28px;background:var(--crew-light);border:1px solid color-mix(in srgb,var(--crew-accent) 18%,transparent)}
+.crew-decisions-heading{max-width:780px;margin-bottom:24px}
+.crew-eyebrow{display:block;color:var(--crew-accent);font-size:.64rem;font-weight:900;letter-spacing:.15em}
+.crew-decisions-heading h3{margin:9px 0 11px;font:650 clamp(1.65rem,2.65vw,2.4rem)/1.17 Georgia,"Times New Roman",serif;color:var(--crew-dark)}
+.crew-decisions-heading p{margin:0;color:var(--muted,#667f84);font-size:.86rem;line-height:1.65}
+.crew-decision-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.crew-decision{min-width:0;border-radius:18px;padding:23px 21px 24px;background:#fff;border:1px solid rgba(15,66,73,.09)}
+.crew-decision-number{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:12px;background:var(--crew-light);color:var(--crew-accent);font-size:.72rem;font-weight:900}
+.crew-decision h4{margin:17px 0 9px;font:700 clamp(1.05rem,1.6vw,1.25rem)/1.23 Georgia,"Times New Roman",serif;color:var(--crew-dark)}
+.crew-decision p{font-size:.81rem;line-height:1.67;margin:0;color:var(--muted,#667f84)}
+.crew-meet{display:flex;justify-content:space-between;align-items:center;gap:28px;margin-top:22px;padding:28px 30px;border-radius:24px;background:var(--crew-dark);color:#fff}
+.crew-meet>div{max-width:650px}
+.crew-meet strong{display:block;font:700 clamp(1.2rem,2vw,1.55rem)/1.25 Georgia,"Times New Roman",serif}
+.crew-meet p{margin:10px 0 0;color:#d9eaeb;font-size:.82rem;line-height:1.6}
+.crew-meet a{display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;min-height:44px;padding:12px 18px;border-radius:999px;background:var(--crew-highlight);color:var(--crew-dark);text-decoration:none;font-size:.76rem;line-height:1.35;font-weight:900}
+.crew-meet a:hover{filter:brightness(1.06)}
+.crew-meet a:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.crew-trust .feedback-teaser p{font-size:.82rem}
+@media(max-width:900px){.crew-decision-grid{grid-template-columns:1fr}.crew-meet{align-items:flex-start;flex-direction:column}.crew-decisions{padding:24px}}
+@media(max-width:650px){.crew-decisions{padding:18px;margin-top:25px}.crew-decision{padding:20px}.crew-meet{padding:23px}.crew-meet a{width:100%;box-sizing:border-box;text-align:center}.crew-trust .crew-card{gap:16px;padding:18px}}
