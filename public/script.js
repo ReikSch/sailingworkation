@@ -129,6 +129,7 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
    const result=await response.json().catch(()=>({}));
    if(!response.ok || result.success===false || result.success==='false' || result.error)throw new Error(result.message||'Submission failed');
    trackEvent('booking_inquiry_success',{form_name:'booking_inquiry'});
+   try{sessionStorage.setItem('sailing_inquiry_confirmation',String(Date.now()))}catch{}
 
    const next=form.querySelector('input[name="_next"]')?.value;
    status.textContent=en?'Sent. Redirecting…':'Gesendet. Einen Moment…';
