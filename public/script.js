@@ -128,12 +128,14 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
    });
    const result=await response.json().catch(()=>({}));
    if(!response.ok || result.success===false || result.success==='false' || result.error)throw new Error(result.message||'Submission failed');
+   trackEvent('booking_inquiry_success',{form_name:'booking_inquiry'});
 
    const next=form.querySelector('input[name="_next"]')?.value;
    status.textContent=en?'Sent. Redirecting…':'Gesendet. Einen Moment…';
    if(next)location.href=next;
    else form.reset();
   }catch(err){
+   trackEvent('booking_inquiry_error',{form_name:'booking_inquiry'});
    form.dataset.submitting='0';
    if(btn){
     btn.disabled=false;
