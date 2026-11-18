@@ -416,3 +416,23 @@
 .crew-trust .crew-bio-body p{color:var(--crew-dark);font-size:.86rem;line-height:1.78;margin:0}
 @media(max-width:900px){.crew-trust .crew-bio-story{grid-template-columns:1fr;gap:8px}.crew-trust .crew-bio-kicker,.crew-trust .crew-bio-quote,.crew-trust .crew-bio-body{grid-column:1;grid-row:auto}.crew-trust .crew-bio-quote{margin:4px 0 12px}}
 @media(max-width:650px){.crew-trust .crew-bio-details{padding:12px 17px}.crew-trust .crew-bio-story{padding:19px}.crew-trust .crew-bio-body p{font-size:.88rem}}
+
+
+/* An illustrative day aboard: warm Sabbatical and fresh Workation palettes. */
+.aboard-rhythm-section{padding:0 0 110px;background:var(--paper,#fbfaf4)}
+.aboard-rhythm{--rhythm-accent:#bc6848;--rhythm-surface:#f6ede5;--rhythm-ink:#244048;background:var(--rhythm-surface);border-radius:28px;padding:35px 36px 30px;border:1px solid color-mix(in srgb,var(--rhythm-accent) 15%,transparent)}
+.aboard-rhythm.workation-rhythm{--rhythm-accent:#0b8285;--rhythm-surface:#eaf6f2;--rhythm-ink:#123f4c}
+.life .aboard-rhythm{margin-top:26px}
+.aboard-rhythm-head{max-width:900px}
+.aboard-rhythm-eyebrow{display:block;font-size:.63rem;font-weight:900;letter-spacing:.16em;color:var(--rhythm-accent)}
+.aboard-rhythm-head h3{font:700 clamp(1.65rem,2.6vw,2.55rem)/1.15 Georgia,"Times New Roman",serif;letter-spacing:-.025em;margin:9px 0 12px;color:var(--rhythm-ink)}
+.aboard-rhythm-head p{margin:0;font-size:.92rem;line-height:1.72;color:var(--rhythm-ink);opacity:.86}
+.aboard-rhythm-steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:28px}
+.aboard-rhythm.workation-rhythm .aboard-rhythm-steps{grid-template-columns:repeat(5,minmax(0,1fr))}
+.aboard-rhythm-step{background:#fff;border:1px solid color-mix(in srgb,var(--rhythm-accent) 12%,transparent);border-radius:18px;padding:20px 18px;min-width:0}
+.aboard-rhythm-step span{display:block;color:var(--rhythm-accent);font-size:.67rem;font-weight:900;letter-spacing:.08em}
+.aboard-rhythm-step h4{margin:14px 0 10px;color:var(--rhythm-ink);font:700 clamp(1rem,1.45vw,1.24rem)/1.24 Georgia,"Times New Roman",serif}
+.aboard-rhythm-step p{margin:0;color:var(--rhythm-ink);opacity:.82;font-size:.78rem;line-height:1.68}
+.aboard-rhythm-note{margin:20px 0 0;padding-left:13px;border-left:3px solid var(--rhythm-accent);color:var(--rhythm-ink);font-size:.76rem;line-height:1.7;opacity:.87}
+@media(max-width:1050px){.aboard-rhythm-steps,.aboard-rhythm.workation-rhythm .aboard-rhythm-steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:650px){.aboard-rhythm-section{padding-bottom:78px}.aboard-rhythm{padding:22px 19px;border-radius:22px}.aboard-rhythm-steps,.aboard-rhythm.workation-rhythm .aboard-rhythm-steps{grid-template-columns:1fr;gap:10px;margin-top:22px}.aboard-rhythm-step{padding:18px}.aboard-rhythm-step h4{margin:9px 0 7px}}
