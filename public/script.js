@@ -29,9 +29,11 @@ function trackEvent(name,params={}){
 }
 
 function setAnalyticsConsent(value){
+ const wasLoaded=Boolean(window.__swGaLoaded);
  localStorage.setItem(ANALYTICS_CONSENT_KEY,value);
  document.querySelector('[data-consent-banner]')?.remove();
  if(value==='granted')loadGoogleAnalytics();
+ else if(wasLoaded)location.reload(); // Stop an already-loaded analytics session after revocation.
 }
 
 function showConsentBanner(){
@@ -70,9 +72,12 @@ document.addEventListener('click',e=>{
  const a=e.target.closest('a');
  if(!a)return;
  const href=a.getAttribute('href')||'';
+ const sameSitePath=(()=>{try{const u=new URL(href,location.href);return u.origin===location.origin?u.pathname:'';}catch{return '';}})();
  if(href.startsWith('mailto:')){
   const address=href.slice(7).split('?')[0];
-  trackEvent(address.startsWith('booking@')?'booking_click':'email_click',{email_address:address});
+  trackEvent(address.startsWith('booking@')?'booking_click':'email_click',{contact_channel:'email'});
+ }else if(/^\/(?:anfrage|en\/inquiry)\/?$/.test(sameSitePath)){
+  trackEvent('inquiry_cta_click',{page_path:location.pathname,link_path:sameSitePath});
  }else if(/\/trips\/?(?:$|[?#])/.test(href)){
   trackEvent('trips_view_click',{link_url:href});
  }else if(href.includes('sailingsabbatical.com')){
