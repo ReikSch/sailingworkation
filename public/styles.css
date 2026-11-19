@@ -472,3 +472,15 @@
   .myelli-gallery .section-head .kicker,.myelli-gallery .section-head h2,.myelli-gallery .section-head p,.myelli-gallery .section-head .section-cta{grid-column:1;max-width:100%}
   .myelli-gallery .section-head p{margin:0;overflow-wrap:anywhere}
 }
+
+/* Keep long German route headings inside narrow phone screens. */
+html,body{overflow-x:clip}
+@media(max-width:650px){
+  .trips-hero h1,.trip-note h2,.booking-state h2{
+    font-size:clamp(1.75rem,8vw,2.35rem);
+    line-height:1.13;
+    overflow-wrap:anywhere;
+    hyphens:auto;
+  }
+  .trips-hero .shell,.trip-note .shell,.booking-state .shell{min-width:0}
+}
