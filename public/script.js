@@ -1,4 +1,8 @@
-const header=document.querySelector('[data-header]'),menu=document.querySelector('[data-menu]'),mobile=document.querySelector('[data-mobile-nav]'),reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;const sync=()=>header?.classList.toggle('scrolled',scrollY>24);sync();addEventListener('scroll',sync,{passive:true});menu?.addEventListener('click',()=>mobile?.classList.toggle('open'));mobile?.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>mobile.classList.remove('open')));
+const header=document.querySelector('[data-header]'),menu=document.querySelector('[data-menu]'),mobile=document.querySelector('[data-mobile-nav]'),reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;const sync=()=>header?.classList.toggle('scrolled',scrollY>24);sync();addEventListener('scroll',sync,{passive:true});const setMobileMenu=open=>{if(!mobile||!menu)return;mobile.classList.toggle('open',open);menu.setAttribute('aria-expanded',String(open));};
+menu?.setAttribute('aria-expanded','false');menu?.setAttribute('aria-controls','mobile-menu');mobile?.setAttribute('id','mobile-menu');
+menu?.addEventListener('click',()=>setMobileMenu(!mobile.classList.contains('open')));
+mobile?.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>setMobileMenu(false)));
+document.addEventListener('keydown',event=>{if(event.key==='Escape')setMobileMenu(false)});
 if(reduce){document.querySelectorAll('.reveal').forEach(e=>e.classList.add('in'))}else{const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12,rootMargin:'0px 0px -5%'});document.querySelectorAll('.reveal').forEach(e=>io.observe(e))}
 const legs=[...document.querySelectorAll('.trip-leg[data-leg]')],route=document.querySelector('[data-route]'),counter=document.querySelector('[data-counter]'),rdate=document.querySelector('[data-route-date]'),rtitle=document.querySelector('[data-route-title]');let active=-1,tick=false;function update(){tick=false;if(!legs.length)return;const line=innerHeight*.52;let idx=0;for(let i=0;i<legs.length;i++){if(legs[i].getBoundingClientRect().top<=line)idx=i;else break}if(idx===active)return;active=idx;legs.forEach((e,i)=>e.classList.toggle('is-active',i===idx));if(counter)counter.textContent=String(idx+1).padStart(2,'0')+' / '+String(legs.length).padStart(2,'0');if(rdate)rdate.textContent=legs[idx].querySelector('small')?.textContent.split('·')[0].trim()||'';if(rtitle)rtitle.textContent=legs[idx].querySelector('h2')?.textContent||'';if(route)route.style.strokeDashoffset=String(1000-((idx+1)/legs.length)*1000)}function req(){if(tick)return;tick=true;requestAnimationFrame(update)}if(legs.length){update();addEventListener('scroll',req,{passive:true});addEventListener('resize',req,{passive:true})}
 
@@ -297,64 +301,54 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
 });
 
 
-/* My Elli chunked image loader */
-(async()=>{
-  const nodes=[...document.querySelectorAll('[data-myelli-exterior]')];
-  if(!nodes.length)return;
-  try{
-    const urls=Array.from({length:9},(_,i)=>`/assets/myelli/exterior-${String(i+1).padStart(2,'0')}.b64?v=1`);
-    const parts=await Promise.all(urls.map(async url=>{
-      const r=await fetch(url,{cache:'force-cache'});
-      if(!r.ok) throw new Error(`Failed to load ${url}`);
-      return (await r.text()).trim();
-    }));
-    const src='data:image/jpeg;base64,'+parts.join('');
-    nodes.forEach(img=>{
-      img.addEventListener('load',()=>img.classList.add('myelli-loaded'),{once:true});
-      img.src=src;
-    });
-  }catch(err){
-    console.error('My Elli image load failed',err);
-  }
-})();
-
-
-/* My Elli gallery image loader */
-(async()=>{
-  const chunkCounts={cockpit:8,salon:8,galley:8,cabin:3,bath:3};
-  const groups=[...document.querySelectorAll('[data-myelli-image]')].reduce((acc,img)=>{
-    const key=img.dataset.myelliImage;
-    (acc[key] ||= []).push(img);
-    return acc;
-  },{});
-  const base64ToBlobUrl=(parts)=>{
-    const clean=parts.join('').replace(/\s+/g,'');
-    const binary=atob(clean);
-    const bytes=new Uint8Array(binary.length);
-    for(let i=0;i<binary.length;i++) bytes[i]=binary.charCodeAt(i);
-    return URL.createObjectURL(new Blob([bytes],{type:'image/jpeg'}));
+/* My Elli chunked photographs: fetch only when the image is near the viewport. */
+(()=>{
+  const counts={exterior:9,cockpit:8,salon:8,galley:8,cabin:3,bath:3};
+  const versions={exterior:1,cockpit:3,salon:3,galley:3,cabin:3,bath:3};
+  const groups={};
+  document.querySelectorAll('[data-myelli-exterior]').forEach(img=>(groups.exterior ||= []).push(img));
+  document.querySelectorAll('[data-myelli-image]').forEach(img=>(groups[img.dataset.myelliImage] ||= []).push(img));
+  const near=(images,load)=>{
+    let started=false;
+    let observer;
+    const run=()=>{
+      if(started)return;
+      started=true;
+      observer?.disconnect();
+      load();
+    };
+    if(!('IntersectionObserver' in window)){run();return;}
+    observer=new IntersectionObserver(entries=>{
+      if(entries.some(entry=>entry.isIntersecting))run();
+    },{rootMargin:'500px 0px'});
+    images.forEach(img=>observer.observe(img));
   };
-  await Promise.all(Object.entries(groups).map(async([key,nodes])=>{
-    const count=chunkCounts[key];
-    if(!count)return;
-    try{
-      const parts=await Promise.all(Array.from({length:count},async(_,i)=>{
-        const url=`/assets/myelli/${key}-${String(i+1).padStart(2,'0')}.b64?v=3`;
-        const r=await fetch(url,{cache:'no-cache'});
-        if(!r.ok)throw new Error(`Failed to load ${url}: ${r.status}`);
-        const text=(await r.text()).trim();
-        if(!text)throw new Error(`Empty image chunk: ${url}`);
-        return text;
-      }));
-      const src=base64ToBlobUrl(parts);
-      nodes.forEach(img=>{
-        img.onload=()=>img.classList.add('myelli-loaded');
-        img.onerror=()=>console.error(`My Elli ${key} image decode failed`);
-        img.src=src;
-      });
-    }catch(err){console.error(`My Elli ${key} image load failed`,err);}
-  }));
+  Object.entries(groups).forEach(([key,images])=>{
+    const count=counts[key];
+    if(!count||!images.length)return;
+    near(images,async()=>{
+      try{
+        const parts=await Promise.all(Array.from({length:count},async(_,i)=>{
+          const url=`/assets/myelli/${key}-${String(i+1).padStart(2,'0')}.b64?v=${versions[key]}`;
+          const response=await fetch(url,{cache:'force-cache'});
+          if(!response.ok)throw new Error(`${url}: ${response.status}`);
+          return (await response.text()).trim();
+        }));
+        const binary=atob(parts.join('').replace(/\s+/g,''));
+        const bytes=new Uint8Array(binary.length);
+        for(let i=0;i<binary.length;i++)bytes[i]=binary.charCodeAt(i);
+        const objectUrl=URL.createObjectURL(new Blob([bytes],{type:'image/jpeg'}));
+        images.forEach(img=>{
+          img.addEventListener('load',()=>img.classList.add('myelli-loaded'),{once:true});
+          img.addEventListener('error',()=>console.error('My Elli image failed:',key),{once:true});
+          img.src=objectUrl;
+        });
+        addEventListener('pagehide',()=>URL.revokeObjectURL(objectUrl),{once:true});
+      }catch(err){console.error('My Elli image load failed:',key,err);}
+    });
+  });
 })();
+
 
 /* 2027 itinerary: multi-leg selection, quote, and query-string preselection */
 (()=>{
