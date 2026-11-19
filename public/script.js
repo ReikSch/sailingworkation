@@ -126,14 +126,21 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
   status.textContent=en?'Sending your enquiry…':'Deine Anfrage wird gesendet…';
   status.classList.remove('is-error');
 
+  // Warn if FormSubmit's email service responds slowly, without claiming success early.
+  const slowNotice=setTimeout(()=>{
+   status.textContent=en
+    ?'Our email service is taking longer than usual. Please keep this page open and do not submit again.'
+    :'Unser E-Mail-Dienst braucht gerade länger. Bitte lass die Seite geöffnet und sende nicht erneut.';
+  },10000);
+
   try{
    const endpoint=form.action.replace('https://formsubmit.co/','https://formsubmit.co/ajax/');
-   const data=new URLSearchParams();
-   new FormData(form).forEach((value,key)=>data.append(key,String(value)));
+   // FormSubmit documents JSON as the format for fetch requests.
+   const payload=Object.fromEntries(new FormData(form).entries());
    const response=await fetch(endpoint,{
     method:'POST',
-    headers:{'Accept':'application/json','Content-Type':'application/x-www-form-urlencoded;charset=UTF-8'},
-    body:data.toString()
+    headers:{'Accept':'application/json','Content-Type':'application/json'},
+    body:JSON.stringify(payload)
    });
    const result=await response.json().catch(()=>({}));
    if(!response.ok || result.success===false || result.success==='false' || result.error)throw new Error(result.message||'Submission failed');
@@ -151,8 +158,12 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
     btn.disabled=false;
     btn.innerHTML=original;
    }
-   status.textContent=en?'That took too long or failed. Please try again.':'Das Senden hat zu lange gedauert oder ist fehlgeschlagen. Bitte erneut versuchen.';
+   status.textContent=en
+    ?'The email service did not confirm delivery. Your enquiry may already have arrived. Please contact us by email before trying again.'
+    :'Der E-Mail-Dienst hat den Versand nicht bestätigt. Deine Anfrage könnte bereits angekommen sein. Bitte kontaktiere uns per E-Mail, bevor du sie erneut sendest.';
    status.classList.add('is-error');
+  }finally{
+   clearTimeout(slowNotice);
   }
  });
 });
