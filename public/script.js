@@ -135,12 +135,13 @@ document.querySelectorAll('[data-booking-form]').forEach(form=>{
 
   try{
    const endpoint=form.action.replace('https://formsubmit.co/','https://formsubmit.co/ajax/');
-   // FormSubmit documents JSON as the format for fetch requests.
-   const payload=Object.fromEntries(new FormData(form).entries());
+   // FormSubmit supports URL-encoded AJAX submissions. This avoids the
+   // cross-origin JSON OPTIONS preflight and preserves repeated form fields.
+   const payload=new URLSearchParams(new FormData(form));
    const response=await fetch(endpoint,{
     method:'POST',
-    headers:{'Accept':'application/json','Content-Type':'application/json'},
-    body:JSON.stringify(payload)
+    headers:{'Accept':'application/json'},
+    body:payload
    });
    const result=await response.json().catch(()=>({}));
    if(!response.ok || result.success===false || result.success==='false' || result.error)throw new Error(result.message||'Submission failed');
